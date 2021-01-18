@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="one">1dp</dimen>
+
+    <dimen name="search_bar_height">45dp</dimen>
+
+    <dimen name="search_bar_cor">2dp</dimen>
+
+    <dimen name="radio_group_navi">55dp</dimen>
+
+
+</resources>

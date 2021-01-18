@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion rootProject.ext.versions.compileSdkVersion
+    buildToolsVersion rootProject.ext.versions.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.versions.minsdkVersion
+        targetSdkVersion rootProject.ext.versions.targetSdkVersion
+        versionCode rootProject.ext.versions.versionCode
+        versionName rootProject.ext.versions.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            libraryVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "${variant.versionName}_${releaseTime()}_${variant.name}.apk"
+                        outputFileName  = fileName
+                    }
+                }
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    productFlavors {
+
+        all {
+            manifestPlaceholders=[
+                    NAME_CHANNEL:"all"
+            ]
+        }
+    }
+}
+def  releaseTime(){
+    return new Date().format("MMdd",TimeZone.getTimeZone("UTC"))
+}
+dependencies {
+
+    implementation rootProject.ext.dependencies["material"]
+
+
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["gson"]
+    api rootProject.ext.dependencies["okhttp"]
+    api rootProject.ext.dependencies["retrofitGsonConverter"]
+    api rootProject.ext.dependencies["loggingInterceptor"]
+    api rootProject.ext.dependencies["retrofitKotlinCoroutinesAdapter"]
+    api rootProject.ext.dependencies["coroutines"]
+
+    api rootProject.ext.dependencies["coroutines"]
+
+    api project(':basics_lib')
+}

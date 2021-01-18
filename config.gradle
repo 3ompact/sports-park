@@ -1,0 +1,115 @@
+ext {
+    isModule = false
+
+    versions = [
+            applicationId                         : "com.mda.sprotspark",
+            versionCode                           : 1,
+            versionName                           : "1.0.0",
+            javaSDKVersion                        : 1.8,
+            compileSdkVersion                     : 30,
+            buildToolsVersion                     : "30.0.2",
+            minsdkVersion                         : 19,
+            targetSdkVersion                      : 30,
+
+
+            jvmTargetVersion                      : "1.8",
+
+
+            kotlinVersion                         : "1.4.10",
+            coreKtxVersion                        : "1.3.2",
+            appcompatVersion                      : "1.2.0",
+            materialVersion                       : "1.2.0",
+
+
+            viewmodelVersion                      : "2.2.0",
+            constraintLayoutVersion               : "2.0.4",
+            coilVersion                           : "1.0.0",
+            okhttpVersion                         : "4.9.0",
+            loggingInterceptorVersion             : "4.9.0",
+            gsonVersion                           : "2.8.6",
+            retrofitGsonConverterVersion          : "2.9.0",
+            retrofitVersion                       : "2.9.0",
+            loggerVersion                         : "2.2.0",
+            retrofitKotlinCoroutinesAdapterVerison: "0.9.2",
+            recyclerViewVersion                   : "1.0.0",
+            viewPager2Version                     : "1.0.0",
+            baseRecyclerViewAdapterHelperVersion  : "3.0.4",
+            dataStoreVersion                      : "1.0.0-alpha01",
+            roomRuntimeVersion                    : "2.2.5",
+            roomCompilerVersion                   : "2.2.5",
+//            amap3dMapVersion                      : "latest.integration",
+//            amap2dMapVersion                      : "latest.integration",
+//            amapNavi3dMapVersion                  : "latest.integration",
+//            amapSearchVersion                     : "latest.integration",
+//            amapLocationVersion                   : "latest.integration",
+            coroutinesVersion                     : "1.3.9",
+            qmuiVersion                           : "2.0.0-alpha10",
+            arouterVersion                        : "1.5.1",
+            workManagerVersion                    : "2.4.0",
+            multidexVersion                       : "2.0.1",
+
+            androidAutoSizeVersion                : "1.2.1",
+            permissionVersion                     : "1.4.0",
+            bannerVersion                         : "2.1.0",
+            zxingVersion                          : "3.4.1",
+
+    ]
+
+    dependencies = [
+
+
+            kotlin                         : "org.jetbrains.kotlin:kotlin-stdlib:${versions["kotlin_version"]}",
+            coreKtx                        : "androidx.core:core-ktx:${versions["coreKtxVersion"]}",
+            appcompat                      : "androidx.appcompat:appcompat:${versions["appcompatVersion"]}",
+            material                       : "com.google.android.material:material:${versions["materialVersion"]}",
+
+
+            lifecycleCompile               : "androidx.lifecycle:lifecycle-compiler:${versions["viewmodelVersion"]}",
+
+            viewmodel                      : "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions["viewmodelVersion"]}",
+            livedata                       : "androidx.lifecycle:lifecycle-livedata-ktx:${versions["viewmodelVersion"]}",
+            lifecycleRuntimeKtx            : "androidx.lifecycle:lifecycle-runtime-ktx:${versions["viewmodelVersion"]}",
+
+            constraintLayout               : "androidx.constraintlayout:constraintlayout:${versions["constraintLayoutVersion"]}",
+            coil                           : "io.coil-kt:coil:${versions["coilVersion"]}",
+            okhttp                         : "com.squareup.okhttp3:okhttp:${versions["okhttpVersion"]}",
+            loggingInterceptor             : "com.squareup.okhttp3:logging-interceptor:${versions["loggingInterceptorVersion"]}",
+            gson                           : "com.google.code.gson:gson:${versions["gsonVersion"]}",
+            retrofitGsonConverter          : "com.squareup.retrofit2:converter-gson:${versions["retrofitGsonConverterVersion"]}",
+            retrofit                       : "com.squareup.retrofit2:retrofit:${versions["retrofitVersion"]}",
+            logger                         : "com.orhanobut:logger:${versions["loggerVersion"]}",
+            retrofitKotlinCoroutinesAdapter: "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${versions["retrofitKotlinCoroutinesAdapterVerison"]}",
+            recyclerView                   : "androidx.recyclerview:recyclerview:${versions["recyclerViewVersion"]}",
+            viewPager2                     : "androidx.viewpager2:viewpager2:${versions["viewPager2Version"]}",
+            baseRecyclerViewAdapterHelper  : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions["baseRecyclerViewAdapterHelperVersion"]}",
+            dataStore                      : "androidx.datastore:datastore-preferences:${versions["dataStoreVersion"]}",
+            roomRuntime                    : "androidx.room:room-runtime:${versions["roomRuntimeVersion"]}",
+            coroutines                     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions["coroutinesVersion"]}",
+
+            amap3dMap                      : "com.amap.api:3dmap:latest.integration",
+            amapNavi3dMapVersion           : "com.amap.api:navi-3dmap:latest.integration",
+            amapSearchVersion              : "com.amap.api:search:latest.integration",
+            amapLocationVersion            : "com.amap.api:location:latest.integration",
+
+            qmui                           : "com.qmuiteam:qmui:${versions["qmuiVersion"]}",
+            qmuiKapt                       : "com.qmuiteam:arch-compiler:${versions["qmuiVersion"]}",
+            qmuiArch                       : "com.qmuiteam:arch:${versions["qmuiVersion"]}",
+
+            //arouter相关配置
+            arouter                        : "com.alibaba:arouter-api:${versions["arouterVersion"]}",
+            arouterKapt                    : "com.alibaba:arouter-compiler:${versions["arouterVersion"]}",
+            workManager                    : "androidx.work:work-runtime-ktx:${versions["workManagerVersion"]}",
+            //dex
+            multidex                       : "androidx.multidex:multidex:${versions["multidexVersion"]}",
+
+            //androidAutoSize
+            androidAutoSize                : "me.jessyan:autosize:${versions["androidAutoSizeVersion"]}",
+            //permission
+            permission                     : "com.permissionx.guolindev:permissionx:${versions["permissionVersion"]}",
+
+            //banner
+            banner                         : "com.youth.banner:banner:${versions["bannerVersion"]}",
+            //zxing 二维码
+            zxing                          : "com.google.zxing:core:${versions["zxingVersion"]}"
+    ]
+}

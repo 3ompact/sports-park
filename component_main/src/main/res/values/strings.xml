@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_cm">首页</string>
+
+    <string name="shop_cm">商城</string>
+    <string name="mine_cm">我的</string>
+
+    <string name="location_cm">重庆市</string>
+
+</resources>

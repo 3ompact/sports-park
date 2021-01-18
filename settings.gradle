@@ -1,0 +1,8 @@
+include ':component_main'
+include ':common_ui_base'
+include ':common_pay'
+include ':common_network'
+include ':common_map'
+include ':basics_lib'
+include ':app'
+rootProject.name = "Sports Park"

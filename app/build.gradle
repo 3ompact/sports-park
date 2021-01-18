@@ -1,0 +1,100 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.mda.sportspark"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        manifestPlaceholders = [NAME_CHANNEL:"all"]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "${variant.versionName}_${releaseTime()}_${variant.name}.apk"
+                        outputFileName  = fileName
+                    }
+                }
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
+    signingConfigs{
+        debug{
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('C:\\Users\\ifmtech\\.android\\debug.keystore')
+            storePassword 'android'
+        }
+        release{
+
+        }
+    }
+
+    kapt{
+        arguments{
+            arg("AROUTER_MODULE_NAME",project.getName())
+        }
+    }
+
+    productFlavors {
+
+        all {
+            manifestPlaceholders=[
+                    NAME_CHANNEL:"all"
+            ]
+        }
+    }
+}
+def  releaseTime(){
+    return new Date().format("MMdd",TimeZone.getTimeZone("UTC"))
+}
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation project(':component_main')
+
+    //Arouter相关配置
+    implementation rootProject.ext.dependencies["arouter"]
+    kapt rootProject.ext.dependencies["arouterKapt"]
+
+    kapt rootProject.ext.dependencies["qmuiKapt"]
+
+
+}

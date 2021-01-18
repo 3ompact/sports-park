@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="one">1dp</dimen>
+
+    <dimen name="search_bar_height">17dp</dimen>
+    <dimen name="search_bar_radius">8dp</dimen>
+    <dimen name="sports_venuse_radius">4dp</dimen>
+    <dimen name="quickly_iamgeview_radius">8dp</dimen>
+
+    <dimen name="banner_height">50dp</dimen>
+    <dimen name="banner_radius">6dp</dimen>
+    <dimen name="fixed_height">50dp</dimen>
+    <dimen name="fixed_iamgeview_height">25dp</dimen>
+    <dimen name="quickly_iamgeview_height">60dp</dimen>
+    <dimen name="title_height">20dp</dimen>
+    <dimen name="sports_venues_iamgeview_height">50dp</dimen>
+    <dimen name="sports_venues_height">90dp</dimen>
+    <dimen name="sports_venues_textsize">8sp</dimen>
+
+
+    <dimen name="search_bar_cor">2dp</dimen>
+
+    <dimen name="radio_group_navi">25dp</dimen>
+
+    <dimen name="radio_group_textsize">10sp</dimen>
+    <dimen name="action_bar_height">25dp</dimen>
+    <dimen name="action_bar_textsize">12sp</dimen>
+    <dimen name="title_textsize">16sp</dimen>
+
+    <dimen name="margin">10dp</dimen>
+
+
+    <dimen name="sec_title_textsize">14sp</dimen>
+
+</resources>

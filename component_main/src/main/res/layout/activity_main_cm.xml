@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:layout_height="@dimen/action_bar_height"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/action_bar_textsize"
+            android:text="@string/location_cm"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/fl_cm_main_activity"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/tv_location_cm_main_activity"
+            />
+
+
+        <TextView
+            android:layout_height="@dimen/action_bar_height"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/title_textsize"
+            android:text="@string/home_cm"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/fl_cm_main_activity"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/tv_title_cm_main_activity"
+            />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_location_cm_main_activity"
+            app:layout_constraintBottom_toTopOf="@+id/rg_cm_main_activity"
+            android:id="@+id/fl_cm_main_activity"
+            />
+        <RadioGroup
+            android:id="@+id/rg_cm_main_activity"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/radio_group_navi"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fl_cm_main_activity"
+            android:orientation="horizontal"
+            >
+            <RadioButton
+                android:layout_weight="1"
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_home_cm_main_activity"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_icon_home"
+                android:textColor="@drawable/selector_icon_textcolor"
+                android:text="@string/home_cm"
+                android:checked="true"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="@dimen/radio_group_textsize"
+                />
+
+            <RadioButton
+
+                android:layout_weight="1"
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_supermarket_cm_main_activity"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_icon_supermarket"
+                android:textColor="@drawable/selector_icon_textcolor"
+                android:text="@string/shop_cm"
+                android:gravity="center"
+                android:textSize="@dimen/radio_group_textsize"
+
+                />
+            <RadioButton
+                android:layout_weight="1"
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_mine_cm_main_activity"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_icon_mine"
+                android:textColor="@drawable/selector_icon_textcolor"
+                android:text="@string/mine_cm"
+                android:gravity="center"
+                android:textSize="@dimen/radio_group_textsize"
+
+                />
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

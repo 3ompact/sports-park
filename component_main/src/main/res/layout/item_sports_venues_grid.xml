@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/sports_venues_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="@dimen/sports_venues_iamgeview_height"
+        android:id="@+id/iv_one_sports_venues_item"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_two_sports_venues_item"
+        app:layout_constraintBottom_toTopOf="@id/tv_desc_one_sports_venues_item"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/shape_sports_venuse_imageview_backgroud"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:id="@+id/tv_desc_one_sports_venues_item"
+        app:layout_constraintTop_toBottomOf="@id/iv_one_sports_venues_item"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_two_sports_venues_item"
+        android:textSize="@dimen/sports_venues_textsize"
+    />
+
+    <TextView
+        android:id="@+id/tv_location_one_sports_venues_item"
+        android:layout_width="0dp"
+        android:lines="1"
+
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc_one_sports_venues_item"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_two_sports_venues_item"
+        android:textSize="@dimen/sports_venues_textsize"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="@dimen/sports_venues_iamgeview_height"
+        android:id="@+id/iv_two_sports_venues_item"
+        app:layout_constraintLeft_toRightOf="@id/iv_one_sports_venues_item"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/shape_sports_venuse_imageview_backgroud"
+
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:id="@+id/tv_desc_two_sports_venues_item"
+        app:layout_constraintTop_toBottomOf="@id/iv_two_sports_venues_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_two_sports_venues_item"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="@dimen/sports_venues_textsize"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_location_two_sports_venues_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc_two_sports_venues_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_two_sports_venues_item"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="@dimen/sports_venues_textsize"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
