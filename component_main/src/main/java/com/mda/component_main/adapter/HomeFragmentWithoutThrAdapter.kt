@@ -2,6 +2,7 @@ package com.mda.component_main.adapter
 
 import android.R.attr.banner
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.mda.basics_lib.log.LogUtil
 import com.mda.common_ui_base.entity.MultiItemType
 import com.mda.component_main.R
 import com.youth.banner.Banner
@@ -23,8 +25,13 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
     lateinit var context:Context
     init {
         this.context = context
+        LogUtil.debugInfo("init")
+        Log.i("3ompact","init")
+
+
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        LogUtil.debugInfo("ok")
 
         when (viewType) {
             MultiItemType.SEARCHBAR -> {
@@ -36,41 +43,45 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                     )
                 )
 
+                LogUtil.debugInfo("1")
             }
             MultiItemType.BANNER -> {
 
 
-                return ViewHolderSearchBar(
+                return ViewHolderBanner(
                     LayoutInflater.from(context).inflate(
                         R.layout.item_banner,
                         parent,
                         false
                     )
                 )
+                LogUtil.debugInfo("2")
 
             }
             MultiItemType.FIXED -> {
-                return ViewHolderSearchBar(
+                return ViewHolderFixed(
                     LayoutInflater.from(context).inflate(
                         R.layout.item_fixed,
                         parent,
                         false
                     )
                 )
+                LogUtil.debugInfo("4")
 
             }
             MultiItemType.QUCIKLY -> {
-                return ViewHolderSearchBar(
+                return ViewHolderQuickly(
                     LayoutInflater.from(context).inflate(
                         R.layout.item_quickly,
                         parent,
                         false
                     )
                 )
+                LogUtil.debugInfo("5")
 
             }
             MultiItemType.LEFTTITLEANDRIGHTMORE -> {
-                return ViewHolderSearchBar(
+                return ViewHolderLeftTitleAndMore(
                     LayoutInflater.from(context).inflate(
                         R.layout.item_title,
                         parent,
@@ -80,17 +91,18 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
 
             }
             MultiItemType.GRID -> {
-                return ViewHolderSearchBar(
+                return ViewHolderGrid(
                     LayoutInflater.from(context).inflate(
                         R.layout.item_sports_venues_grid,
                         parent,
                         false
                     )
                 )
+                LogUtil.debugInfo("7")
 
             }
             else ->{
-                return ViewHolderSearchBar(
+                return ViewHolderGrid(
                     LayoutInflater.from(context).inflate(
                         R.layout.item_sports_venues_grid,
                         parent,
@@ -105,14 +117,34 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             MultiItemType.SEARCHBAR -> {
-                (holder.itemView as ViewHolderSearchBar).etSB.setHint("搜索体育场馆")
+                (holder as ViewHolderSearchBar)
+                    .etSB.setHint("搜索体育场馆")
             }
             MultiItemType.BANNER -> {
-                var banner = (holder.itemView as ViewHolderBanner).banner
-                banner.setAdapter(ImageNetAdapter(ArrayList<Any>()) as Nothing?)
-                banner.setBannerRound(BannerUtils.dp2px(5f))
-                banner.setIndicator(RoundLinesIndicator(context))
-                banner.setIndicatorSelectedWidth(BannerUtils.dp2px(15f).toInt())
+                var banner : Banner<*,*> = (holder as ViewHolderBanner).banner
+                var list = ArrayList<String>()
+                list.add("ss")
+                var imageUrls = listOf(
+                    "https://img.zcool.cn/community/011ad05e27a173a801216518a5c505.jpg",
+                    "https://img.zcool.cn/community/0148fc5e27a173a8012165184aad81.jpg",
+                    "https://img.zcool.cn/community/013c7d5e27a174a80121651816e521.jpg",
+                    "https://img.zcool.cn/community/01b8ac5e27a173a80120a895be4d85.jpg",
+                    "https://img.zcool.cn/community/01a85d5e27a174a80120a895111b2c.jpg",
+                    "https://img.zcool.cn/community/01085d5e27a174a80120a8958791c4.jpg"
+                )
+                var adapter = ImageNetAdapter(imageUrls)
+
+                banner?.let {
+//                    it.addBannerLifecycleObserver(this)
+//                    it.setIndicator(RoundLinesIndicator(this))
+                    it.setBannerRound(20f)
+                    it.adapter = adapter
+                }
+
+//                banner.setAdapter(ImageNetAdapter(imageUrls))
+//                banner.setBannerRound(BannerUtils.dp2px(5f))
+//                banner.setIndicator(RoundLinesIndicator(context))
+//                banner.setIndicatorSelectedWidth(BannerUtils.dp2px(15f).toInt())
             }
             MultiItemType.FIXED -> {
 //                (holder.itemView as ViewHolderFixed).etSB.setHint("搜索体育场馆")
@@ -131,11 +163,16 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
     }
 
     override fun getItemCount(): Int {
-        return 10
+        LogUtil.debugInfo("getItemCount")
+
+        return 20
 
     }
 
     override fun getItemViewType(position: Int): Int {
+        LogUtil.debugInfo("getItemViewType")
+
+//        return MultiItemType.GRID
         when (position) {
             0 -> {
                 return MultiItemType.SEARCHBAR
@@ -193,7 +230,7 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
     class ViewHolderQuickly(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var ivOneQ :ImageView = itemView.findViewById(R.id.iv_one_quickly_item)
         var ivTwoQ :ImageView = itemView.findViewById(R.id.iv_two_quickly_item)
-        var ivThrQ :ImageView = itemView.findViewById(R.id.iv_thr_fixed_item)
+        var ivThrQ :ImageView = itemView.findViewById(R.id.iv_thr_quickly_item)
     }
 
     class ViewHolderLeftTitleAndMore(itemView: View) : RecyclerView.ViewHolder(itemView) {

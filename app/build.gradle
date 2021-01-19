@@ -48,17 +48,17 @@ android {
         dataBinding = true
         viewBinding = true
     }
-    signingConfigs{
-        debug{
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('C:\\Users\\ifmtech\\.android\\debug.keystore')
-            storePassword 'android'
-        }
-        release{
-
-        }
-    }
+//    signingConfigs{
+//        debug{
+//            keyAlias 'androiddebugkey'
+//            keyPassword 'android'
+//            storeFile file('C:\\Users\\ifmtech\\.android\\debug.keystore')
+//            storePassword 'android'
+//        }
+//        release{
+//
+//        }
+//    }
 
     kapt{
         arguments{

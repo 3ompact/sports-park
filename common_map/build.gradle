@@ -60,8 +60,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation rootProject.ext.dependencies["amap3dMap"]
-    implementation rootProject.ext.dependencies["amapNavi3dMapVersion"]
+//    implementation rootProject.ext.dependencies["amap3dMap"]
+//    implementation rootProject.ext.dependencies["amapNavi3dMapVersion"]
     implementation rootProject.ext.dependencies["amapSearchVersion"]
     implementation rootProject.ext.dependencies["amapLocationVersion"]
 
