@@ -6,9 +6,6 @@
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
-
         >
 
         <com.qmuiteam.qmui.widget.QMUITopBarLayout
@@ -39,6 +36,7 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 app:qmui_is_target="true"
+                android:background="@color/recyclerview_backgroud_color"
                 />
 
             <com.qmuiteam.qmui.widget.pullLayout.QMUIPullRefreshView

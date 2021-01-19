@@ -3,8 +3,6 @@ package com.mda.common_ui_base.base
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.mda.common_ui_base.R
-import com.mda.common_ui_base.databinding.FragmentBaseRefreshAndLoadMoreBinding
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
 
@@ -29,13 +27,26 @@ abstract class AbBaseRefreshAndLoadMoreFragment<VM : BaseViewModel, DB : ViewDat
     }
     //设置上啦下拉监听
     fun setPullLayoutActionListener() {
+//        mPullLayout.setActionListener { pullAction ->
+//            if (pullAction.pullEdge == QMUIPullLayout.PULL_EDGE_TOP) {
+////                onRefreshData(pullAction)
+//            } else if (pullAction.pullEdge == QMUIPullLayout.PULL_EDGE_BOTTOM) {
+////                onLoadMore(pullAction)
+//            }
+//            mPullLayout.finishActionRun(pullAction)
+//
+//        }
+
+
         mPullLayout.setActionListener { pullAction ->
-            if (pullAction.pullEdge == QMUIPullLayout.PULL_EDGE_TOP) {
-                onRefreshData(pullAction)
-            } else if (pullAction.pullEdge == QMUIPullLayout.PULL_EDGE_BOTTOM) {
-                onLoadMore(pullAction)
-            }
-            mPullLayout.finishActionRun(pullAction)
+//            mPullLayout.postDelayed({
+                if (pullAction.pullEdge == QMUIPullLayout.PULL_EDGE_TOP) {
+//                    onRefreshData()
+                } else if (pullAction.pullEdge == QMUIPullLayout.PULL_EDGE_BOTTOM) {
+//                    onLoadMore()
+                }
+                mPullLayout.finishActionRun(pullAction)
+//            }, 3000)
         }
     }
 
@@ -48,9 +59,9 @@ abstract class AbBaseRefreshAndLoadMoreFragment<VM : BaseViewModel, DB : ViewDat
 
     abstract fun doFinishActionRun(pullAction: QMUIPullLayout.PullAction)
 
-    abstract fun onRefreshData(pullAction : QMUIPullLayout.PullAction)
+    abstract fun onRefreshData(pullAction: QMUIPullLayout.PullAction)
 
-    abstract fun onLoadMore(pullAction : QMUIPullLayout.PullAction)
+    abstract fun onLoadMore(pullAction: QMUIPullLayout.PullAction)
 
     abstract fun <T : RecyclerView.ViewHolder> onDataLoaded(adapter: RecyclerView.Adapter<T>)
 
@@ -64,7 +75,7 @@ abstract class AbBaseRefreshAndLoadMoreFragment<VM : BaseViewModel, DB : ViewDat
     }
 
     //QMUIPULLLAYOUT刷新或是加载完成
-    fun finishRefresh(pullAction : QMUIPullLayout.PullAction){
+    fun finishRefresh(pullAction: QMUIPullLayout.PullAction){
         mPullLayout.finishActionRun(pullAction)
     }
 }

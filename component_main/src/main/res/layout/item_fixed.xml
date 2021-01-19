@@ -2,7 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/d12"
+    android:paddingBottom="@dimen/d12"
+    android:paddingLeft="@dimen/d12"
+    android:paddingRight="@dimen/d12"
+    android:background="@color/white_without_alpha"
+    >
     <ImageView
         android:layout_height="@dimen/fixed_iamgeview_height"
         android:layout_width="@dimen/fixed_iamgeview_height"
@@ -82,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_four_fixed_item"
         app:layout_constraintLeft_toLeftOf="@id/iv_four_fixed_item"
         app:layout_constraintRight_toRightOf="@id/iv_four_fixed_item"
-        android:text="场馆预订"
+        android:text="我的运动"
         android:id="@+id/tv_four_fixed_item"
 
         />
@@ -103,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_five_fixed_item"
         app:layout_constraintLeft_toLeftOf="@id/iv_five_fixed_item"
         app:layout_constraintRight_toRightOf="@id/iv_five_fixed_item"
-        android:text="游泳场所"
+        android:text="赛事活动"
         android:id="@+id/tv_five_fixed_item"
 
         />
@@ -124,7 +130,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_six_fixed_item"
         app:layout_constraintLeft_toLeftOf="@id/iv_six_fixed_item"
         app:layout_constraintRight_toRightOf="@id/iv_six_fixed_item"
-        android:text="公共体育设施"
+        android:text="停车缴费"
         android:id="@+id/tv_six_fixed_item"
 
         />

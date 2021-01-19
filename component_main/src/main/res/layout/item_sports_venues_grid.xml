@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/sports_venues_height"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="@dimen/d244"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="@dimen/d12"
+    android:paddingRight="@dimen/d12"
+    android:id="@+id/cl_sports_venues_item"
+    >
 
     <ImageView
         android:layout_width="0dp"
@@ -17,17 +21,26 @@
         android:src="@mipmap/leak_canary_icon"
         />
     <TextView
+        android:paddingTop="@dimen/d15"
+        android:paddingLeft="@dimen/eight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:lines="2"
         android:id="@+id/tv_desc_one_sports_venues_item"
         app:layout_constraintTop_toBottomOf="@id/iv_one_sports_venues_item"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/iv_two_sports_venues_item"
+        app:layout_constraintRight_toRightOf="@id/iv_one_sports_venues_item"
         android:textSize="@dimen/sports_venues_textsize"
-    />
+        android:textColor="@color/text_black"
+        android:text="石子山体育公园-篮球场活动中心"
+        android:background="@color/white_without_alpha"
+
+        />
 
     <TextView
+        android:paddingTop="@dimen/d12"
+        android:paddingLeft="@dimen/eight"
+        android:paddingBottom="@dimen/d15"
         android:id="@+id/tv_location_one_sports_venues_item"
         android:layout_width="0dp"
         android:lines="1"
@@ -35,8 +48,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_desc_one_sports_venues_item"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/iv_two_sports_venues_item"
-        android:textSize="@dimen/sports_venues_textsize"
+        app:layout_constraintRight_toRightOf="@id/iv_one_sports_venues_item"
+        android:textSize="@dimen/sports_venues_location_textsize"
+        android:textColor="@color/text_gray"
+        android:text="重庆石子山体育公园"
+        android:background="@color/white_without_alpha"
+
         />
 
     <ImageView
@@ -61,6 +78,11 @@
         app:layout_constraintLeft_toLeftOf="@id/iv_two_sports_venues_item"
         app:layout_constraintRight_toRightOf="parent"
         android:textSize="@dimen/sports_venues_textsize"
+        android:text="石子山体育公园-篮球场活动中心"
+        android:textColor="@color/text_black"
+        android:paddingTop="@dimen/d15"
+        android:paddingLeft="@dimen/eight"
+        android:background="@color/white_without_alpha"
 
         />
 
@@ -72,7 +94,13 @@
         app:layout_constraintTop_toBottomOf="@id/tv_desc_two_sports_venues_item"
         app:layout_constraintLeft_toLeftOf="@id/iv_two_sports_venues_item"
         app:layout_constraintRight_toRightOf="parent"
-        android:textSize="@dimen/sports_venues_textsize"
+        android:textSize="@dimen/sports_venues_location_textsize"
+        android:text="重庆石子山体育公园"
+        android:textColor="@color/text_gray"
+        android:paddingTop="@dimen/d12"
+        android:paddingLeft="@dimen/eight"
+        android:background="@color/white_without_alpha"
+        android:paddingBottom="@dimen/d15"
 
         />
 

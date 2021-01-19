@@ -29,7 +29,7 @@ class ImageNetAdapter(mDatas: List<String>) :
 
     override fun onBindView(holder: ImageHolder?, data: String?, position: Int, size: Int) {
         //通过图片加载器实现圆角，你也可以自己使用圆角的imageview，实现圆角的方法很多，自己尝试哈
-        holder!!.imageView.load(R.drawable.icon_home_check)
+        holder!!.imageView.load(R.drawable.test)
 
     }
 

@@ -11,7 +11,7 @@ class DrawableUtil {
          */
         fun setRBDrawableBounds(rb :RadioButton,drawable: Drawable){
             var drawableSrc = drawable
-            drawable.setBounds(0,0,28,28)
+            drawable.setBounds(0,0,36,36)
             rb.setCompoundDrawables(null,drawable,null,null)
         }
 

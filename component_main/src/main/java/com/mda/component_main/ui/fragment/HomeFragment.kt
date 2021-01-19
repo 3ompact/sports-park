@@ -8,22 +8,24 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.mda.common_ui_base.base.AbBaseRefreshAndLoadMoreFragment
 import com.mda.component_main.R
 import com.mda.component_main.adapter.HomeFragmentWithoutThrAdapter
-import com.mda.component_main.databinding.FragmentHomeBinding
+import com.mda.component_main.databinding.FragmentHomeCmBinding
+import com.mda.component_main.decoration.HomeFragmentRecyclerViewDecoration
 import com.mda.component_main.viewmodel.MainFragmentViewModel
 import com.qmuiteam.qmui.recyclerView.QMUIRVDraggableScrollBar
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
 
 @Route(path = "/cm/homefragment")
-class HomeFragment : AbBaseRefreshAndLoadMoreFragment<MainFragmentViewModel, FragmentHomeBinding>() {
+class HomeFragment :
+    AbBaseRefreshAndLoadMoreFragment<MainFragmentViewModel, FragmentHomeCmBinding>() {
     override fun layoutId(): Int {
-        return R.layout.fragment_home
+        return R.layout.fragment_home_cm
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-          mTopBar = mDataBinding.topbarBaseRefreshAndLoadMoreCmHomeFragment
-          mPullLayout=  mDataBinding.pullLayoutBaseRefreshAndLoadMoreCmHomeFragment
-          mRecyclerView = mDataBinding.rvCmHomeFragment
+        mTopBar = mDataBinding.topbarBaseRefreshAndLoadMoreCmHomeFragment
+        mPullLayout = mDataBinding.pullLayoutBaseRefreshAndLoadMoreCmHomeFragment
+        mRecyclerView = mDataBinding.rvCmHomeFragment
 
         val scrollBar = QMUIRVDraggableScrollBar(0, 0, 0)
         scrollBar.isEnableScrollBarFadeInOut = true
@@ -41,7 +43,8 @@ class HomeFragment : AbBaseRefreshAndLoadMoreFragment<MainFragmentViewModel, Fra
                 return QMUIRVItemSwipeAction.SWIPE_RIGHT
             }
         })
-        swipeAction.attachToRecyclerView(mRecyclerView)
+        //暂时去掉侧滑删除功能
+//        swipeAction.attachToRecyclerView(mRecyclerView)
 
         mRecyclerView.layoutManager = object : LinearLayoutManager(
             context
@@ -59,9 +62,11 @@ class HomeFragment : AbBaseRefreshAndLoadMoreFragment<MainFragmentViewModel, Fra
 
 
     private fun initTopBar() {
-        mDataBinding.topbarBaseRefreshAndLoadMoreCmHomeFragment.addLeftBackImageButton().setOnClickListener {  }
+        mDataBinding.topbarBaseRefreshAndLoadMoreCmHomeFragment.addLeftBackImageButton()
+            .setOnClickListener { }
         mTopBar.setTitle("test")
     }
+
     override fun lazyLoadData() {
 
     }
@@ -73,6 +78,7 @@ class HomeFragment : AbBaseRefreshAndLoadMoreFragment<MainFragmentViewModel, Fra
     }
 
     override fun setAdapter() {
+        mRecyclerView.addItemDecoration(HomeFragmentRecyclerViewDecoration())
         mRecyclerView.layoutManager = LinearLayoutManager(context)
         var adapter = context?.let { HomeFragmentWithoutThrAdapter(it) }
         mRecyclerView.adapter = adapter
@@ -83,12 +89,12 @@ class HomeFragment : AbBaseRefreshAndLoadMoreFragment<MainFragmentViewModel, Fra
     }
 
     override fun onRefreshData(pullAction: QMUIPullLayout.PullAction) {
-        finishRefresh(pullAction)
+//        finishRefresh(pullAction)
 
     }
 
     override fun onLoadMore(pullAction: QMUIPullLayout.PullAction) {
-        finishRefresh(pullAction)
+//        finishRefresh(pullAction)
 
     }
 

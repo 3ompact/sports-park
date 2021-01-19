@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/white_without_alpha"/>
+        </shape>
+    </item>
+
+    <item android:top="@dimen/search_bar_top_margin" android:bottom="@dimen/search_bar_top_margin"
+        android:left="@dimen/d17" android:right="@dimen/d17"
+        >
+        <shape>
+            <corners android:radius="@dimen/search_bar_radius"/>
+            <solid android:color="@color/searchbar_backgroud_color"/>
+        </shape>
+    </item>
+
+</layer-list>

@@ -2,7 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/banner_height"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_without_alpha"
+    android:paddingLeft="@dimen/d12"
+    android:paddingRight="@dimen/d12"
+    >
     <com.youth.banner.Banner
         android:layout_width="0dp"
         android:layout_height="0dp"

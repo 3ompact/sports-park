@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.mda.basics_lib.log.LogUtil
+import com.mda.basics_lib.utils.PhoneInfo
 import com.mda.common_ui_base.entity.MultiItemType
 import com.mda.component_main.R
 import com.youth.banner.Banner
@@ -25,13 +27,8 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
     lateinit var context:Context
     init {
         this.context = context
-        LogUtil.debugInfo("init")
-        Log.i("3ompact","init")
-
-
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        LogUtil.debugInfo("ok")
 
         when (viewType) {
             MultiItemType.SEARCHBAR -> {
@@ -43,7 +40,6 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                     )
                 )
 
-                LogUtil.debugInfo("1")
             }
             MultiItemType.BANNER -> {
 
@@ -55,7 +51,6 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                         false
                     )
                 )
-                LogUtil.debugInfo("2")
 
             }
             MultiItemType.FIXED -> {
@@ -66,7 +61,6 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                         false
                     )
                 )
-                LogUtil.debugInfo("4")
 
             }
             MultiItemType.QUCIKLY -> {
@@ -77,7 +71,6 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                         false
                     )
                 )
-                LogUtil.debugInfo("5")
 
             }
             MultiItemType.LEFTTITLEANDRIGHTMORE -> {
@@ -90,6 +83,7 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                 )
 
             }
+
             MultiItemType.GRID -> {
                 return ViewHolderGrid(
                     LayoutInflater.from(context).inflate(
@@ -98,9 +92,8 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                         false
                     )
                 )
-                LogUtil.debugInfo("7")
-
             }
+
             else ->{
                 return ViewHolderGrid(
                     LayoutInflater.from(context).inflate(
@@ -157,6 +150,14 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
 
             }
             MultiItemType.GRID -> {
+                if(position == 19){
+//                    val params : ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+//                    var bottom = 12*PhoneInfo.getPhonDensity(context.applicationContext)
+//                    params.setMargins(0,0,0,bottom.toInt())
+//                    (holder as ViewHolderGrid).cl.layoutParams = params
+//                    LogUtil.debugInfo(bottom.toString())
+//                    Log.i("3ompact",bottom.toString())
+                }
 
             }
         }
@@ -238,6 +239,7 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
     }
 
     class ViewHolderGrid(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var cl :ConstraintLayout = itemView.findViewById(R.id.cl_sports_venues_item)
         var ivOne :ImageView = itemView.findViewById(R.id.iv_one_sports_venues_item)
         var ivTwo :ImageView = itemView.findViewById(R.id.iv_two_sports_venues_item)
         var tvOneDesc :TextView = itemView.findViewById(R.id.tv_desc_one_sports_venues_item)
