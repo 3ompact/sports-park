@@ -52,6 +52,7 @@ ext {
             permissionVersion                     : "1.4.0",
             bannerVersion                         : "2.1.0",
             zxingVersion                          : "3.4.1",
+            ratingBarVersion                      : "1.4.0",
 
     ]
 
@@ -110,6 +111,8 @@ ext {
             //banner
             banner                         : "com.youth.banner:banner:${versions["bannerVersion"]}",
             //zxing 二维码
-            zxing                          : "com.google.zxing:core:${versions["zxingVersion"]}"
+            zxing                          : "com.google.zxing:core:${versions["zxingVersion"]}",
+
+            ratingBar                      : "me.zhanghai.android.materialratingbar:library:${versions["ratingBarVersion"]}"
     ]
 }
