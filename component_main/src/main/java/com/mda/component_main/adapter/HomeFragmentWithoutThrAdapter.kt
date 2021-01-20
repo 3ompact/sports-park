@@ -1,6 +1,5 @@
 package com.mda.component_main.adapter
 
-import android.R.attr.banner
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,27 +9,28 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.mda.basics_lib.log.LogUtil
-import com.mda.basics_lib.utils.PhoneInfo
 import com.mda.common_ui_base.entity.MultiItemType
 import com.mda.component_main.R
 import com.youth.banner.Banner
-import com.youth.banner.indicator.RoundLinesIndicator
-import com.youth.banner.util.BannerUtils
 
 
 /**
  * MainFragment主页多类型适配器
  */
-class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    lateinit var context:Context
+class HomeFragmentWithoutThrAdapter(context: Context) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    lateinit var context: Context
+
     init {
         this.context = context
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         when (viewType) {
@@ -97,7 +97,7 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                 )
             }
 
-            else ->{
+            else -> {
                 return ViewHolderGrid(
                     LayoutInflater.from(context).inflate(
                         R.layout.item_sports_venues_grid,
@@ -117,7 +117,7 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                     .etSB.setHint("搜索体育场馆")
             }
             MultiItemType.BANNER -> {
-                var banner : Banner<*,*> = (holder as ViewHolderBanner).banner
+                var banner: Banner<*, *> = (holder as ViewHolderBanner).banner
                 var list = ArrayList<String>()
                 list.add("ss")
                 var imageUrls = listOf(
@@ -147,6 +147,38 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
 
             }
             MultiItemType.QUCIKLY -> {
+
+                var l = LinearLayoutManager(context)
+                l.orientation = LinearLayoutManager.HORIZONTAL
+                (holder as ViewHolderQuickly).rv.layoutManager = l
+
+                    (holder as ViewHolderQuickly).rv.adapter = object :
+                    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                    override fun onCreateViewHolder(
+                        parent: ViewGroup,
+                        viewType: Int
+                    ): RecyclerView.ViewHolder {
+                        return TVd(
+                            LayoutInflater.from(context).inflate(
+                                R.layout.item_test,
+                                parent,
+                                false
+                            )
+                        )
+                    }
+
+                    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+                    }
+
+                    override fun getItemCount(): Int {
+                        return 10
+                    }
+
+                    inner class TVd(itemView: View) : RecyclerView.ViewHolder(itemView) {
+                        var tv: TextView = itemView.findViewById(R.id.test_tv)
+                    }
+                }
 
             }
             MultiItemType.LEFTTITLEANDRIGHTMORE -> {
@@ -180,7 +212,7 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
 
                 }
 
-                if(position == 19){
+                if (position == 19) {
 //                    val params : ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 //                    var bottom = 12*PhoneInfo.getPhonDensity(context.applicationContext)
 //                    params.setMargins(0,0,0,bottom.toInt())
@@ -227,13 +259,12 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
                 return MultiItemType.GRID
 
             }
-            else ->{
+            else -> {
                 return MultiItemType.GRID
 
             }
         }
     }
-
 
 
     class ViewHolderSearchBar(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -248,7 +279,6 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
     }
 
 
-
     class ViewHolderFixed(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var ivOne: ImageView = itemView.findViewById(R.id.iv_one_fixed_item)
         var ivTwo: ImageView = itemView.findViewById(R.id.iv_two_fixed_item)
@@ -259,25 +289,25 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
     }
 
     class ViewHolderQuickly(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var ivOneQ :ImageView = itemView.findViewById(R.id.iv_one_quickly_item)
-        var ivTwoQ :ImageView = itemView.findViewById(R.id.iv_two_quickly_item)
-        var ivThrQ :ImageView = itemView.findViewById(R.id.iv_thr_quickly_item)
+        var ivOneQ: ImageView = itemView.findViewById(R.id.iv_one_quickly_item)
+        var ivTwoQ: ImageView = itemView.findViewById(R.id.iv_two_quickly_item)
+        var ivThrQ: ImageView = itemView.findViewById(R.id.iv_thr_quickly_item)
+        var rv: RecyclerView = itemView.findViewById(R.id.rv)
     }
 
     class ViewHolderLeftTitleAndMore(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvMore :TextView = itemView.findViewById(R.id.tv_more_title_item)
+        var tvMore: TextView = itemView.findViewById(R.id.tv_more_title_item)
     }
 
     class ViewHolderGrid(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var cl :ConstraintLayout = itemView.findViewById(R.id.cl_sports_venues_item)
-        var ivOne :ImageView = itemView.findViewById(R.id.iv_one_sports_venues_item)
-        var ivTwo :ImageView = itemView.findViewById(R.id.iv_two_sports_venues_item)
-        var tvOneDesc :TextView = itemView.findViewById(R.id.tv_desc_one_sports_venues_item)
-        var tvOneLocation :TextView = itemView.findViewById(R.id.tv_location_one_sports_venues_item)
-        var tvTwoDesc :TextView = itemView.findViewById(R.id.tv_desc_two_sports_venues_item)
-        var tvTwoLocation :TextView = itemView.findViewById(R.id.tv_location_two_sports_venues_item)
+        var cl: ConstraintLayout = itemView.findViewById(R.id.cl_sports_venues_item)
+        var ivOne: ImageView = itemView.findViewById(R.id.iv_one_sports_venues_item)
+        var ivTwo: ImageView = itemView.findViewById(R.id.iv_two_sports_venues_item)
+        var tvOneDesc: TextView = itemView.findViewById(R.id.tv_desc_one_sports_venues_item)
+        var tvOneLocation: TextView = itemView.findViewById(R.id.tv_location_one_sports_venues_item)
+        var tvTwoDesc: TextView = itemView.findViewById(R.id.tv_desc_two_sports_venues_item)
+        var tvTwoLocation: TextView = itemView.findViewById(R.id.tv_location_two_sports_venues_item)
     }
-
 
 
 }
