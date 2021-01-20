@@ -8,7 +8,16 @@
     android:background="@color/white_without_alpha"
     >
 
-<!--    <>-->
+    <com.qmuiteam.qmui.widget.tab.QMUITabSegment2
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/tabSegment_venue_detail_category_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/qmui_config_color_white"
+        app:qmui_bottomDividerColor="?attr/qmui_skin_support_color_separator"
+        app:qmui_bottomDividerHeight="@dimen/zero" />
+
+
 
 
 

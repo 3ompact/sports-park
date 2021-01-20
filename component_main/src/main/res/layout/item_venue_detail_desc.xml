@@ -50,7 +50,7 @@
     <me.zhanghai.android.materialratingbar.MaterialRatingBar
         app:layout_constraintTop_toBottomOf="@id/ll_account_venue_detail_item"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/d14"
         android:layout_marginTop="@dimen/d14"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/mrb_account_venue_detail_item"

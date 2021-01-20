@@ -62,5 +62,11 @@
     <dimen name="sec_title_textsize">17sp</dimen>
     <dimen name="sec_title_opre_textsize">14sp</dimen>
     <dimen name="s13">13sp</dimen>
+    <dimen name="d30">30dp</dimen>
+    <dimen name="d34">34dp</dimen>
+    <dimen name="s11">11sp</dimen>
+    <dimen name="d85">85dp</dimen>
+    <dimen name="d90">90dp</dimen>
+    <dimen name="d6">6dp</dimen>
 
 </resources>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/d15"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="@dimen/d34"
+        android:layout_height="@dimen/d34"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/iv_header_valuation_venue_detail_item"
+        />
+
+    <TextView
+        android:id="@+id/tv_nick_name_valuation_venue_detail_item"
+        app:layout_constraintTop_toTopOf="@id/iv_header_valuation_venue_detail_item"
+        app:layout_constraintLeft_toRightOf="@id/iv_header_valuation_venue_detail_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s13"
+        android:layout_marginLeft="@dimen/eight"
+        />
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        app:layout_constraintLeft_toRightOf="@id/iv_header_valuation_venue_detail_item"
+        android:layout_marginLeft="@dimen/eight"
+
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_10"
+        android:layout_marginTop="@dimen/eight"
+        app:layout_constraintTop_toBottomOf="@id/tv_nick_name_valuation_venue_detail_item"
+        android:id="@+id/mrb_valuation_venue_detail_item"
+        />
+
+    <TextView
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/d15"
+        app:layout_constraintTop_toTopOf="@id/iv_header_valuation_venue_detail_item"
+        app:layout_constraintBottom_toBottomOf="@id/iv_header_valuation_venue_detail_item"
+        android:id="@+id/tv_date_valuation_venue_detail_item"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/s11"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lines="3"
+        app:layout_constraintLeft_toLeftOf="@id/tv_nick_name_valuation_venue_detail_item"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingRight="@dimen/dp_10"
+        app:layout_constraintTop_toBottomOf="@id/mrb_valuation_venue_detail_item"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textSize="@dimen/sp_14"
+        android:id="@+id/tv_valuation_valuation_venue_detail_item"
+        android:layout_marginBottom="@dimen/dp_4"
+        />
+
+    <ImageView
+        android:layout_height="@dimen/d85"
+        android:layout_width="@dimen/d90"
+        app:layout_constraintLeft_toLeftOf="@id/tv_nick_name_valuation_venue_detail_item"
+        android:layout_marginTop="@dimen/d12"
+        app:layout_constraintTop_toBottomOf="@id/tv_valuation_valuation_venue_detail_item"
+        android:id="@+id/iv_pho_one_valuation_venue_detail_item"
+
+        />
+    <ImageView
+        android:layout_height="@dimen/d85"
+        android:layout_width="@dimen/d90"
+        android:layout_marginLeft="@dimen/d6"
+
+        app:layout_constraintLeft_toRightOf="@id/iv_pho_one_valuation_venue_detail_item"
+        android:layout_marginTop="@dimen/d12"
+        app:layout_constraintTop_toBottomOf="@id/tv_valuation_valuation_venue_detail_item"
+        android:id="@+id/iv_pho_two_valuation_venue_detail_item"
+
+        />
+    <ImageView
+        android:layout_height="@dimen/d85"
+        android:layout_width="@dimen/d90"
+        android:layout_marginLeft="@dimen/d6"
+        app:layout_constraintLeft_toRightOf="@id/iv_pho_two_valuation_venue_detail_item"
+        android:layout_marginTop="@dimen/d12"
+        app:layout_constraintTop_toBottomOf="@id/tv_valuation_valuation_venue_detail_item"
+        android:id="@+id/iv_pho_thr_valuation_venue_detail_item"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
