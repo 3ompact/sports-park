@@ -8,12 +8,22 @@
     <dimen name="ten">10dp</dimen>
     <dimen name="d24">24dp</dimen>
     <dimen name="d12">12dp</dimen>
+    <dimen name="d14">14dp</dimen>
+    <dimen name="d38">38dp</dimen>
+
     <dimen name="d15">15dp</dimen>
     <dimen name="d17">17dp</dimen>
+    <dimen name="d20">20dp</dimen>
 
     <dimen name="d22">22dp</dimen>
 
     <dimen name="d244">244dp</dimen>
+    <dimen name="d278">278dp</dimen>
+
+
+
+    <dimen name="s16">16sp</dimen>
+    <dimen name="s12">12sp</dimen>
 
 
     <dimen name="search_bar_height">31dp</dimen>
@@ -51,5 +61,6 @@
 
     <dimen name="sec_title_textsize">17sp</dimen>
     <dimen name="sec_title_opre_textsize">14sp</dimen>
+    <dimen name="s13">13sp</dimen>
 
 </resources>

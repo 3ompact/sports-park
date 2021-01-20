@@ -15,7 +15,7 @@
         <activity android:name=".ui.activity.Test1Activity" />
 
 
-        <activity android:name=".ui.activity.MainActivity"
+        <activity android:name=".ui.activity.CMMainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             >
             <intent-filter>
@@ -24,6 +24,7 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".ui.activity.VenueDetailActivity"/>
 
     </application>
 
