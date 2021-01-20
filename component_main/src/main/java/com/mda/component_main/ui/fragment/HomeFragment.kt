@@ -2,6 +2,12 @@ package com.mda.component_main.ui.fragment
 
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.RelativeLayout
+import android.widget.RelativeLayout.ALIGN_BOTTOM
+import android.widget.RelativeLayout.ALIGN_PARENT_LEFT
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -27,6 +33,25 @@ class HomeFragment :
         mPullLayout = mDataBinding.pullLayoutBaseRefreshAndLoadMoreCmHomeFragment
         mRecyclerView = mDataBinding.rvCmHomeFragment
 
+
+        initTopBar()
+        setAdapter()
+        setPullLayoutActionListener()
+    }
+
+
+    private fun initTopBar() {
+        mDataBinding.topbarBaseRefreshAndLoadMoreCmHomeFragment.addLeftBackImageButton()
+            .setOnClickListener { }
+        //进行topbar 相关设置
+        mTopBar.setTitle("首页")
+        var button =  mTopBar.addLeftTextButton("重庆市∨",R.id.location_home_fragemnt)
+        button.textSize = 12f
+        var lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        lp.leftMargin = 10
+        lp.addRule(RelativeLayout.CENTER_VERTICAL)
+
+        button.layoutParams = lp
         val scrollBar = QMUIRVDraggableScrollBar(0, 0, 0)
         scrollBar.isEnableScrollBarFadeInOut = true
         scrollBar.attachToRecyclerView(mRecyclerView)
@@ -56,15 +81,6 @@ class HomeFragment :
                 )
             }
         }
-        setAdapter()
-        setPullLayoutActionListener()
-    }
-
-
-    private fun initTopBar() {
-        mDataBinding.topbarBaseRefreshAndLoadMoreCmHomeFragment.addLeftBackImageButton()
-            .setOnClickListener { }
-        mTopBar.setTitle("test")
     }
 
     override fun lazyLoadData() {
@@ -79,7 +95,6 @@ class HomeFragment :
 
     override fun setAdapter() {
         mRecyclerView.addItemDecoration(HomeFragmentRecyclerViewDecoration())
-        mRecyclerView.layoutManager = LinearLayoutManager(context)
         var adapter = context?.let { HomeFragmentWithoutThrAdapter(it) }
         mRecyclerView.adapter = adapter
     }

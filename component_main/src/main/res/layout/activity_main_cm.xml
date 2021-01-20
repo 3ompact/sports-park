@@ -22,6 +22,7 @@
             app:layout_constraintBottom_toTopOf="@id/fl_cm_main_activity"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/tv_location_cm_main_activity"
+            android:visibility="gone"
             />
 
 
@@ -39,6 +40,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:id="@+id/tv_title_cm_main_activity"
+            android:visibility="gone"
+
             />
         <FrameLayout
             android:layout_width="0dp"
