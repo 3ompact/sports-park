@@ -11,6 +11,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.Postcard
+import com.alibaba.android.arouter.facade.callback.NavCallback
+import com.alibaba.android.arouter.launcher.ARouter
 import com.mda.basics_lib.log.LogUtil
 import com.mda.basics_lib.utils.PhoneInfo
 import com.mda.common_ui_base.entity.MultiItemType
@@ -150,6 +153,33 @@ class HomeFragmentWithoutThrAdapter(context: Context): RecyclerView.Adapter<Recy
 
             }
             MultiItemType.GRID -> {
+
+                (holder as ViewHolderGrid).cl.setOnClickListener {
+
+                    ARouter.getInstance()
+                        .build("/cm/venuedetailactivity")
+                        .navigation(context, object : NavCallback() {
+
+                            override fun onFound(postcard: Postcard?) {
+                                Log.d("3ompact", "找到了")
+                            }
+
+                            override fun onLost(postcard: Postcard?) {
+                                Log.d("3ompact", "没找到")
+                            }
+
+                            override fun onArrival(postcard: Postcard?) {
+                                Log.d("3ompact", "跳转成功")
+                            }
+
+                            override fun onInterrupt(postcard: Postcard?) {
+                                Log.d("3ompact", "被拦截了")
+                            }
+
+                        })
+
+                }
+
                 if(position == 19){
 //                    val params : ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 //                    var bottom = 12*PhoneInfo.getPhonDensity(context.applicationContext)

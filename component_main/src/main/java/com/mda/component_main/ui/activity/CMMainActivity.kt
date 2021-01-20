@@ -14,7 +14,7 @@ import com.mda.component_main.databinding.ActivityMainCmBinding
 /**
  * 首页activity
  */
-class MainActivity : BaseVMDBActivity<BaseViewModel, ActivityMainCmBinding>() {
+class CMMainActivity : BaseVMDBActivity<BaseViewModel, ActivityMainCmBinding>() {
 
     lateinit var container :FrameLayout
     override fun layoutId(): Int {

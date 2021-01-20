@@ -2,7 +2,7 @@ package com.mda.common_ui_base.base
 
 import androidx.recyclerview.widget.RecyclerView
 import com.mda.common_ui_base.R
-import com.mda.common_ui_base.databinding.ActivityBaseRefreshAndLoadMoreBinding
+import com.mda.common_ui_base.databinding.ActivityBaseRefreshAndLoadMoreBaseUiBinding
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
 
@@ -12,7 +12,7 @@ import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
  * 使用 registerForActiivtyResult
  * 代替onActivityResult
  */
-abstract class BaseRefreshAndLoadMoreActivity<VM : BaseViewModel, DB : ActivityBaseRefreshAndLoadMoreBinding> :
+abstract class BaseRefreshAndLoadMoreActivity<VM : BaseViewModel, DB : ActivityBaseRefreshAndLoadMoreBaseUiBinding> :
     BaseVMDBActivity<VM, DB>() {
 
     private lateinit var mTopBar: QMUITopBarLayout
@@ -20,7 +20,7 @@ abstract class BaseRefreshAndLoadMoreActivity<VM : BaseViewModel, DB : ActivityB
     private lateinit var mRecyclerView: RecyclerView
 
     override fun layoutId(): Int {
-        return R.layout.fragment_base_refresh_and_load_more
+        return R.layout.fragment_base_refresh_and_load_more_base_ui
     }
 
     override fun initView() {

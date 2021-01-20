@@ -2,12 +2,7 @@ package com.mda.component_main.ui.fragment
 
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.RelativeLayout
-import android.widget.RelativeLayout.ALIGN_BOTTOM
-import android.widget.RelativeLayout.ALIGN_PARENT_LEFT
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route

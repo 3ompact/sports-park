@@ -16,7 +16,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-
             />
 
         <com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
@@ -36,6 +35,7 @@
                 android:layout_width="match_parent"
                 app:qmui_is_target="true"
                 android:background="@color/recyclerview_backgroud_color"
+                android:scrollbars="none"
                 />
 
             <com.qmuiteam.qmui.widget.pullLayout.QMUIPullRefreshView

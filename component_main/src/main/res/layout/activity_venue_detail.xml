@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.qmuiteam.qmui.widget.QMUIAppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d278"
+            android:fitsSystemWindows="true"
+
+            >
+            <com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:qmui_collapsedTitleGravity="center"
+                app:qmui_contentScrim="@color/white_without_alpha"
+
+                >
+                <com.qmuiteam.qmui.widget.QMUIViewPager
+                    android:id="@+id/pager_venue_detail_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+                <com.qmuiteam.qmui.widget.QMUITopBar
+                    android:id="@+id/topbar_venue_detail_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    app:qmui_layout_collapseMode="pin"
+                    android:background="@color/white_without_alpha"
+                    app:qmui_bottomDividerHeight="0px"/>
+            </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
+        </com.qmuiteam.qmui.widget.QMUIAppBarLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_venue_detail_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:background="@color/recyclerview_backgroud_color"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

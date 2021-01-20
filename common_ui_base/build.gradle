@@ -110,6 +110,7 @@ dependencies {
     api rootProject.ext.dependencies["coil"]
 
 
+    api rootProject.ext.dependencies["ratingBar"]
 
 
     api project(':basics_lib')

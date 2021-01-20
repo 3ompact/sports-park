@@ -3,7 +3,7 @@ package com.mda.common_ui_base.base
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.mda.common_ui_base.R
-import com.mda.common_ui_base.databinding.FragmentBaseRefreshAndLoadMoreBinding
+import com.mda.common_ui_base.databinding.FragmentBaseRefreshAndLoadMoreBaseUiBinding
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
 
@@ -11,7 +11,7 @@ import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
  * 基础上拉下拉刷新fragment
  *
  */
-abstract class BaseRefreshAndLoadMoreFragment<VM : BaseViewModel, DB : FragmentBaseRefreshAndLoadMoreBinding> :
+abstract class BaseRefreshAndLoadMoreFragment<VM : BaseViewModel, DB : FragmentBaseRefreshAndLoadMoreBaseUiBinding> :
     BaseVMDBFragment<VM, DB>() {
 
     private lateinit var mTopBar: QMUITopBarLayout
@@ -19,7 +19,7 @@ abstract class BaseRefreshAndLoadMoreFragment<VM : BaseViewModel, DB : FragmentB
     private lateinit var mRecyclerView: RecyclerView
 
     override fun layoutId(): Int {
-        return R.layout.fragment_base_refresh_and_load_more
+        return R.layout.fragment_base_refresh_and_load_more_base_ui
     }
 
     override fun initView(savedInstanceState: Bundle?) {
