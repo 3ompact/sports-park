@@ -45,8 +45,10 @@ class HomeFragment :
             .setOnClickListener { }
         //进行topbar 相关设置
         mTopBar.setTitle("首页")
+        //设置分离器颜色
+        mTopBar.updateBottomDivider(0,0,0,R.color.white_without_alpha)
         var button =  mTopBar.addLeftTextButton("重庆市∨",R.id.location_home_fragemnt)
-        button.textSize = 12f
+        button.textSize = 10f
         var lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
         lp.leftMargin = 10
         lp.addRule(RelativeLayout.CENTER_VERTICAL)
