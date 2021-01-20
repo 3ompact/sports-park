@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 /**
  *
@@ -82,6 +83,8 @@ abstract class BaseVMDBActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        QMUIStatusBarHelper.translucent(this)
+        QMUIStatusBarHelper.setStatusBarLightMode(this)
         initDataBindAndViewModel()
 //        if (actionBar())
 //            supportActionBar!!.hide()
