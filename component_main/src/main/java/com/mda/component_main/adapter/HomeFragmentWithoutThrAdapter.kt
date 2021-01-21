@@ -148,37 +148,37 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
             }
             MultiItemType.QUCIKLY -> {
 
-                var l = LinearLayoutManager(context)
-                l.orientation = LinearLayoutManager.HORIZONTAL
-                (holder as ViewHolderQuickly).rv.layoutManager = l
-
-                    (holder as ViewHolderQuickly).rv.adapter = object :
-                    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-                    override fun onCreateViewHolder(
-                        parent: ViewGroup,
-                        viewType: Int
-                    ): RecyclerView.ViewHolder {
-                        return TVd(
-                            LayoutInflater.from(context).inflate(
-                                R.layout.item_test,
-                                parent,
-                                false
-                            )
-                        )
-                    }
-
-                    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-                    }
-
-                    override fun getItemCount(): Int {
-                        return 10
-                    }
-
-                    inner class TVd(itemView: View) : RecyclerView.ViewHolder(itemView) {
-                        var tv: TextView = itemView.findViewById(R.id.test_tv)
-                    }
-                }
+//                var l = LinearLayoutManager(context)
+//                l.orientation = LinearLayoutManager.HORIZONTAL
+//                (holder as ViewHolderQuickly).rv.layoutManager = l
+//
+//                    (holder as ViewHolderQuickly).rv.adapter = object :
+//                    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+//                    override fun onCreateViewHolder(
+//                        parent: ViewGroup,
+//                        viewType: Int
+//                    ): RecyclerView.ViewHolder {
+//                        return TVd(
+//                            LayoutInflater.from(context).inflate(
+//                                R.layout.item_test,
+//                                parent,
+//                                false
+//                            )
+//                        )
+//                    }
+//
+//                    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+//
+//                    }
+//
+//                    override fun getItemCount(): Int {
+//                        return 10
+//                    }
+//
+//                    inner class TVd(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//                        var tv: TextView = itemView.findViewById(R.id.test_tv)
+//                    }
+//                }
 
             }
             MultiItemType.LEFTTITLEANDRIGHTMORE -> {
