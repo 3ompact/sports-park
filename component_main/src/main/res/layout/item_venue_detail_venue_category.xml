@@ -1,24 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingLeft="@dimen/d15"
     android:background="@color/white_without_alpha"
+    android:paddingBottom="@dimen/d20"
     >
 
     <com.qmuiteam.qmui.widget.tab.QMUITabSegment2
+        android:paddingLeft="@dimen/d15"
+
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/tabSegment_venue_detail_category_item"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
+        android:layout_height="@dimen/d45"
         android:background="@color/qmui_config_color_white"
         app:qmui_bottomDividerColor="?attr/qmui_skin_support_color_separator"
         app:qmui_bottomDividerHeight="@dimen/zero" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabSegment_venue_detail_category_item"
+        android:id="@+id/rv_venue_detail_category_item"
+        android:background="@color/recyclerview_backgroud_color"
+        />
+
+    <TextView
+        android:paddingLeft="@dimen/d15"
+        app:layout_constraintTop_toBottomOf="@id/rv_venue_detail_category_item"
+        android:layout_width="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="@dimen/s16"
+        android:textColor="@color/text_black"
+        android:text="场馆信息"
+        android:textStyle="bold"
+        android:id="@+id/tv_venue_info_venue_detail_category_item"
+        />
+    <TextView
+        android:paddingLeft="@dimen/d15"
+        android:layout_marginTop="@dimen/d22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_gray"
+        android:text="营业时间:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_venue_info_venue_detail_category_item"
+
+        android:id="@+id/tv_business_hours_venue_detail_category_item"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_black"
+        android:id="@+id/tv_business_hours_desc_venue_detail_category_item"
+        app:layout_constraintLeft_toRightOf="@id/tv_business_hours_venue_detail_category_item"
+        app:layout_constraintTop_toTopOf="@id/tv_business_hours_venue_detail_category_item"
+        android:text="10:00-22:00"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
 
 
+    <TextView
+        android:paddingLeft="@dimen/d15"
+        android:layout_marginTop="@dimen/d22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_gray"
+        android:text="交通信息:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_business_hours_venue_detail_category_item"
+        android:id="@+id/tv_traffic_info_venue_detail_category_item"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_black"
+        android:id="@+id/tv_traffic_info_desc_venue_detail_category_item"
+        app:layout_constraintLeft_toRightOf="@id/tv_traffic_info_venue_detail_category_item"
+        app:layout_constraintTop_toTopOf="@id/tv_traffic_info_venue_detail_category_item"
+        android:text="轻轨环线到石子山体育公园"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
 
 
 

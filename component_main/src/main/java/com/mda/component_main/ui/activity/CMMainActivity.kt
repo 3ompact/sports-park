@@ -1,10 +1,13 @@
 package com.mda.component_main.ui.activity
 
+import android.Manifest
 import android.content.res.Resources
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.launcher.ARouter
+import com.mda.basics_lib.permission.PermissionUtil
 import com.mda.basics_lib.utils.DrawableUtil
 import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.common_ui_base.base.BaseViewModel
@@ -26,6 +29,15 @@ class CMMainActivity : BaseVMDBActivity<BaseViewModel, ActivityMainCmBinding>() 
     }
 
     override fun initView() {
+        PermissionUtil().requestSinglePermission(this, Manifest.permission.INTERNET,object :PermissionUtil.PermissionListener{
+            override fun onGranted() {
+                Log.i("3ompact","onGranted")
+            }
+
+            override fun onDenied() {
+                Log.i("3ompact","onDenied")
+            }
+        })
         DrawableUtil.setRBDrawableBounds(mDataBinding.rbHomeCmMainActivity,resources.getDrawable(R.drawable.selector_icon_home))
         DrawableUtil.setRBDrawableBounds(mDataBinding.rbSupermarketCmMainActivity,resources.getDrawable(R.drawable.selector_icon_supermarket))
         DrawableUtil.setRBDrawableBounds(mDataBinding.rbMineCmMainActivity,resources.getDrawable(R.drawable.selector_icon_mine))

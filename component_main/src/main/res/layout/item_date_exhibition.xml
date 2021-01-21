@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/d78"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_without_alpha"
+    android:layout_marginTop="@dimen/dp_10"
+    android:layout_marginBottom="@dimen/dp_10"
+    android:paddingBottom="@dimen/d12"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginTop="@dimen/d12"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="今天"
+        android:id="@+id/tv_week_date_exhibition_item"
+        android:textColor="@color/text_black"
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/eight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s13"
+        app:layout_constraintTop_toBottomOf="@id/tv_week_date_exhibition_item"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/tv_date_date_exhibition_item"
+        android:text="12-22"
+        />
+
+    <com.qmuiteam.qmui.layout.QMUIButton
+        android:layout_width="@dimen/d48"
+        android:id="@+id/qbtn_book_date_date_exhibition_item"
+
+        android:layout_height="@dimen/d20"
+        android:textSize="@dimen/s12"
+        android:layout_marginTop="@dimen/d9"
+        app:layout_constraintTop_toBottomOf="@id/tv_date_date_exhibition_item"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="预订"
+        android:gravity="center"
+        android:background="@drawable/shape_book_button_background"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

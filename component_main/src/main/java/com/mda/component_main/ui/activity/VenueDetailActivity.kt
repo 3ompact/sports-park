@@ -16,15 +16,17 @@ import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.common_ui_base.base.BaseViewModel
 import com.mda.component_main.R
 import com.mda.component_main.adapter.HomeFragmentWithoutThrAdapter
+import com.mda.component_main.adapter.VenueDetailActivityAdapter
 import com.mda.component_main.databinding.ActivityVenueDetailBinding
 import com.mda.component_main.decoration.HomeFragmentRecyclerViewDecoration
+import com.mda.component_main.decoration.VenueActivityRecyclerViewDecoration
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import java.util.*
 
 /**
- * 场馆详情acitivity
+ * 场馆详情 activity
  */
 @Route(path = "/cm/venuedetailactivity")
 class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailBinding>() {
@@ -44,9 +46,9 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
 
         var rv = mDataBinding.rvVenueDetailActivity
 
-        rv.addItemDecoration(HomeFragmentRecyclerViewDecoration())
+        rv.addItemDecoration(VenueActivityRecyclerViewDecoration())
         rv.layoutManager = LinearLayoutManager(this@VenueDetailActivity)
-        var adapter = HomeFragmentWithoutThrAdapter(this@VenueDetailActivity)
+        var adapter = VenueDetailActivityAdapter(this@VenueDetailActivity)
         rv.adapter = adapter
 
         for (i in 0 until 5) {

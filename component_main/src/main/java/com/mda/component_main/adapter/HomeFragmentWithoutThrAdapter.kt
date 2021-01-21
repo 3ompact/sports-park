@@ -1,6 +1,7 @@
 package com.mda.component_main.adapter
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,18 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.Nullable
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
-import com.mda.basics_lib.log.LogUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.mda.common_ui_base.entity.MultiItemType
 import com.mda.component_main.R
 import com.youth.banner.Banner
@@ -147,38 +153,48 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
 
             }
             MultiItemType.QUCIKLY -> {
+                Log.d("3ompact", "start: ")
 
-//                var l = LinearLayoutManager(context)
-//                l.orientation = LinearLayoutManager.HORIZONTAL
-//                (holder as ViewHolderQuickly).rv.layoutManager = l
-//
-//                    (holder as ViewHolderQuickly).rv.adapter = object :
-//                    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-//                    override fun onCreateViewHolder(
-//                        parent: ViewGroup,
-//                        viewType: Int
-//                    ): RecyclerView.ViewHolder {
-//                        return TVd(
-//                            LayoutInflater.from(context).inflate(
-//                                R.layout.item_test,
-//                                parent,
-//                                false
-//                            )
-//                        )
+
+//                val mRequestListener = object: RequestListener<Drawable>{
+//                    override fun onLoadFailed(
+//                        e: GlideException?,
+//                        model: Any?,
+//                        target: Target<Drawable>?,
+//                        isFirstResource: Boolean
+//                    ): Boolean {
+//                        Log.d("3ompact", "onException: " + e.toString()+"  model:"+model+" isFirstResource: "+isFirstResource)
+//                        return false
 //                    }
 //
-//                    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//
+//                    override fun onResourceReady(
+//                        resource: Drawable?,
+//                        model: Any?,
+//                        target: Target<Drawable>?,
+//                        dataSource: DataSource?,
+//                        isFirstResource: Boolean
+//                    ): Boolean {
+//                        Log.e("3ompact",  "model:"+model+" isFirstResource: "+isFirstResource);
+//                        return false
 //                    }
 //
-//                    override fun getItemCount(): Int {
-//                        return 10
-//                    }
-//
-//                    inner class TVd(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//                        var tv: TextView = itemView.findViewById(R.id.test_tv)
-//                    }
 //                }
+//
+//                Glide.with(context).load(
+//                    "https://ss1.bdsta" +
+//                            "tic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+//                ).listener(mRequestListener).into((holder as ViewHolderQuickly).ivOneQ)
+
+//                Log.d("3ompact", "end: ")
+//
+                (holder as ViewHolderQuickly).ivOneQ.load(
+                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+                ) {
+
+                }
+
+
+
 
             }
             MultiItemType.LEFTTITLEANDRIGHTMORE -> {
@@ -226,14 +242,12 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
     }
 
     override fun getItemCount(): Int {
-        LogUtil.debugInfo("getItemCount")
 
         return 20
 
     }
 
     override fun getItemViewType(position: Int): Int {
-        LogUtil.debugInfo("getItemViewType")
 
 //        return MultiItemType.GRID
         when (position) {
@@ -289,10 +303,9 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
     }
 
     class ViewHolderQuickly(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var ivOneQ: ImageView = itemView.findViewById(R.id.iv_one_quickly_item)
+        val ivOneQ: ImageView = itemView.findViewById(R.id.iv_one_quickly_item)
         var ivTwoQ: ImageView = itemView.findViewById(R.id.iv_two_quickly_item)
         var ivThrQ: ImageView = itemView.findViewById(R.id.iv_thr_quickly_item)
-        var rv: RecyclerView = itemView.findViewById(R.id.rv)
     }
 
     class ViewHolderLeftTitleAndMore(itemView: View) : RecyclerView.ViewHolder(itemView) {

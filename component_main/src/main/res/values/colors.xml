@@ -22,6 +22,7 @@
 
     <color name="rb_textcolor_check">#3299FE</color>
     <color name="rb_textcolor_uncheck">#9C9C9C</color>
+    <color name="btn_troke_color">#3399fe</color>
 
 
     <color name="searchbar_backgroud_color">#F6F6F6</color>

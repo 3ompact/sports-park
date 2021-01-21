@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="@dimen/d15"
@@ -20,7 +20,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/tv_desc_venue_detail_item"
-        tools:text="石子山体育公园-羽毛球场活动中心"
+        android:text="石子山体育公园-羽毛球场活动中心"
         android:textStyle="bold"
 
         />
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_desc_venue_detail_item"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="石子山体育公园-羽毛球场活动中心"
+        android:text="石子山体育公园-羽毛球场活动中心"
         android:textSize="@dimen/s13"
         android:id="@+id/tv_self_account_venue_detail_item"
 
@@ -39,7 +39,7 @@
     <LinearLayout
         android:layout_marginTop="@dimen/ten"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/d21"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_self_account_venue_detail_item"
         app:layout_constraintRight_toRightOf="parent"
@@ -70,6 +70,8 @@
         />
 
     <TextView
+        android:layout_marginTop="@dimen/d15"
+        android:id="@+id/tv_location_account_venue_detail_item"
         android:layout_width="0dp"
         android:layout_height="@dimen/d38"
         android:textSize="@dimen/s13"

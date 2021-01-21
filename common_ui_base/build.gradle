@@ -29,7 +29,7 @@ android {
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
                         def fileName = "${variant.versionName}_${releaseTime()}_${variant.name}.apk"
-                        outputFileName  = fileName
+                        outputFileName = fileName
                     }
                 }
             }
@@ -48,24 +48,26 @@ android {
         viewBinding = true
     }
 
-    kapt{
-        arguments{
-            arg("AROUTER_MODULE_NAME",project.getName())
+    kapt {
+        arguments {
+            arg("AROUTER_MODULE_NAME", project.getName())
         }
     }
 
     productFlavors {
 
         all {
-            manifestPlaceholders=[
-                    NAME_CHANNEL:"all"
+            manifestPlaceholders = [
+                    NAME_CHANNEL: "all"
             ]
         }
     }
 }
-def  releaseTime(){
-    return new Date().format("MMdd",TimeZone.getTimeZone("UTC"))
+
+def releaseTime() {
+    return new Date().format("MMdd", TimeZone.getTimeZone("UTC"))
 }
+
 dependencies {
 
 
@@ -86,8 +88,8 @@ dependencies {
     // Annotation processor
     kapt rootProject.ext.dependencies["lifecycleCompile"]
     // Lifecycles only (without ViewModel or LiveData)
-    api (rootProject.ext.dependencies["lifecycleRuntimeKtx"]){
-        exclude  group: 'org.jetbrains.kotlinx', module: 'kotlinx-coroutines-android'
+    api(rootProject.ext.dependencies["lifecycleRuntimeKtx"]) {
+        exclude group: 'org.jetbrains.kotlinx', module: 'kotlinx-coroutines-android'
     }
 
     api rootProject.ext.dependencies["baseRecyclerViewAdapterHelper"]
@@ -107,7 +109,9 @@ dependencies {
     api rootProject.ext.dependencies["coroutines"]
 
     //coil 图片加载库
-    api rootProject.ext.dependencies["coil"]
+    api (rootProject.ext.dependencies["coil"]) {
+        exclude group: 'com.squareuo.okhttp3', module: 'okhttp'
+    }
 
 
     api rootProject.ext.dependencies["ratingBar"]

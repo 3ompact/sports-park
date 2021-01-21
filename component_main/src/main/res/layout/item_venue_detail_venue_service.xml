@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_without_alpha"
+    android:paddingBottom="23dp">
+
+
+    <TextView
+        android:paddingLeft="@dimen/d15"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="@dimen/s16"
+        android:textColor="@color/text_black"
+        android:text="场馆服务"
+        android:textStyle="bold"
+        android:id="@+id/tv_venue_service_venue_detail_category_item"
+        />
+    <TextView
+        android:paddingLeft="@dimen/d15"
+        android:layout_marginTop="@dimen/d22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_gray"
+        android:text="器材租聘:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_venue_service_venue_detail_category_item"
+
+        android:id="@+id/tv_equipment_rental_venue_detail_category_item"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_black"
+        android:id="@+id/tv_equipment_rental_desc_venue_detail_category_item"
+        app:layout_constraintLeft_toRightOf="@id/tv_equipment_rental_venue_detail_category_item"
+        app:layout_constraintTop_toTopOf="@id/tv_equipment_rental_venue_detail_category_item"
+        android:text="有"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
+
+
+    <TextView
+        android:paddingLeft="@dimen/d15"
+        android:layout_marginTop="@dimen/d22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_gray"
+        android:text="洗浴设施:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_equipment_rental_venue_detail_category_item"
+        android:id="@+id/tv_bath_facilities_venue_detail_category_item"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_black"
+        android:id="@+id/tv_bath_facilities_desc_venue_detail_category_item"
+        app:layout_constraintLeft_toRightOf="@id/tv_bath_facilities_venue_detail_category_item"
+        app:layout_constraintTop_toTopOf="@id/tv_bath_facilities_venue_detail_category_item"
+        android:text="有"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
+
+    <TextView
+        android:paddingLeft="@dimen/d15"
+        android:layout_marginTop="@dimen/d22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_gray"
+        android:text="洗浴设施:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bath_facilities_venue_detail_category_item"
+        android:id="@+id/tv_venus_facilities_venue_detail_category_item"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_black"
+        android:id="@+id/tv_venue_facilities_desc_venue_detail_category_item"
+        app:layout_constraintLeft_toRightOf="@id/tv_venus_facilities_venue_detail_category_item"
+        app:layout_constraintTop_toTopOf="@id/tv_venus_facilities_venue_detail_category_item"
+        android:text="有"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
