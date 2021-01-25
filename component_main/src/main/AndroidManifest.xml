@@ -16,14 +16,18 @@
         </activity>
         <activity android:name=".ui.activity.Test1Activity" />
 
-
-        <activity android:name=".ui.activity.CMMainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            >
+        <activity android:name=".ui.activity.VenueSelectionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+        </activity>
+
+        <activity android:name=".ui.activity.CMMainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            >
+
 
         </activity>
         <activity android:name=".ui.activity.VenueDetailActivity"/>

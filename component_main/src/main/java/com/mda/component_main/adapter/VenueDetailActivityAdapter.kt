@@ -1,7 +1,6 @@
 package com.mda.component_main.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,10 @@ import coil.transform.RoundedCornersTransformation
 import com.mda.component_main.R
 import com.mda.component_main.decoration.VenueActivityRecyclerHorizontalViewDecoration
 import com.qmuiteam.qmui.layout.QMUIButton
+import com.qmuiteam.qmui.util.QMUIDisplayHelper
+import com.qmuiteam.qmui.widget.tab.QMUIBasicTabSegment
+import com.qmuiteam.qmui.widget.tab.QMUITabIndicator
+import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment2
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
@@ -77,8 +80,49 @@ class VenueDetailActivityAdapter(context: Context) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             TYPE.Detail.value -> {
+//                (holder as ViewHolderDetail).rb.numStars = 3
+                (holder as ViewHolderDetail).rb.rating = 3.5f
+
             }
             TYPE.Category.value -> {
+                val tabBuilder = (holder as ViewHolderCategory).tabSag.tabBuilder()
+                val space: Int = QMUIDisplayHelper.dp2px(context, 16)
+
+                (holder as ViewHolderCategory).apply {
+                    tabSag.addTab(tabBuilder.setText("羽毛球").build(context))
+                    tabSag.addTab(tabBuilder.setText("乒乓球").build(context))
+                    tabSag.addTab(tabBuilder.setText("篮球").build(context))
+                    tabSag.addTab(tabBuilder.setText("足球").build(context))
+
+
+                    tabSag.setIndicator(
+                        QMUITabIndicator(
+                            QMUIDisplayHelper.dp2px(context, 2),
+                            false,
+                            true
+                        )
+                    )
+                    tabSag.mode = QMUITabSegment.MODE_SCROLLABLE
+                    tabSag.setItemSpaceInScrollMode(space)
+                    tabSag.setPadding(space, 0, space, 0)
+                    tabSag.selectTab(0)
+                    tabSag.notifyDataChanged()
+                    //tab栏设置监听
+                    tabSag.addOnTabSelectedListener(object :
+                        QMUIBasicTabSegment.OnTabSelectedListener {
+                        override fun onTabSelected(index: Int) {
+                        }
+
+                        override fun onTabUnselected(index: Int) {
+                        }
+
+                        override fun onTabReselected(index: Int) {
+                        }
+
+                        override fun onDoubleTap(index: Int) {
+                        }
+                    })
+                }
 
                 var l = LinearLayoutManager(context)
                 l.orientation = LinearLayoutManager.HORIZONTAL

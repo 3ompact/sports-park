@@ -35,6 +35,11 @@
         android:layout_marginTop="@dimen/eight"
         app:layout_constraintTop_toBottomOf="@id/tv_nick_name_valuation_venue_detail_item"
         android:id="@+id/mrb_valuation_venue_detail_item"
+        app:mrb_progressTint="@color/star_color"
+        app:mrb_secondaryProgressTint="@color/star_background_color"
+        app:mrb_progressBackgroundTint="@color/star_background_color"
+        app:mrb_fillBackgroundStars="true"
+        android:contextClickable="false"
         />
 
     <TextView

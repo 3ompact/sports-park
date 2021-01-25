@@ -21,6 +21,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.mda.basics_lib.utils.SpannerableStringUtil
 import com.mda.common_ui_base.entity.MultiItemType
 import com.mda.component_main.R
 import com.youth.banner.Banner

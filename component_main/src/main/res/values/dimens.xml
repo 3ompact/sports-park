@@ -2,6 +2,8 @@
 <resources>
     <dimen name="zero">0dp</dimen>
     <dimen name="one">1dp</dimen>
+    <dimen name="d2">2dp</dimen>
+
     <dimen name="five">5dp</dimen>
     <dimen name="eight">8dp</dimen>
 
@@ -75,5 +77,13 @@
     <dimen name="d9">9dp</dimen>
     <dimen name="d22">22dp</dimen>
     <dimen name="d21">21dp</dimen>
+    <dimen name="d40">40dp</dimen>
+    <dimen name="d46">46dp</dimen>
+    <dimen name="d16">16dp</dimen>
+    <dimen name="d72">72dp</dimen>
+    <dimen name="d50">50dp</dimen>
+    <dimen name="d52">52dp</dimen>
+    <dimen name="d25">25dp</dimen>
+    <dimen name="d27">27dp</dimen>
 
 </resources>

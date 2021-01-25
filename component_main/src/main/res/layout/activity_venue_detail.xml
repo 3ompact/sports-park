@@ -16,6 +16,7 @@
 
             >
             <com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout
+                android:id="@+id/ctb_venue_detail_activity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -29,11 +30,16 @@
                     android:layout_height="match_parent"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/d40"
+                    android:layout_height="@dimen/d20"
                     android:text="ttttttttt"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/white_without_alpha"
                     android:layout_gravity="right|bottom"
+                    android:layout_marginRight="@dimen/d15"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:gravity="center"
+                    android:background="@drawable/shape_backgorund_venue_detail_vp_textindicator"
+
                     />
                 <com.qmuiteam.qmui.widget.QMUITopBar
                     android:id="@+id/topbar_venue_detail_activity"

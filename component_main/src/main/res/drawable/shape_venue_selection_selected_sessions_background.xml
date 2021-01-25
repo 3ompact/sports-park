@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="@dimen/d27">
+        <shape>
+            <corners android:topLeftRadius="@dimen/eight"  android:topRightRadius="@dimen/eight"/>
+            <stroke android:color="@color/btn_commit_backgorund" android:width="@dimen/one"/>
+            <solid android:color="@color/btn_commit_backgorund"/>
+        </shape>
+    </item>
+
+    <item android:top="@dimen/d25">
+        <shape>
+            <corners android:bottomLeftRadius="@dimen/eight"  android:bottomRightRadius="@dimen/eight"/>
+            <stroke android:color="@color/btn_commit_backgorund" android:width="@dimen/one"/>
+            <solid android:color="@color/white_without_alpha"/>
+        </shape>
+    </item>
+</layer-list>

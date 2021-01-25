@@ -6,10 +6,12 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.mda.common_ui_base.base.BaseVMDBActivity
@@ -21,8 +23,7 @@ import com.mda.component_main.databinding.ActivityVenueDetailBinding
 import com.mda.component_main.decoration.HomeFragmentRecyclerViewDecoration
 import com.mda.component_main.decoration.VenueActivityRecyclerViewDecoration
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
-import com.qmuiteam.qmui.widget.QMUIPagerAdapter
-import com.qmuiteam.qmui.widget.QMUIViewPager
+import com.qmuiteam.qmui.widget.*
 import java.util.*
 
 /**
@@ -32,7 +33,9 @@ import java.util.*
 class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailBinding>() {
     private val mItems: MutableList<String> = ArrayList()
     private lateinit var mViewPager: QMUIViewPager
-
+    private lateinit var mTopBar: QMUITopBar
+    private lateinit var mCollTopBarLayout: QMUICollapsingTopBarLayout
+    private lateinit var rv: RecyclerView
     override fun layoutId(): Int {
         return R.layout.activity_venue_detail
     }
@@ -43,8 +46,44 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
 
     override fun initView() {
         mViewPager = mDataBinding.pagerVenueDetailActivity
+        mTopBar = mDataBinding.topbarVenueDetailActivity
+        mCollTopBarLayout = mDataBinding.ctbVenueDetailActivity
 
-        var rv = mDataBinding.rvVenueDetailActivity
+        rv = mDataBinding.rvVenueDetailActivity
+
+        var lp1 = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        lp1.rightMargin = 10
+        lp1.leftMargin = 20
+
+        lp1.addRule(RelativeLayout.CENTER_VERTICAL)
+        lp1.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+
+        var lp2 = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        lp2.rightMargin = 20
+        lp2.addRule(RelativeLayout.CENTER_VERTICAL)
+        lp2.addRule(RelativeLayout.LEFT_OF,R.id.iv_share_venue_detail_activity)
+
+        mTopBar.setTitle(R.string.venue_detail)
+        var ibStar = mTopBar.addRightImageButton(
+            R.drawable.icon_star_40,
+            R.id.iv_start_venue_detail_activity
+        )
+        var ibShare = mTopBar.addRightImageButton(
+            R.drawable.icon_share_40,
+            R.id.iv_share_venue_detail_activity
+        )
+
+        ibStar.layoutParams = lp2
+        ibShare.layoutParams = lp1
+
+
+        mTopBar.addLeftBackImageButton()
 
         rv.addItemDecoration(VenueActivityRecyclerViewDecoration())
         rv.layoutManager = LinearLayoutManager(this@VenueDetailActivity)
@@ -119,7 +158,7 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
         init {
             mTextView = TextView(context)
             mTextView.textSize = 20f
-            mTextView.setTextColor(ContextCompat.getColor(context!!, R.color.purple_200))
+            mTextView.setTextColor(ContextCompat.getColor(context!!, R.color.black))
             mTextView.gravity = Gravity.CENTER
             mTextView.setBackgroundColor(
                 ContextCompat.getColor(
@@ -134,7 +173,7 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
         }
     }
 
-    inner class CardTransformer : ViewPager.PageTransformer{
+    inner class CardTransformer : ViewPager.PageTransformer {
         override fun transformPage(page: View, position: Float) {
             // 刷新数据notifyDataSetChange之后也会调用到transformPage，但此时的position可能不在[-1, 1]之间
             if (position <= -1 || position >= 1f) {

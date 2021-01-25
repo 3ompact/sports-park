@@ -29,6 +29,10 @@
 
     <color name="recyclerview_backgroud_color">#f7f7ff</color>
 
+    <color name="text_indiccator_background_color">#47050505</color>
 
+    <color name="star_color">#fe634f</color>
+    <color name="star_background_color">#dcdcdc</color>
+    <color name="btn_commit_backgorund">#3399fe</color>
 
 </resources>

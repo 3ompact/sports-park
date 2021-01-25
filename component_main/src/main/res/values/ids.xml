@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="location_home_fragemnt" type="id" />
+    <item name="iv_start_venue_detail_activity" type="id" />
+
+    <item name="iv_share_venue_detail_activity" type="id" />
+
 </resources>

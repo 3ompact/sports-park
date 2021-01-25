@@ -6,5 +6,7 @@
     <string name="mine_cm">我的</string>
 
     <string name="location_cm">重庆市</string>
+    <string name="venue_detail">场馆详情</string>
+    <string name="str_clear">清空</string>
 
 </resources>

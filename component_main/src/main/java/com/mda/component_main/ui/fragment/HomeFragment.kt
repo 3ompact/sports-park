@@ -6,6 +6,7 @@ import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.mda.basics_lib.utils.SpannerableStringUtil
 import com.mda.common_ui_base.base.AbBaseRefreshAndLoadMoreFragment
 import com.mda.component_main.R
 import com.mda.component_main.adapter.HomeFragmentWithoutThrAdapter
@@ -40,6 +41,7 @@ class HomeFragment :
             .setOnClickListener { }
         //进行topbar 相关设置
         mTopBar.setTitle("首页")
+
         //设置分离器颜色
         mTopBar.updateBottomDivider(0,0,0,R.color.white_without_alpha)
         var button =  mTopBar.addLeftTextButton("重庆市∨",R.id.location_home_fragemnt)

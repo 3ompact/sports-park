@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/recyclerview_backgroud_color">
+
+        <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topbar_venue_selection_activity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingLeft="@dimen/d15"
+
+            android:id="@+id/rv_week_venue_selection_activity"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d46"
+            android:background="@color/white_without_alpha"
+            android:scrollbars="none"
+            app:qmui_is_target="true" />
+
+        <TextView
+            android:id="@+id/tv_bookabel_venue_selection_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d24"
+            android:text="可预订"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/s13"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_sold_venue_selection_activity"
+            app:layout_constraintTop_toBottomOf="@id/rv_week_venue_selection_activity" />
+
+        <TextView
+            android:id="@+id/tv_sold_venue_selection_activity"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d24"
+            android:text="已售出"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/s13"
+            app:layout_constraintLeft_toRightOf="@id/tv_bookabel_venue_selection_activity"
+            app:layout_constraintRight_toLeftOf="@id/tv_book_selected_venue_selection_activity"
+            app:layout_constraintTop_toBottomOf="@id/rv_week_venue_selection_activity" />
+
+        <TextView
+            android:id="@+id/tv_book_selected_venue_selection_activity"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d24"
+            android:text="已选定"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/s13"
+            app:layout_constraintLeft_toRightOf="@id/tv_sold_venue_selection_activity"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_week_venue_selection_activity"
+
+
+            />
+
+        <TextView
+            android:id="@+id/tv_selected_venue_selection_activity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/d15"
+            android:paddingTop="@dimen/ten"
+            android:paddingBottom="@dimen/ten"
+            android:text="ssssssssssss"
+            android:textSize="@dimen/s13"
+            app:layout_constraintBottom_toTopOf="@id/rv_selected_venue_selection_activity"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/qb_clear_venue_selection_activity" />
+
+
+        <com.bin.david.form.core.SmartTable
+            app:layout_constraintTop_toBottomOf="@id/tv_bookabel_venue_selection_activity"
+            app:layout_constraintBottom_toTopOf="@id/qb_clear_venue_selection_activity"
+            android:id="@+id/table_ssss"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <com.qmuiteam.qmui.layout.QMUIButton
+            android:id="@+id/qb_clear_venue_selection_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:paddingLeft="@dimen/d16"
+            android:paddingRight="@dimen/d16"
+            android:text="@string/str_clear"
+            android:textSize="@dimen/s13"
+            android:gravity="center"
+            android:background="@color/white_without_alpha"
+            android:textColor="@color/text_gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv_selected_venue_selection_activity"
+            app:layout_constraintLeft_toRightOf="@id/tv_selected_venue_selection_activity"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_selected_venue_selection_activity" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_selected_venue_selection_activity"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d72"
+            app:layout_constraintBottom_toTopOf="@id/btn_coomit_venue_selection_activity"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingLeft="@dimen/d15"
+            />
+
+        <TextView
+            android:id="@+id/tv_money_venue_selection_activity"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d50"
+            android:gravity="center"
+            android:text="sdsssssssss"
+            android:textSize="@dimen/s16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_coomit_venue_selection_activity" />
+
+        <com.qmuiteam.qmui.layout.QMUIButton
+            android:id="@+id/btn_coomit_venue_selection_activity"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d50"
+            android:background="@color/btn_commit_backgorund"
+            android:gravity="center"
+            android:text="提交订单"
+            android:textColor="@color/white_without_alpha"
+            android:textSize="@dimen/s16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@id/tv_money_venue_selection_activity"
+            app:layout_constraintRight_toRightOf="parent"
+
+            />
+
+
+    </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2>
+
+</layout>
