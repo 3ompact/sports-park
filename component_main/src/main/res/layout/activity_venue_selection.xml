@@ -9,16 +9,14 @@
 
         <com.qmuiteam.qmui.widget.QMUITopBarLayout
             android:id="@+id/topbar_venue_selection_activity"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:paddingLeft="@dimen/d15"
-
+            app:layout_constraintTop_toBottomOf="@id/topbar_venue_selection_activity"
             android:id="@+id/rv_week_venue_selection_activity"
             android:layout_width="match_parent"
             android:layout_height="@dimen/d46"
@@ -32,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d24"
             android:text="可预订"
+            android:layout_marginBottom="@dimen/d24"
             android:textColor="@color/text_black"
             android:textSize="@dimen/s13"
             app:layout_constraintHorizontal_chainStyle="spread"
@@ -41,6 +40,7 @@
 
         <TextView
             android:id="@+id/tv_sold_venue_selection_activity"
+            android:layout_marginBottom="@dimen/d24"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,6 +54,7 @@
 
         <TextView
             android:id="@+id/tv_book_selected_venue_selection_activity"
+            android:layout_marginBottom="@dimen/d24"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,20 +79,32 @@
             android:paddingBottom="@dimen/ten"
             android:text="ssssssssssss"
             android:textSize="@dimen/s13"
+            android:background="@color/white_without_alpha"
+
             app:layout_constraintBottom_toTopOf="@id/rv_selected_venue_selection_activity"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/qb_clear_venue_selection_activity" />
 
 
-        <com.bin.david.form.core.SmartTable
-            app:layout_constraintTop_toBottomOf="@id/tv_bookabel_venue_selection_activity"
-            app:layout_constraintBottom_toTopOf="@id/qb_clear_venue_selection_activity"
-            android:id="@+id/table_ssss"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/ten"
+            app:layout_constraintTop_toBottomOf="@id/tv_bookabel_venue_selection_activity"
+            app:layout_constraintBottom_toTopOf="@id/tv_selected_venue_selection_activity"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            />
+            android:background="@color/white_without_alpha"
+            >
+            <com.bin.david.form.core.SmartTable
+                android:id="@+id/table_ssss"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </FrameLayout>
+
+
 
         <com.qmuiteam.qmui.layout.QMUIButton
             android:id="@+id/qb_clear_venue_selection_activity"
@@ -117,6 +130,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:paddingLeft="@dimen/d15"
+            android:background="@color/white_without_alpha"
             />
 
         <TextView
@@ -124,7 +138,8 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/d50"
             android:gravity="center"
-            android:text="sdsssssssss"
+            android:text="@string/sssss"
+            android:background="@drawable/shape_backgorund_textview_money"
             android:textSize="@dimen/s16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"

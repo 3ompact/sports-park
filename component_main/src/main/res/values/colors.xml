@@ -35,4 +35,6 @@
     <color name="star_background_color">#dcdcdc</color>
     <color name="btn_commit_backgorund">#3399fe</color>
 
+    <color name="stroke_color">#ebebeb</color>
+
 </resources>

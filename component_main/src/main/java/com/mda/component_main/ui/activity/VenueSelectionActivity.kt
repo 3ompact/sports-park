@@ -1,20 +1,28 @@
 package com.mda.component_main.ui.activity
 
-import android.R.attr.fontStyle
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
+import android.R.id.text1
+import android.graphics.*
+import android.os.Build
+import android.text.Layout
+import android.text.StaticLayout
+import android.text.TextPaint
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.bin.david.form.core.SmartTable
 import com.bin.david.form.core.TableConfig
 import com.bin.david.form.data.CellInfo
 import com.bin.david.form.data.column.Column
 import com.bin.david.form.data.format.draw.IDrawFormat
+import com.bin.david.form.data.format.grid.BaseGridFormat
+import com.bin.david.form.data.format.sequence.ISequenceFormat
 import com.bin.david.form.data.style.LineStyle
 import com.bin.david.form.data.table.ArrayTableData
 import com.bin.david.form.data.table.TableData
 import com.bin.david.form.utils.DensityUtils
+import com.bin.david.form.utils.DrawUtils
+import com.mda.basics_lib.utils.PhoneInfo
 import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.common_ui_base.base.BaseViewModel
 import com.mda.component_main.R
@@ -24,7 +32,7 @@ import com.mda.component_main.databinding.ActivityVenueSelectionBinding
 class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSelectionBinding>() {
     private lateinit var table: SmartTable<Int>
     override fun layoutId(): Int {
-       return  R.layout.activity_venue_selection
+        return R.layout.activity_venue_selection
     }
 
     override fun actionBar(): Boolean {
@@ -34,6 +42,12 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
     override fun initView() {
         table = mDataBinding.tableSsss as SmartTable<Int>
 
+        inittable(table)
+
+    }
+
+    //初始化场地选择器
+    fun inittable(table: SmartTable<Int>) {
         val week = arrayOf("日", "一", "二", "三", "四", "五", "六")
         val infos = arrayOf(
             arrayOf(0, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 3),
@@ -49,20 +63,55 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
         table.config.horizontalPadding = 0
         table.config.setFixedXSequence(true)
         table.config.setFixedYSequence(true)
-        table.config.setSequenceGridStyle(LineStyle(0.1f,R.color.white))
-        table.config.setColumnTitleGridStyle(LineStyle(0.1f,R.color.white))
+        table.config.setSequenceGridStyle(LineStyle(0.1f, R.color.white))
+        table.config.setColumnTitleGridStyle(LineStyle(0.1f, R.color.white))
         table.config.setShowXSequence(false)
         table.config.verticalPadding = 0
         table.config.contentGridStyle = LineStyle()
 
+
+        table.config.tableGridFormat = object : BaseGridFormat() {
+            override fun isShowYSequenceHorizontalLine(row: Int): Boolean {
+                return false
+            }
+
+            override fun isShowYSequenceVerticalLine(row: Int): Boolean {
+                return false
+            }
+
+            override fun isShowHorizontalLine(col: Int, row: Int, cellInfo: CellInfo<*>?): Boolean {
+                return false
+            }
+
+            override fun isShowVerticalLine(col: Int, row: Int, cellInfo: CellInfo<*>?): Boolean {
+                return col == 10
+            }
+
+            override fun drawTableBorderGrid(
+                canvas: Canvas,
+                left: Int,
+                top: Int,
+                right: Int,
+                bottom: Int,
+                paint: Paint
+            ) {
+            }
+        }
+
+        var s = 1111
+
         val tableData: ArrayTableData<Int> =
-            ArrayTableData.create("日程表", week, infos, object : IDrawFormat<Int> {
+            ArrayTableData.create("", week, infos, object : IDrawFormat<Int> {
+                var x: Int = 0
+                var y: Int = 0
+
                 override fun measureWidth(
                     column: Column<Int?>,
                     position: Int,
                     config: TableConfig
                 ): Int {
-                    return DensityUtils.dp2px(this@VenueSelectionActivity, 50f)
+                    x = position
+                    return DensityUtils.dp2px(this@VenueSelectionActivity, 80f)
                 }
 
                 override fun measureHeight(
@@ -70,9 +119,11 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                     position: Int,
                     config: TableConfig
                 ): Int {
-                    return DensityUtils.dp2px(this@VenueSelectionActivity, 50f)
+                    y = position
+                    return DensityUtils.dp2px(this@VenueSelectionActivity, 34f)
                 }
 
+                @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
                 override fun draw(
                     c: Canvas,
                     rect: Rect,
@@ -89,10 +140,69 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                         else -> color = R.color.teal_700
                     }
                     paint.setStyle(Paint.Style.FILL)
-                    paint.setColor(ContextCompat.getColor(this@VenueSelectionActivity, color))
-                    c.drawRect(rect.left + 5f, rect.top + 5f, rect.right - 5f, rect.bottom - 5f, paint)
+                    paint.setColor(
+                        ContextCompat.getColor(
+                            this@VenueSelectionActivity,
+                            R.color.text_gray
+                        )
+                    )
+
+                    //进行状态判断
+                    when (true) {
+                        true -> {
+
+                        }
+
+                    }
+
+                    //为不可预订时的处理
+                    var bitmap = BitmapFactory.decodeResource(resources, R.drawable.icon_test1)
+                    var zoomX = PhoneInfo.getPhonDensity(this@VenueSelectionActivity.application)
+
+                    var paintBitmap = Paint()
+                    var paintBackground = Paint()
+                    paintBackground.setColor(Color.parseColor("#3399fe"))
+                    paintBackground.style = Paint.Style.STROKE
+                    paintBackground.strokeWidth = 2f
+                    paintBackground.isAntiAlias = true
+
+                    //text
+                    var paintText = Paint()
+                    paintText.textSize = 13f * zoomX
+                    c.drawText(
+                        "¥50",
+                        (rect.left + 5).toFloat(),
+                        (rect.top + 5).toFloat(),
+                        paintText
+                    )
+                    var w = paintText.measureText("¥50")
+
+                    var shader: Shader =
+                        BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+//                    paintBitmap.setShader(shader)
+                    c.drawRoundRect(
+                        (rect.left + 5).toFloat(),
+                        (rect.top + 5).toFloat(),
+                        (rect.right - 5).toFloat(),
+                        (rect.bottom - 5).toFloat(),
+                        8f, 8f,
+                        paintBackground
+                    )
+
+                    var widthM = (60f * zoomX - bitmap.width) / 2
+                    var heightM = (34f * zoomX - bitmap.height) / 2
+
+
+                    c.drawBitmap(
+                        bitmap,
+                        (rect.left + widthM),
+                        (rect.top + heightM),
+                        paintBitmap
+                    )
+
                 }
             })
+
         tableData.onItemClickListener = object : TableData.OnItemClickListener<Int> {
             override fun onClick(column: Column<Int>, value: String, t: Int, col: Int, row: Int) {
                 tableData.arrayColumns[col].datas[row]
@@ -104,11 +214,68 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             }
 
         }
+
+        tableData.ySequenceFormat = object : ISequenceFormat {
+            override fun format(t: Int?): String {
+                when (t) {
+
+                    1 -> return "场地"
+
+                    else -> {
+
+
+                        //TODO 返回时间列表
+                        var s = StringBuilder().append("09:00").append("\n").append("-11:00")
+                        return s.toString()
+                    }
+
+                }
+            }
+
+
+
+            override fun draw(canvas: Canvas?, sequence: Int, rect: Rect?, config: TableConfig?) {
+                var text1 = "Lorem\nindustry."
+                var t = format((sequence + 1))
+
+
+//                val staticLayout2 = StaticLayout.Builder.obtain()
+
+                //字体缩放
+                val paint = config!!.paint
+                val zoom: Float = if (config.getZoom() > 1) 1f else config.getZoom()
+                paint.textSize = paint.textSize * zoom
+                paint.textAlign = Paint.Align.CENTER
+
+
+                var paint1 = TextPaint()
+                paint1.setColor(Color.parseColor("#3399fe"))
+                val staticLayout1 = StaticLayout(
+                    text1, paint1, 80,
+                    Layout.Alignment.ALIGN_NORMAL, 1f, 0f, true
+                )
+//                staticLayout1.toString()
+                canvas!!.save()
+                staticLayout1.draw(canvas!!)
+                canvas!!.restore()
+//                canvas!!.drawText(
+//                    format((sequence + 1)), rect!!.centerX().toFloat(), DrawUtils.getTextCenterY(
+//                        rect.centerY(), paint
+//                    ), paint
+//                )
+
+
+            }
+
+        }
+
+
         table.setTableData(tableData)
     }
 
     override fun initData() {
     }
+
 
     override fun showLoading(message: String) {
     }

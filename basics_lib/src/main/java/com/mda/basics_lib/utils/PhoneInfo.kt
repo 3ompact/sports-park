@@ -47,6 +47,14 @@ class PhoneInfo {
             return density
         }
 
+        /**
+         * 获取手机像素密度
+         */
+//        fun getPhonDensity(application: Context):Float{
+//            var density = application.resources.displayMetrics.
+//            return density
+//        }
+
 
     }
 }
