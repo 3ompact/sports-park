@@ -256,6 +256,7 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                 )
 //                staticLayout1.toString()
                 canvas!!.save()
+                canvas.translate(50f, 100f)
                 staticLayout1.draw(canvas!!)
                 canvas!!.restore()
 //                canvas!!.drawText(
