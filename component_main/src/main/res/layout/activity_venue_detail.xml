@@ -28,7 +28,10 @@
                     android:id="@+id/pager_venue_detail_activity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:qmui_layout_collapseMode="parallax"
+                    app:qmui_layout_collapseParallaxMultiplier="0.7"
                     />
+
                 <TextView
                     android:layout_width="@dimen/d40"
                     android:layout_height="@dimen/d20"
