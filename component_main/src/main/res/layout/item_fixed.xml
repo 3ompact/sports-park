@@ -17,7 +17,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/iv_two_fixed_item"
         app:layout_constraintHorizontal_chainStyle="spread"
-        android:background="@drawable/icon_search"
+        android:background="@drawable/icon_venue_book"
         />
     <TextView
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/iv_one_fixed_item"
         app:layout_constraintRight_toLeftOf="@id/iv_thr_fixed_item"
-        android:background="@drawable/icon_search"
+        android:background="@drawable/icon_venue_swiming"
 
         />
     <TextView
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/iv_two_fixed_item"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/icon_search"
+        android:background="@drawable/icon_venue_communal_facilities"
 
         />
     <TextView

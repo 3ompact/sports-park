@@ -28,8 +28,8 @@
 
 
     <dimen name="search_bar_height">31dp</dimen>
-    <dimen name="search_bar_iv_and_et_height">12dp</dimen>
-    <dimen name="search_bar_top_margin">6dp</dimen>
+    <dimen name="search_bar_iv_and_et_height">24dp</dimen>
+    <dimen name="search_bar_top_margin">3dp</dimen>
     <dimen name="search_bar_textsize">10sp</dimen>
     <dimen name="search_bar_radius">16dp</dimen>
 
@@ -76,6 +76,7 @@
     <dimen name="d48">48dp</dimen>
     <dimen name="d9">9dp</dimen>
     <dimen name="d22">22dp</dimen>
+
     <dimen name="d21">21dp</dimen>
     <dimen name="d40">40dp</dimen>
     <dimen name="d46">46dp</dimen>

@@ -7,12 +7,13 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         >
 
         <com.qmuiteam.qmui.widget.QMUIAppBarLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/d278"
-            android:fitsSystemWindows="true"
+
 
             >
             <com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout
@@ -22,6 +23,11 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:qmui_collapsedTitleGravity="center"
                 app:qmui_contentScrim="@color/white_without_alpha"
+                app:qmui_expandedTitleGravity="center_horizontal|bottom"
+                app:qmui_expandedTitleMarginBottom="20dp"
+                app:qmui_statusBarScrim="?attr/qmui_config_color_blue"
+                app:qmui_followTopBarCommonSkin="true"
+                android:minHeight="?attr/qmui_topbar_height"
 
                 >
                 <com.qmuiteam.qmui.widget.QMUIViewPager
@@ -30,6 +36,7 @@
                     android:layout_height="match_parent"
                     app:qmui_layout_collapseMode="parallax"
                     app:qmui_layout_collapseParallaxMultiplier="0.7"
+                    android:visibility="visible"
                     />
 
                 <TextView
@@ -44,10 +51,12 @@
                     android:background="@drawable/shape_backgorund_venue_detail_vp_textindicator"
 
                     />
+
+
                 <com.qmuiteam.qmui.widget.QMUITopBar
                     android:id="@+id/topbar_venue_detail_activity"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:fitsSystemWindows="true"
                     app:qmui_layout_collapseMode="pin"
                     android:background="@color/white_without_alpha"

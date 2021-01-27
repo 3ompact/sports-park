@@ -77,6 +77,7 @@ abstract class BaseVMDBActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
 
     open fun initDataBindAndViewModel() {
         mDataBinding = DataBindingUtil.setContentView(this, layoutId())
+//            .setFitsSystemWindows(false)
         mDataBinding.lifecycleOwner = this
         mViewModel = createViewModel()
     }

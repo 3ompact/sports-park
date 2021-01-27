@@ -8,6 +8,8 @@ import android.text.TextPaint
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bin.david.form.core.SmartTable
 import com.bin.david.form.core.TableConfig
@@ -25,16 +27,28 @@ import com.mda.basics_lib.utils.PhoneInfo
 import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.common_ui_base.base.BaseViewModel
 import com.mda.component_main.R
+import com.mda.component_main.adapter.VenueSelectionAdapter
 import com.mda.component_main.databinding.ActivityVenueSelectionBinding
+import com.mda.component_main.decoration.VenueSelectionActivityRecyclerHorizontalViewDecoration
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.tab.*
 
 @Route(path = "/cm/venueselectionactivity")
 class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSelectionBinding>() {
     private lateinit var table: SmartTable<Int>
-    private lateinit var mTopBar : QMUITopBarLayout
-    private lateinit var mTabSag : QMUITabSegment2
+    private lateinit var mTopBar: QMUITopBarLayout
+    private lateinit var mTabSag: QMUITabSegment2
 
+    private lateinit var rv :RecyclerView
+    val infos = arrayOf(
+        arrayOf(0, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2),
+        arrayOf(0, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2, 2),
+        arrayOf(2, 2, 0, 1, 2, 2, 1, 0, 1, 1, 0, 1, 1),
+        arrayOf(2, 1, 1, 0, 1, 2, 0, 1, 1, 2, 2, 0, 0),
+        arrayOf(0, 1, 2, 1, 1, 0, 1, 0, 0, 1, 1, 2, 2),
+        arrayOf(1, 0, 1, 2, 2, 2, 0, 1, 2, 1, 1, 0, 0),
+        arrayOf(2, 1, 2, 1, 0, 1, 2, 1, 1, 0, 1, 1, 0)
+    )
     override fun layoutId(): Int {
         return R.layout.activity_venue_selection
     }
@@ -49,22 +63,37 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
         mTopBar = mDataBinding.topbarVenueSelectionActivity
 
         mTopBar.setTitle("场次选择")
-        mTopBar.addLeftBackImageButton().setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
+        mTopBar.addLeftBackImageButton()
+            .setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
 //            .setBackgroundColor(Color.parseColor("#333333"))
 //            .setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
-
+        rv = mDataBinding.rvSelectedVenueSelectionActivity
         mTabSag = mDataBinding.tabsagWeekVenueSelectionActivity
-        var tabBuilder : QMUITabBuilder =  mTabSag.tabBuilder()
+        var tabBuilder: QMUITabBuilder = mTabSag.tabBuilder()
 //        .build(this@VenueSelectionActivity)
 //        CustomeQMUITab("ssss\nssssss")
+        initRV()
         initTabSagment()
         inittable(table)
 
     }
 
+    //初始化recyclerview
+    fun initRV(){
+        val lm = LinearLayoutManager(this@VenueSelectionActivity)
+        lm.orientation = RecyclerView.HORIZONTAL
+        val adapter = VenueSelectionAdapter(this@VenueSelectionActivity,infos)
+        rv.layoutManager = lm
+        rv.addItemDecoration(VenueSelectionActivityRecyclerHorizontalViewDecoration())
+        rv.adapter =adapter
+
+
+    }
+
     //初始化tagsagment
-    fun initTabSagment(){
-        var tabBuilder : QMUITabBuilder =  mTabSag.tabBuilder().setIconPosition(QMUITab.ICON_POSITION_TOP)
+    fun initTabSagment() {
+        var tabBuilder: QMUITabBuilder =
+            mTabSag.tabBuilder().setIconPosition(QMUITab.ICON_POSITION_TOP)
         mTabSag.setMode(QMUITabSegment.MODE_SCROLLABLE)
         mTabSag.setPadding(40, 0, 40, 0)
         mTabSag.setIndicator(
@@ -76,13 +105,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tabbar_component_selected1
+                    R.drawable.testssss
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.testssss
+                    R.drawable.testssss
                 )
             )
             .setText("1月11日")
@@ -92,13 +121,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tabbar_component_selected
+                    R.drawable.testssss
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.week_test2
+                    R.drawable.testssss
                 )
             )
             .setText("1月12日")
@@ -108,13 +137,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tabbar_component_selected
+                    R.drawable.testssss
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.week_test2
+                    R.drawable.testssss
                 )
             )
             .setText("1月13日")
@@ -124,13 +153,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tabbar_component_selected
+                    R.drawable.testssss
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.week_test2
+                    R.drawable.testssss
                 )
             )
             .setText("1月14日")
@@ -139,13 +168,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tabbar_component_selected
+                    R.drawable.testssss
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.week_test2
+                    R.drawable.testssss
                 )
             )
             .setText("1月15日")
@@ -155,13 +184,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tabbar_component_selected
+                    R.drawable.testssss
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.week_test2
+                    R.drawable.testssss
                 )
             )
             .setText("1月17日")
@@ -171,13 +200,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tabbar_component_selected
+                    R.drawable.testssss
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.week_test2
+                    R.drawable.testssss
                 )
             )
             .setText("1月17日")
@@ -203,22 +232,18 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
         mTabSag.addTab(
             component6
         )
+        mTabSag.selectTab(0)
+//        mTabSag.selectTab(0)
         mTabSag.notifyDataChanged()
+        mTabSag.selectTab(0)
+
     }
 
     //初始化场地选择器
     fun inittable(table: SmartTable<Int>) {
         val week = arrayOf("日", "一", "二", "三", "四", "五", "六")
         //按照列数据展示数据
-        val infos = arrayOf(
-            arrayOf(0, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 3),
-            arrayOf(4, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2, 3),
-            arrayOf(2, 2, 0, 1, 2, 4, 1, 0, 1, 3, 0, 1, 1),
-            arrayOf(2, 1, 1, 0, 1, 4, 0, 1, 1, 2, 2, 0, 3),
-            arrayOf(0, 1, 2, 4, 1, 0, 1, 4, 0, 1, 1, 2, 2),
-            arrayOf(1, 0, 1, 3, 2, 2, 0, 1, 2, 1, 1, 0, 4),
-            arrayOf(3, 1, 2, 4, 0, 1, 2, 1, 1, 0, 1, 1, 0)
-        )
+
 
 //        table.config.setColumnTitleStyle(fontStyle)
         table.config.horizontalPadding = 0
@@ -307,68 +332,187 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                             R.color.text_gray
                         )
                     )
+//                    infos.
+                    //为不可预订时的处理
+                    var bitmap = BitmapFactory.decodeResource(resources, R.drawable.icon_prohibit)
+                    var zoomX = PhoneInfo.getPhonDensity(this@VenueSelectionActivity.application)
+                    var widthM = (80f * zoomX - bitmap.width) / 2
+                    var heightM = (40f * zoomX - bitmap.height) / 2
+
+                    var paintBitmap = Paint()
+                    var paintBackground = Paint()
+                    //text
+                    var paintText = Paint()
+
+                    paintBitmap.isAntiAlias = true
+                    paintBackground.isAntiAlias = true
+                    paintText.isAntiAlias = true
 
                     //进行状态判断
-                    when (true) {
-                        true -> {
+                    when (infos[cellInfo.col][cellInfo.row]) {
+                        0 -> {
+                            paintBackground.style = Paint.Style.FILL
+
+                            paintBackground.setColor(Color.parseColor("#e4e4e4"))
+                            c.drawRoundRect(
+                                (rect.left + 5).toFloat(),
+                                (rect.top + 5).toFloat(),
+                                (rect.right - 5).toFloat(),
+                                (rect.bottom - 5).toFloat(),
+                                8f, 8f,
+                                paintBackground
+                            )
+
+                            c.drawBitmap(
+                                bitmap,
+                                (rect.left + widthM),
+                                (rect.top + heightM),
+                                paintBitmap
+                            )
+                        }
+                        1 -> {
+                            paintText.textSize = 13f * zoomX
+                            var w = paintText.measureText("¥50")
+                            paintText.setColor(Color.parseColor("#3399fe"))
+
+                            paintBackground.style = Paint.Style.STROKE
+                            paintBackground.setColor(Color.parseColor("#3399fe"))
+                            paintBackground.strokeWidth = 2f
+                            c.drawRoundRect(
+                                (rect.left + 5).toFloat(),
+                                (rect.top + 5).toFloat(),
+                                (rect.right - 5).toFloat(),
+                                (rect.bottom - 5).toFloat(),
+                                8f, 8f,
+                                paintBackground
+                            )
+
+                            c.drawText(
+                                "¥50",
+                                rect.centerX().toFloat() - w / 2,
+                                rect.centerY()
+                                    .toFloat() - (paintText.ascent() + paintText.descent()) / 2,
+                                paintText
+                            )
 
                         }
+                        2 -> {
+                            paintBackground.style = Paint.Style.FILL
+                            paintBackground.setColor(Color.parseColor("#3399fe"))
+
+                            paintBackground.strokeWidth = 2f
+                            c.drawRoundRect(
+                                (rect.left + 5).toFloat(),
+                                (rect.top + 5).toFloat(),
+                                (rect.right - 5).toFloat(),
+                                (rect.bottom - 5).toFloat(),
+                                8f, 8f,
+                                paintBackground
+                            )
+                            paintText.textSize = 13f * zoomX
+                            var w = paintText.measureText("¥50")
+                            paintText.setColor(Color.parseColor("#ffffff"))
+
+                            c.drawText(
+                                "¥50",
+                                rect.centerX().toFloat() - w / 2,
+                                rect.centerY()
+                                    .toFloat() - (paintText.ascent() + paintText.descent()) / 2,
+                                paintText
+                            )
+
+                        }
+                        else -> {
+                            paintBackground.style = Paint.Style.FILL
+                            paintBackground.setColor(Color.parseColor("#3399fe"))
+
+                            paintBackground.strokeWidth = 2f
+                            c.drawRoundRect(
+                                (rect.left + 5).toFloat(),
+                                (rect.top + 5).toFloat(),
+                                (rect.right - 5).toFloat(),
+                                (rect.bottom - 5).toFloat(),
+                                8f, 8f,
+                                paintBackground
+                            )
+                            paintText.textSize = 13f * zoomX
+                            var w = paintText.measureText("¥50")
+                            paintText.setColor(Color.parseColor("#ffffff"))
+
+                            c.drawText(
+                                "¥50",
+                                rect.centerX().toFloat() - w / 2,
+                                rect.centerY()
+                                    .toFloat() - (paintText.ascent() + paintText.descent()) / 2,
+                                paintText
+                            )
+
+                        }
+
 
                     }
 
 
-                    //为不可预订时的处理
-                    var bitmap = BitmapFactory.decodeResource(resources, R.drawable.icon_test1)
-                    var zoomX = PhoneInfo.getPhonDensity(this@VenueSelectionActivity.application)
-
-                    var paintBitmap = Paint()
-                    var paintBackground = Paint()
-                    paintBackground.setColor(Color.parseColor("#3399fe"))
-                    paintBackground.style = Paint.Style.STROKE
-                    paintBackground.strokeWidth = 2f
-                    paintBackground.isAntiAlias = true
-
-                    //text
-                    var paintText = Paint()
-                    paintText.textSize = 13f * zoomX
-                    var w = paintText.measureText("¥50")
-
-                    c.drawText(
-                        "¥50",
-                        rect.centerX().toFloat() - w / 2,
-                        rect.centerY().toFloat() - (paintText.ascent() + paintText.descent()) / 2,
-                        paintText
-                    )
-
-                    var shader: Shader =
-                        BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-
-                    c.drawRoundRect(
-                        (rect.left + 5).toFloat(),
-                        (rect.top + 5).toFloat(),
-                        (rect.right - 5).toFloat(),
-                        (rect.bottom - 5).toFloat(),
-                        8f, 8f,
-                        paintBackground
-                    )
-
-                    var widthM = (80f * zoomX - bitmap.width) / 2
-                    var heightM = (40f * zoomX - bitmap.height) / 2
-
-
-                    c.drawBitmap(
-                        bitmap,
-                        (rect.left + widthM),
-                        (rect.top + heightM),
-                        paintBitmap
-                    )
+//                    paintBackground.setColor(Color.parseColor("#3399fe"))
+//                    paintBackground.style = Paint.Style.STROKE
+//                    paintBackground.strokeWidth = 2f
+//                    paintBackground.isAntiAlias = true
+//
+//
+//
+//
+//                    c.drawText(
+//                        "¥50",
+//                        rect.centerX().toFloat() - w / 2,
+//                        rect.centerY().toFloat() - (paintText.ascent() + paintText.descent()) / 2,
+//                        paintText
+//                    )
+//
+//                    var shader: Shader =
+//                        BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+//
+//                    c.drawRoundRect(
+//                        (rect.left + 5).toFloat(),
+//                        (rect.top + 5).toFloat(),
+//                        (rect.right - 5).toFloat(),
+//                        (rect.bottom - 5).toFloat(),
+//                        8f, 8f,
+//                        paintBackground
+//                    )
+//
+//
+//
+//
+//                    c.drawBitmap(
+//                        bitmap,
+//                        (rect.left + widthM),
+//                        (rect.top + heightM),
+//                        paintBitmap
+//                    )
 
                 }
             })
 
         tableData.onItemClickListener = object : TableData.OnItemClickListener<Int> {
             override fun onClick(column: Column<Int>, value: String, t: Int, col: Int, row: Int) {
-                tableData.arrayColumns[col].datas[row]
+                val status = tableData.arrayColumns[col].datas[row]
+
+                when (status) {
+                    0 -> {
+
+                    }
+                    1 -> {
+                        tableData.arrayColumns[col].datas[row] = 2
+//                        table.setTableData(tableData)
+                        table.notifyDataChanged()
+                    }
+                    2 -> {
+                        tableData.arrayColumns[col].datas[row] = 1
+                        table.notifyDataChanged()
+
+
+                    }
+                }
                 Toast.makeText(
                     this@VenueSelectionActivity,
                     "列:" + col + " 行：" + row + "数据：" + value,

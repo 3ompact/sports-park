@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
+import com.alibaba.android.arouter.launcher.ARouter
 import com.mda.component_main.R
 import com.mda.component_main.decoration.VenueActivityRecyclerHorizontalViewDecoration
 import com.qmuiteam.qmui.layout.QMUIButton
@@ -146,7 +147,9 @@ class VenueDetailActivityAdapter(context: Context) :
                     }
 
                     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+                        (holder as TVd).tvBook.setOnClickListener {
+                            ARouter.getInstance().build("/cm/venueselectionactivity").navigation()
+                        }
                     }
 
                     override fun getItemCount(): Int {

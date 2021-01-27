@@ -1,7 +1,9 @@
 package com.mda.component_main.ui.activity
 
+import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +19,12 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.common_ui_base.base.BaseViewModel
 import com.mda.component_main.R
-import com.mda.component_main.adapter.HomeFragmentWithoutThrAdapter
 import com.mda.component_main.adapter.VenueDetailActivityAdapter
 import com.mda.component_main.databinding.ActivityVenueDetailBinding
-import com.mda.component_main.decoration.HomeFragmentRecyclerViewDecoration
 import com.mda.component_main.decoration.VenueActivityRecyclerViewDecoration
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.*
+import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout.OnOffsetUpdateListener
 import java.util.*
 
 /**
@@ -45,9 +46,28 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
     }
 
     override fun initView() {
+        mDataBinding.root.setFitsSystemWindows(false)
+
         mViewPager = mDataBinding.pagerVenueDetailActivity
         mTopBar = mDataBinding.topbarVenueDetailActivity
         mCollTopBarLayout = mDataBinding.ctbVenueDetailActivity
+
+        mCollTopBarLayout.setTitle(
+            "test"
+        )
+        mCollTopBarLayout.setScrimUpdateListener(AnimatorUpdateListener { animation ->
+            Log.i(
+               "3ompact",
+                "scrim: " + animation.animatedValue
+            )
+        })
+
+        mCollTopBarLayout.addOnOffsetUpdateListener(OnOffsetUpdateListener { layout, offset, expandFraction ->
+            Log.i(
+                "3ompact",
+                "offset = $offset; expandFraction = $expandFraction"
+            )
+        })
 
         rv = mDataBinding.rvVenueDetailActivity
 
@@ -67,20 +87,20 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
         )
         lp2.rightMargin = 20
         lp2.addRule(RelativeLayout.CENTER_VERTICAL)
-        lp2.addRule(RelativeLayout.LEFT_OF,R.id.iv_share_venue_detail_activity)
+        lp2.addRule(RelativeLayout.LEFT_OF, R.id.iv_share_venue_detail_activity)
 
-        mTopBar.setTitle(R.string.venue_detail)
-        var ibStar = mTopBar.addRightImageButton(
-            R.drawable.icon_star_40,
-            R.id.iv_start_venue_detail_activity
-        )
-        var ibShare = mTopBar.addRightImageButton(
-            R.drawable.icon_share_40,
-            R.id.iv_share_venue_detail_activity
-        )
+//        mTopBar.setTitle(R.string.venue_detail)
+//        var ibStar = mTopBar.addRightImageButton(
+//            R.drawable.icon_star_40,
+//            R.id.iv_start_venue_detail_activity
+//        )
+//        var ibShare = mTopBar.addRightImageButton(
+//            R.drawable.icon_share_40,
+//            R.id.iv_share_venue_detail_activity
+//        )
 
-        ibStar.layoutParams = lp2
-        ibShare.layoutParams = lp1
+//        ibStar.layoutParams = lp2
+//        ibShare.layoutParams = lp1
 
 
         mTopBar.addLeftBackImageButton()

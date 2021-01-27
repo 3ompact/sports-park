@@ -29,7 +29,8 @@
         app:layout_constraintLeft_toRightOf="@id/iv_searchbar_item"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/sb_searchbar_item"
-        android:layout_marginRight="@dimen/d22"
+        android:layout_marginRight="@dimen/d30"
+        android:gravity="center_vertical"
         android:background="@color/searchbar_backgroud_color"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -45,9 +46,10 @@
         android:layout_height="@dimen/search_bar_iv_and_et_height"
         android:id="@+id/tv_searchbar_item"
         android:hint="请输入搜索内容"
+        android:gravity="center_vertical"
         android:background="@color/searchbar_backgroud_color"
         android:textSize="@dimen/search_bar_textsize"
-        android:layout_marginRight="@dimen/d22"
+        android:layout_marginRight="@dimen/d30"
 
         />
 
