@@ -21,8 +21,19 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/d46"
             android:background="@color/white_without_alpha"
+            android:visibility="gone"
             android:scrollbars="none"
             app:qmui_is_target="true" />
+
+        <com.qmuiteam.qmui.widget.tab.QMUITabSegment2
+            app:layout_constraintTop_toBottomOf="@id/topbar_venue_selection_activity"
+            android:paddingLeft="@dimen/d15"
+            android:id="@+id/tabsag_week_venue_selection_activity"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d46"
+            android:background="@color/qmui_config_color_white"
+            app:qmui_bottomDividerColor="?attr/qmui_skin_support_color_separator"
+            app:qmui_bottomDividerHeight="@dimen/zero" />
 
         <TextView
             android:id="@+id/tv_bookabel_venue_selection_activity"
@@ -36,7 +47,7 @@
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tv_sold_venue_selection_activity"
-            app:layout_constraintTop_toBottomOf="@id/rv_week_venue_selection_activity" />
+            app:layout_constraintTop_toBottomOf="@id/tabsag_week_venue_selection_activity" />
 
         <TextView
             android:id="@+id/tv_sold_venue_selection_activity"
@@ -50,7 +61,7 @@
             android:textSize="@dimen/s13"
             app:layout_constraintLeft_toRightOf="@id/tv_bookabel_venue_selection_activity"
             app:layout_constraintRight_toLeftOf="@id/tv_book_selected_venue_selection_activity"
-            app:layout_constraintTop_toBottomOf="@id/rv_week_venue_selection_activity" />
+            app:layout_constraintTop_toBottomOf="@id/tabsag_week_venue_selection_activity" />
 
         <TextView
             android:id="@+id/tv_book_selected_venue_selection_activity"
@@ -64,7 +75,7 @@
             android:textSize="@dimen/s13"
             app:layout_constraintLeft_toRightOf="@id/tv_sold_venue_selection_activity"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_week_venue_selection_activity"
+            app:layout_constraintTop_toBottomOf="@id/tabsag_week_venue_selection_activity"
 
 
             />
@@ -138,7 +149,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/d50"
             android:gravity="center"
-            android:text="@string/sssss"
+            android:text="@string/str_clear"
             android:background="@drawable/shape_backgorund_textview_money"
             android:textSize="@dimen/s16"
             app:layout_constraintBottom_toBottomOf="parent"
