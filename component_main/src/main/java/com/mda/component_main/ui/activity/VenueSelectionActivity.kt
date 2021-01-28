@@ -105,15 +105,16 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_monday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_monday_selected
                 )
             )
+            .setTextSize(40,40)
             .setText("1月11日")
             .build(this@VenueSelectionActivity)
 
@@ -121,13 +122,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_tuesday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_tuesday_selected
                 )
             )
             .setText("1月12日")
@@ -137,13 +138,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_wednesday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_wednesday_selected
                 )
             )
             .setText("1月13日")
@@ -153,13 +154,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_thursday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_thursday_selected
                 )
             )
             .setText("1月14日")
@@ -168,13 +169,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_friday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_friday_selected
                 )
             )
             .setText("1月15日")
@@ -184,13 +185,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_saturday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_saturday_selected
                 )
             )
             .setText("1月17日")
@@ -200,13 +201,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_sunday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.drawable.testssss
+                    R.mipmap.icon_sunday_selected
                 )
             )
             .setText("1月17日")

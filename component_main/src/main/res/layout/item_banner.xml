@@ -6,6 +6,7 @@
     android:background="@color/white_without_alpha"
     android:paddingLeft="@dimen/d12"
     android:paddingRight="@dimen/d12"
+    android:paddingTop="@dimen/d12"
     >
     <com.youth.banner.Banner
         android:layout_width="0dp"

@@ -2,12 +2,15 @@ package com.mda.component_main.ui.activity
 
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Build
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -15,6 +18,7 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import coil.load
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.common_ui_base.base.BaseViewModel
@@ -24,6 +28,7 @@ import com.mda.component_main.databinding.ActivityVenueDetailBinding
 import com.mda.component_main.decoration.VenueActivityRecyclerViewDecoration
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.*
+import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout.GONE
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout.OnOffsetUpdateListener
 import java.util.*
 
@@ -37,6 +42,7 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
     private lateinit var mTopBar: QMUITopBar
     private lateinit var mCollTopBarLayout: QMUICollapsingTopBarLayout
     private lateinit var rv: RecyclerView
+    private lateinit var tvProgress: TextView
     override fun layoutId(): Int {
         return R.layout.activity_venue_detail
     }
@@ -46,19 +52,32 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
     }
 
     override fun initView() {
-        mDataBinding.root.setFitsSystemWindows(false)
 
         mViewPager = mDataBinding.pagerVenueDetailActivity
         mTopBar = mDataBinding.topbarVenueDetailActivity
         mCollTopBarLayout = mDataBinding.ctbVenueDetailActivity
+        tvProgress = mDataBinding.tvProgressVenueDetailActivity
 
         mCollTopBarLayout.setTitle(
             "test"
         )
+        mTopBar.addLeftBackImageButton()
+
         mCollTopBarLayout.setScrimUpdateListener(AnimatorUpdateListener { animation ->
+
+            tvProgress.alpha = 1 - animation.animatedValue.toString().toFloat() / 255
+
+//            if (animation.animatedValue.toString().toInt() > 250) {
+//
+//                tvProgress.visibility = GONE
+//            } else if (animation.animatedValue.toString().toInt() < 60) {
+//                tvProgress.visibility = VISIBLE
+//
+//            }
             Log.i(
-               "3ompact",
-                "scrim: " + animation.animatedValue
+                "3ompact",
+                "scrim: " + animation.animatedValue + "test" + animation.animatedValue.toString()
+                    .toInt()
             )
         })
 
@@ -90,17 +109,17 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
         lp2.addRule(RelativeLayout.LEFT_OF, R.id.iv_share_venue_detail_activity)
 
 //        mTopBar.setTitle(R.string.venue_detail)
-//        var ibStar = mTopBar.addRightImageButton(
-//            R.drawable.icon_star_40,
-//            R.id.iv_start_venue_detail_activity
-//        )
-//        var ibShare = mTopBar.addRightImageButton(
-//            R.drawable.icon_share_40,
-//            R.id.iv_share_venue_detail_activity
-//        )
+        var ibStar = mTopBar.addRightImageButton(
+            R.drawable.icon_star_40,
+            R.id.iv_start_venue_detail_activity
+        )
+        var ibShare = mTopBar.addRightImageButton(
+            R.drawable.icon_share_40,
+            R.id.iv_share_venue_detail_activity
+        )
 
-//        ibStar.layoutParams = lp2
-//        ibShare.layoutParams = lp1
+        ibStar.layoutParams = lp2
+        ibShare.layoutParams = lp1
 
 
         mTopBar.addLeftBackImageButton()
@@ -113,6 +132,14 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
         for (i in 0 until 5) {
             mItems.add(i.toString())
         }
+
+        val testUrl = arrayOf(
+            "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=114948211,1911580438&fm=26&gp=0.jpg",
+            "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1188367699,951642438&fm=26&gp=0.jpg",
+            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2854078786,3290477872&fm=26&gp=0.jpg",
+            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=358219555,1592757067&fm=26&gp=0.jpg",
+            "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=101138672,367522421&fm=26&gp=0.jpg"
+        )
 
         val pagerAdapter: QMUIPagerAdapter = object : QMUIPagerAdapter() {
             override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -134,7 +161,7 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
             override fun populate(container: ViewGroup, item: Any, position: Int) {
 
                 var itemView = item as (ItemView)
-                itemView.setText(mItems[position])
+                itemView.setImageUrl(testUrl[position])
                 container.addView(itemView)
 
             }
@@ -154,7 +181,6 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
         mViewPager.setEnableLoop(true)
         mViewPager.setAdapter(pagerAdapter)
 
-
     }
 
     override fun initData() {
@@ -169,31 +195,26 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
     override fun createObserver() {
     }
 
-    internal class ItemView(context: Context?) : FrameLayout(context!!) {
-        private val mTextView: TextView
-        fun setText(text: CharSequence?) {
-            mTextView.text = text
+    class ItemView(context: Context?) : FrameLayout(context!!) {
+        private val iv: ImageView
+
+        fun setImageUrl(url: String) {
+            iv.load(url)
         }
 
         init {
-            mTextView = TextView(context)
-            mTextView.textSize = 20f
-            mTextView.setTextColor(ContextCompat.getColor(context!!, R.color.black))
-            mTextView.gravity = Gravity.CENTER
-            mTextView.setBackgroundColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.qmui_config_color_white
-                )
-            )
+            iv = ImageView(context)
+            iv.scaleType = ImageView.ScaleType.CENTER_CROP
             val size = QMUIDisplayHelper.dp2px(context, 300)
-            val lp = LayoutParams(size, size)
-            lp.gravity = Gravity.CENTER
-            addView(mTextView, lp)
+            val lp = LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            addView(iv, lp)
         }
     }
 
-    inner class CardTransformer : ViewPager.PageTransformer {
+    class CardTransformer : ViewPager.PageTransformer {
         override fun transformPage(page: View, position: Float) {
             // 刷新数据notifyDataSetChange之后也会调用到transformPage，但此时的position可能不在[-1, 1]之间
             if (position <= -1 || position >= 1f) {

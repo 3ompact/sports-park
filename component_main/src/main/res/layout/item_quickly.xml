@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/quickly_iamgeview_height"
+    android:layout_height="@dimen/d210"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="@dimen/ten"
     android:background="@color/white_without_alpha"
     android:paddingLeft="@dimen/d12"
     android:paddingRight="@dimen/d12"
+    android:paddingTop="@dimen/d14"
+    android:paddingBottom="@dimen/d14"
     >
+
+
     <ImageView
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -17,8 +21,52 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/iv_one_quickly_item"
         android:layout_marginRight="4dp"
-        android:background="@drawable/shape_quickly_imageview_backgroud"
-        android:src="@drawable/icon_home_check"
+        android:background="@drawable/iv_one_quickly_background"
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/d16"
+        android:layout_marginLeft="@dimen/d12"
+        android:text="一键订场地"
+        android:textColor="@color/text_black"
+        android:textStyle="bold"
+        android:textSize="@dimen/s16"
+        app:layout_constraintTop_toTopOf="@id/iv_one_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_one_quickly_item"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/tv1_one_quickly_item"
+
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginLeft="@dimen/d12"
+        android:text="一键订场地"
+        android:textSize="@dimen/s10"
+        android:id="@+id/tv2_one_quickly_item"
+
+        android:textColor="@color/text_color_blue"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tv1_one_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_one_quickly_item"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+        />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/d12"
+
+        android:id="@+id/iv_go_one_one_quickly_item"
+        app:layout_constraintTop_toBottomOf="@id/tv2_one_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_one_quickly_item"
+        android:src="@drawable/icon_go_blue"
+        android:layout_marginTop="@dimen/d14"
+
         />
     <ImageView
         android:layout_width="0dp"
@@ -29,25 +77,112 @@
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/iv_two_quickly_item"
         android:layout_marginLeft="4dp"
-        android:background="@drawable/shape_quickly_imageview_backgroud"
-        android:src="@drawable/icon_home_check"
+        android:background="@drawable/iv_two_quickly_background"
+
+        />
+
+
+    <TextView
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginLeft="@dimen/d12"
+        android:text="发现好物"
+        android:textColor="@color/text_black"
+        android:textStyle="bold"
+        android:textSize="@dimen/s16"
+        app:layout_constraintTop_toTopOf="@id/iv_two_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_two_quickly_item"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/tv1_two_quickly_item"
+
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/five"
+        android:layout_marginLeft="@dimen/d12"
+        android:text="运动装备"
+        android:textSize="@dimen/s10"
+        android:id="@+id/tv2_two_quickly_item"
+
+        android:textColor="@color/text_color_pink"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tv1_two_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_two_quickly_item"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+        />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/d12"
+
+        android:id="@+id/iv_go_two_one_quickly_item"
+        app:layout_constraintTop_toBottomOf="@id/tv2_two_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_two_quickly_item"
+        android:src="@drawable/icon_go_pink"
+        android:layout_marginTop="@dimen/d6"
 
         />
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/ten"
         app:layout_constraintLeft_toRightOf="@id/iv_one_quickly_item"
         app:layout_constraintLeft_toLeftOf="@id/iv_two_quickly_item"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/iv_thr_quickly_item"
         app:layout_constraintTop_toBottomOf="@id/iv_two_quickly_item"
-        android:background="@drawable/shape_quickly_imageview_backgroud"
+        android:background="@drawable/iv_thr_quickly_background"
 
-        android:src="@drawable/icon_home_check"
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginLeft="@dimen/d12"
+        android:text="积分商城"
+        android:textColor="@color/text_black"
+        android:textStyle="bold"
+        android:textSize="@dimen/s16"
+        app:layout_constraintTop_toTopOf="@id/iv_thr_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_thr_quickly_item"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/tv1_thr_quickly_item"
+
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/five"
+        android:layout_marginLeft="@dimen/d12"
+        android:text="赚积分兑好礼"
+        android:textSize="@dimen/s10"
+        android:id="@+id/tv2_thr_quickly_item"
+
+        android:textColor="@color/text_color_orenge"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tv1_thr_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_thr_quickly_item"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
 
         />
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/d12"
+
+        android:id="@+id/iv_go_thr_one_quickly_item"
+        app:layout_constraintTop_toBottomOf="@id/tv2_thr_quickly_item"
+        app:layout_constraintLeft_toLeftOf="@id/iv_two_quickly_item"
+        android:src="@drawable/icon_go_orenge"
+        android:layout_marginTop="@dimen/d6"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

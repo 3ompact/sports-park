@@ -6,7 +6,7 @@
         </shape>
     </item>
 
-    <item android:top="@dimen/search_bar_top_margin" android:bottom="@dimen/search_bar_top_margin"
+    <item android:top="13dp" android:bottom="1dp"
         android:left="@dimen/d17" android:right="@dimen/d17"
         >
         <shape>

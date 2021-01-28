@@ -7,4 +7,5 @@ interface OnResponseListener<T> {
     fun onResult(t: T)
     fun onError(msg: String)
     fun onException(msg: String)
+    fun onMsg(msg: String)
 }

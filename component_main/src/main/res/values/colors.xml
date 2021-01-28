@@ -36,5 +36,8 @@
     <color name="btn_commit_backgorund">#3399fe</color>
 
     <color name="stroke_color">#ebebeb</color>
+    <color name="text_color_blue">#3c9fff</color>
+    <color name="text_color_pink">#fe7962</color>
+    <color name="text_color_orenge">#e09750</color>
 
 </resources>

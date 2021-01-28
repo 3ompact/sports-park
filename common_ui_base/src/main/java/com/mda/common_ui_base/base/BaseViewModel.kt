@@ -53,7 +53,7 @@ open class BaseViewModel : ViewModel() {
                 br = block().await()
             }
         }
-        return br!!.result
+        return br!!.data
     }
 
     /**
@@ -76,7 +76,9 @@ open class BaseViewModel : ViewModel() {
                 if (!isContinue) {
                     cancel()
                 }
-                onResponseListener.onResult(value.result)
+                onResponseListener.onResult(value.data)
+                onResponseListener.onMsg(value.message)
+
             }
         }
         return job

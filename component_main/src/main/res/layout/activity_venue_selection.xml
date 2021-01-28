@@ -5,7 +5,9 @@
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/recyclerview_backgroud_color">
+        android:background="@color/recyclerview_backgroud_color"
+
+        >
 
         <com.qmuiteam.qmui.widget.QMUITopBarLayout
             android:id="@+id/topbar_venue_selection_activity"
@@ -30,7 +32,7 @@
             android:paddingLeft="@dimen/d15"
             android:id="@+id/tabsag_week_venue_selection_activity"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/d46"
+            android:layout_height="@dimen/d67"
             android:background="@color/qmui_config_color_white"
             app:qmui_bottomDividerColor="?attr/qmui_skin_support_color_separator"
             app:qmui_bottomDividerHeight="@dimen/zero" />
@@ -49,6 +51,16 @@
             app:layout_constraintRight_toLeftOf="@id/tv_sold_venue_selection_activity"
             app:layout_constraintTop_toBottomOf="@id/tabsag_week_venue_selection_activity" />
 
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="@dimen/eight"
+            android:src="@mipmap/icon_bookable"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bookabel_venue_selection_activity"
+            app:layout_constraintTop_toTopOf="@id/tv_bookabel_venue_selection_activity"
+            app:layout_constraintRight_toLeftOf="@id/tv_bookabel_venue_selection_activity"
+            />
         <TextView
             android:id="@+id/tv_sold_venue_selection_activity"
             android:layout_marginBottom="@dimen/d24"
@@ -62,6 +74,17 @@
             app:layout_constraintLeft_toRightOf="@id/tv_bookabel_venue_selection_activity"
             app:layout_constraintRight_toLeftOf="@id/tv_book_selected_venue_selection_activity"
             app:layout_constraintTop_toBottomOf="@id/tabsag_week_venue_selection_activity" />
+
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="@dimen/eight"
+            android:src="@mipmap/icon_sold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sold_venue_selection_activity"
+            app:layout_constraintTop_toTopOf="@id/tv_sold_venue_selection_activity"
+            app:layout_constraintRight_toLeftOf="@id/tv_sold_venue_selection_activity"
+            />
 
         <TextView
             android:id="@+id/tv_book_selected_venue_selection_activity"
@@ -79,6 +102,16 @@
 
 
             />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="@dimen/eight"
+            android:src="@mipmap/icon_selected"
+            app:layout_constraintBottom_toBottomOf="@id/tv_book_selected_venue_selection_activity"
+            app:layout_constraintTop_toTopOf="@id/tv_book_selected_venue_selection_activity"
+            app:layout_constraintRight_toLeftOf="@id/tv_book_selected_venue_selection_activity"
+            />
+
 
         <TextView
             android:id="@+id/tv_selected_venue_selection_activity"
@@ -101,21 +134,20 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/ten"
-            app:layout_constraintTop_toBottomOf="@id/tv_bookabel_venue_selection_activity"
+            android:background="@color/white_without_alpha"
             app:layout_constraintBottom_toTopOf="@id/tv_selected_venue_selection_activity"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@color/white_without_alpha"
-            >
+            app:layout_constraintTop_toBottomOf="@id/tv_bookabel_venue_selection_activity"
+            app:layout_constraintVertical_bias="0.0">
+
             <com.bin.david.form.core.SmartTable
                 android:id="@+id/table_ssss"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
 
         </FrameLayout>
-
-
 
         <com.qmuiteam.qmui.layout.QMUIButton
             android:id="@+id/qb_clear_venue_selection_activity"

@@ -9,13 +9,28 @@
     android:paddingRight="@dimen/d12"
     android:background="@color/white_without_alpha"
     >
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1_fixed_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.333" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2_fixed_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.666" />
     <ImageView
         android:layout_height="@dimen/fixed_iamgeview_height"
         android:layout_width="@dimen/fixed_iamgeview_height"
         android:id="@+id/iv_one_fixed_item"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/iv_two_fixed_item"
+        app:layout_constraintRight_toLeftOf="@id/guideline1_fixed_item"
         app:layout_constraintHorizontal_chainStyle="spread"
         android:background="@drawable/icon_venue_book"
         />
@@ -33,8 +48,8 @@
         android:layout_width="@dimen/fixed_iamgeview_height"
         android:id="@+id/iv_two_fixed_item"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/iv_one_fixed_item"
-        app:layout_constraintRight_toLeftOf="@id/iv_thr_fixed_item"
+        app:layout_constraintLeft_toRightOf="@id/guideline1_fixed_item"
+        app:layout_constraintRight_toLeftOf="@id/guideline2_fixed_item"
         android:background="@drawable/icon_venue_swiming"
 
         />
@@ -53,7 +68,7 @@
         android:layout_width="@dimen/fixed_iamgeview_height"
         android:id="@+id/iv_thr_fixed_item"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/iv_two_fixed_item"
+        app:layout_constraintLeft_toRightOf="@id/guideline2_fixed_item"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/icon_venue_communal_facilities"
 
@@ -73,14 +88,15 @@
 
 
     <ImageView
+        android:layout_marginTop="@dimen/ten"
         android:layout_height="@dimen/fixed_iamgeview_height"
         android:layout_width="@dimen/fixed_iamgeview_height"
         android:id="@+id/iv_four_fixed_item"
         app:layout_constraintTop_toBottomOf="@id/tv_one_fixed_item"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/iv_two_fixed_item"
+        app:layout_constraintRight_toLeftOf="@id/guideline1_fixed_item"
         app:layout_constraintHorizontal_chainStyle="spread"
-        android:background="@drawable/icon_search"
+        android:background="@drawable/icon_venue_mine_sport"
         />
     <TextView
         android:layout_height="wrap_content"
@@ -97,10 +113,11 @@
         android:layout_width="@dimen/fixed_iamgeview_height"
         android:id="@+id/iv_five_fixed_item"
         app:layout_constraintTop_toBottomOf="@id/tv_one_fixed_item"
+        android:layout_marginTop="@dimen/ten"
 
-        app:layout_constraintLeft_toRightOf="@id/iv_one_fixed_item"
-        app:layout_constraintRight_toLeftOf="@id/iv_thr_fixed_item"
-        android:background="@drawable/icon_search"
+        app:layout_constraintLeft_toRightOf="@id/guideline1_fixed_item"
+        app:layout_constraintRight_toLeftOf="@id/guideline2_fixed_item"
+        android:background="@drawable/icon_venue_events"
 
         />
     <TextView
@@ -118,10 +135,11 @@
         android:layout_width="@dimen/fixed_iamgeview_height"
         android:id="@+id/iv_six_fixed_item"
         app:layout_constraintTop_toBottomOf="@id/tv_one_fixed_item"
+        android:layout_marginTop="@dimen/ten"
 
-        app:layout_constraintLeft_toRightOf="@id/iv_two_fixed_item"
+        app:layout_constraintLeft_toRightOf="@id/guideline2_fixed_item"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/icon_search"
+        android:background="@drawable/icon_venue_parking"
 
         />
     <TextView

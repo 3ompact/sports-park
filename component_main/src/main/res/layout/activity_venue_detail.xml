@@ -7,69 +7,80 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         >
 
         <com.qmuiteam.qmui.widget.QMUIAppBarLayout
+            android:id="@+id/QMUIAppBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/d278"
+            android:layout_height="256dp"
+            android:fitsSystemWindows="false">
 
-
-            >
             <com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout
                 android:id="@+id/ctb_venue_detail_activity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:minHeight="?attr/qmui_topbar_height"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:qmui_collapsedTitleGravity="center"
                 app:qmui_contentScrim="@color/white_without_alpha"
                 app:qmui_expandedTitleGravity="center_horizontal|bottom"
                 app:qmui_expandedTitleMarginBottom="20dp"
-                app:qmui_statusBarScrim="?attr/qmui_config_color_blue"
                 app:qmui_followTopBarCommonSkin="true"
-                android:minHeight="?attr/qmui_topbar_height"
+                app:qmui_statusBarScrim="?attr/qmui_config_color_blue"
 
                 >
-                <com.qmuiteam.qmui.widget.QMUIViewPager
-                    android:id="@+id/pager_venue_detail_activity"
+
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:qmui_layout_collapseMode="parallax"
-                    app:qmui_layout_collapseParallaxMultiplier="0.7"
-                    android:visibility="visible"
-                    />
+                    android:fitsSystemWindows="false"
+                    >
 
-                <TextView
-                    android:layout_width="@dimen/d40"
-                    android:layout_height="@dimen/d20"
-                    android:text="ttttttttt"
-                    android:textColor="@color/white_without_alpha"
-                    android:layout_gravity="right|bottom"
-                    android:layout_marginRight="@dimen/d15"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:gravity="center"
-                    android:background="@drawable/shape_backgorund_venue_detail_vp_textindicator"
+                    <com.qmuiteam.qmui.widget.QMUIViewPager
+                        android:id="@+id/pager_venue_detail_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="visible"
+                        app:qmui_layout_collapseMode="parallax"
+                        app:qmui_layout_collapseParallaxMultiplier="0.7" />
 
-                    />
+                    <TextView
+                        android:layout_width="@dimen/d40"
+                        android:layout_height="@dimen/d20"
+                        android:layout_gravity="right|bottom"
+                        android:layout_marginRight="@dimen/d15"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:background="@drawable/shape_backgorund_venue_detail_vp_textindicator"
+                        android:gravity="center"
+                        android:text="1/5"
+                        android:id="@+id/tv_progress_venue_detail_activity"
+                        android:textColor="@color/white_without_alpha"
+
+                        />
+
+                </FrameLayout>
 
 
                 <com.qmuiteam.qmui.widget.QMUITopBar
                     android:id="@+id/topbar_venue_detail_activity"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:fitsSystemWindows="true"
-                    app:qmui_layout_collapseMode="pin"
                     android:background="@color/white_without_alpha"
-                    app:qmui_bottomDividerHeight="0px"/>
+                    android:fitsSystemWindows="true"
+                    app:qmui_bottomDividerHeight="0px"
+                    app:qmui_layout_collapseMode="pin" />
             </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
         </com.qmuiteam.qmui.widget.QMUIAppBarLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_venue_detail_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
             android:background="@color/recyclerview_backgroud_color"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:scrollbars="none"
+            app:layout_anchor="@+id/QMUIAppBarLayout"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white_without_alpha"
@@ -109,6 +109,6 @@
 
         </RadioGroup>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2>
 
 </layout>

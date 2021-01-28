@@ -1,12 +1,15 @@
 package com.mda.common_ui_base.base
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.qmuiteam.qmui.arch.SwipeBackLayout
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 /**
@@ -30,6 +33,7 @@ abstract class BaseVMDBActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
 
     lateinit var mDataBinding: DB
     lateinit var mViewModel: VM
+//    var boolTrans :Boolean = false
 
     /**
      * 布局资源id
@@ -82,10 +86,54 @@ abstract class BaseVMDBActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
         mViewModel = createViewModel()
     }
 
+//    fun setTranslucentFull(bool: Boolean){
+//        this.boolTrans = bool
+//    }
+
+//    override fun setContentView(view: View?) {
+//        super.setContentView(newSwipeBackLayout(view))
+//    }
+//
+//    override fun setContentView(layoutResID: Int) {
+//        super.setContentView(layoutResID)
+//        val wrapper = SwipeBackLayout(this)
+//        val root : View = LayoutInflater.from(this).inflate(layoutResID, null, false)
+//
+//        with(wrapper) {
+//
+//            addView(
+//                root, FrameLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+//                )
+//            )
+////            root
+//            setContentView(root)
+//        }
+//
+//        if (boolTrans) {
+//            wrapper.getContentView().setFitsSystemWindows(false)
+//        } else {
+//            wrapper.getContentView().setFitsSystemWindows(true)
+//        }
+//        super.setContentView(wrapper)
+//    }
+
+//    fun newSwipeBackLayout(view: View?):View{
+//        var parent : View =  view!!.parent.
+//        (view as ViewGroup).removeView(parent)
+//        if (boolTrans) {
+//            view!!.fitsSystemWindows = false
+//        } else {
+//            view!!.fitsSystemWindows = true
+//        }
+//        return view
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this)
         QMUIStatusBarHelper.setStatusBarLightMode(this)
+
         initDataBindAndViewModel()
 //        if (actionBar())
 //            supportActionBar!!.hide()

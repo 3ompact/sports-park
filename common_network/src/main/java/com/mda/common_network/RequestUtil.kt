@@ -19,7 +19,8 @@ class RequestUtil<T> {
 
 //    private var timeout: Long = 120L
 
-    private val baseUrl: String = "https://api.apiopen.top/"
+//    private val baseUrl: String = "https://api.apiopen.top/"
+    private val baseUrl:String = "http://192.168.5.220:8089/"
 
 
     private constructor(okHttpClient: OkHttpClient) {

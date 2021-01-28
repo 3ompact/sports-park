@@ -83,6 +83,9 @@ class VenueDetailActivityAdapter(context: Context) :
             TYPE.Detail.value -> {
 //                (holder as ViewHolderDetail).rb.numStars = 3
                 (holder as ViewHolderDetail).rb.rating = 3.5f
+                (holder as ViewHolderDetail).rb.isClickable = false
+                (holder as ViewHolderDetail).rb.setIsIndicator(true)
+
 
             }
             TYPE.Category.value -> {
@@ -203,6 +206,8 @@ class VenueDetailActivityAdapter(context: Context) :
                     crossfade(true)
                     transformations(RoundedCornersTransformation(10f, 10f, 10f, 10f))
                 }
+                (holder as ViewHolderValuation).rb.setIsIndicator(true)
+
             }
             else -> {
                 (holder as ViewHolderValuation).ivHeader.load(
@@ -235,6 +240,8 @@ class VenueDetailActivityAdapter(context: Context) :
                     crossfade(true)
                     transformations(RoundedCornersTransformation(10f, 10f, 10f, 10f))
                 }
+
+                (holder as ViewHolderValuation).rb.setIsIndicator(true)
             }
 
         }

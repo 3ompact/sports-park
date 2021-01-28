@@ -30,6 +30,21 @@ class VenueSelectionAdapter(context: Context, arrayTwoDiemn: Array<Array<Int>>) 
 
     }
 
+    //进行局部数据更新
+    fun updateData(newData :Array<Array<Int>>){
+
+        //假如就第一个数据不一样
+
+
+
+    }
+
+    //设置数据
+    fun setData(oriData:Array<Array<Int>>){
+        arrayTwoDiemn = oriData
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         val col = arrayTwoDiemn.size
         val row = arrayTwoDiemn[0].size

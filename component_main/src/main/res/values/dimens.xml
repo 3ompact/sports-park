@@ -86,5 +86,9 @@
     <dimen name="d52">52dp</dimen>
     <dimen name="d25">25dp</dimen>
     <dimen name="d27">27dp</dimen>
+    <dimen name="d67">67dp</dimen>
+    <dimen name="s10">10sp</dimen>
+    <dimen name="d183">183dp</dimen>
+    <dimen name="d210">210dp</dimen>
 
 </resources>

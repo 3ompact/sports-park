@@ -188,12 +188,16 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
 
 //                Log.d("3ompact", "end: ")
 //
-                (holder as ViewHolderQuickly).ivOneQ.load(
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
-                ) {
-
-                }
-
+//                (holder as ViewHolderQuickly).ivOneQ.load(
+//                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+//                ) {
+////
+//                }
+//                (holder as ViewHolderQuickly).ivOneQ.load(
+//                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+//                ) {
+////
+//                }
 
 
 
@@ -229,6 +233,48 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
 
                 }
 
+
+                val mRequestListener = object: RequestListener<Drawable>{
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Log.d("3ompact", "onException: " + e.toString()+"  model:"+model+" isFirstResource: "+isFirstResource)
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Log.e("3ompact",  "model:"+model+" isFirstResource: "+isFirstResource);
+                        return false
+                    }
+
+                }
+//                Glide.with(context).load(
+//                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+//                ).listener(mRequestListener).into((holder as ViewHolderGrid).ivOne)
+//
+//                Glide.with(context).load(
+//                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+//                ).listener(mRequestListener).into((holder as ViewHolderGrid).ivTwo)
+
+                (holder as ViewHolderGrid).ivOne.load(
+                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+                ) {
+//
+                }
+                (holder as ViewHolderGrid).ivTwo.load(
+                    "https://t7.baidu.com/it/u=3631608752,3069876728&fm=193&f=GIF"
+                ) {
+//
+                }
                 if (position == 19) {
 //                    val params : ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 //                    var bottom = 12*PhoneInfo.getPhonDensity(context.applicationContext)

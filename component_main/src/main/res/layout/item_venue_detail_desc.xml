@@ -29,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/d15"
-        android:text="石子山体育公园-羽毛球场活动中心"
+        android:text="羽毛球场环境优美，江与城体育公园为7人制足球，是新修的场地"
         android:textSize="@dimen/s13"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -45,7 +45,9 @@
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_self_account_venue_detail_item" />
+        app:layout_constraintTop_toBottomOf="@id/tv_self_account_venue_detail_item"
+        >
+    </LinearLayout>
 
     <me.zhanghai.android.materialratingbar.MaterialRatingBar
         android:id="@+id/mrb_account_venue_detail_item"
@@ -59,7 +61,7 @@
         app:mrb_secondaryProgressTint="@color/star_background_color"
         app:mrb_progressBackgroundTint="@color/star_background_color"
         app:mrb_fillBackgroundStars="true"
-        android:contextClickable="false"
+
 
         />
 
@@ -81,8 +83,11 @@
         android:layout_height="@dimen/d38"
         android:layout_marginTop="@dimen/d15"
         android:gravity="center_vertical"
-        android:text="ssssssssssssssssssssssssss"
+        android:text="重庆市江北区石子山体育公园"
         android:textColor="@color/text_black"
+        android:drawableLeft="@drawable/icon_location"
+        android:drawableRight="@drawable/icon_call_phone"
+        android:paddingRight="@dimen/d20"
         android:textSize="@dimen/s13"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
