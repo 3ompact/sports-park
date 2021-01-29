@@ -2,6 +2,7 @@ package com.mda.component_main.ui.activity
 
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
+import android.graphics.Color
 import android.opengl.Visibility
 import android.os.Build
 import android.util.Log
@@ -55,6 +56,7 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
 
         mViewPager = mDataBinding.pagerVenueDetailActivity
         mTopBar = mDataBinding.topbarVenueDetailActivity
+        mTopBar.setBackgroundColor(Color.parseColor("#333333"))
         mCollTopBarLayout = mDataBinding.ctbVenueDetailActivity
         tvProgress = mDataBinding.tvProgressVenueDetailActivity
 
@@ -108,7 +110,7 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
         lp2.addRule(RelativeLayout.CENTER_VERTICAL)
         lp2.addRule(RelativeLayout.LEFT_OF, R.id.iv_share_venue_detail_activity)
 
-//        mTopBar.setTitle(R.string.venue_detail)
+        mTopBar.setTitle(R.string.venue_detail)
         var ibStar = mTopBar.addRightImageButton(
             R.drawable.icon_star_40,
             R.id.iv_start_venue_detail_activity
@@ -120,9 +122,9 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
 
         ibStar.layoutParams = lp2
         ibShare.layoutParams = lp1
-
-
-        mTopBar.addLeftBackImageButton()
+//
+//
+//        mTopBar.addLeftBackImageButton()
 
         rv.addItemDecoration(VenueActivityRecyclerViewDecoration())
         rv.layoutManager = LinearLayoutManager(this@VenueDetailActivity)

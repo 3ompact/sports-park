@@ -5,6 +5,8 @@ import android.os.Build
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
+import android.util.Log
+import android.view.Gravity
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -18,6 +20,7 @@ import com.bin.david.form.data.column.Column
 import com.bin.david.form.data.format.draw.IDrawFormat
 import com.bin.david.form.data.format.grid.BaseGridFormat
 import com.bin.david.form.data.format.sequence.ISequenceFormat
+import com.bin.david.form.data.style.FontStyle
 import com.bin.david.form.data.style.LineStyle
 import com.bin.david.form.data.table.ArrayTableData
 import com.bin.david.form.data.table.TableData
@@ -39,7 +42,7 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
     private lateinit var mTopBar: QMUITopBarLayout
     private lateinit var mTabSag: QMUITabSegment2
 
-    private lateinit var rv :RecyclerView
+    private lateinit var rv: RecyclerView
     val infos = arrayOf(
         arrayOf(0, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2),
         arrayOf(0, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2, 2),
@@ -49,6 +52,7 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
         arrayOf(1, 0, 1, 2, 2, 2, 0, 1, 2, 1, 1, 0, 0),
         arrayOf(2, 1, 2, 1, 0, 1, 2, 1, 1, 0, 1, 1, 0)
     )
+
     override fun layoutId(): Int {
         return R.layout.activity_venue_selection
     }
@@ -79,13 +83,13 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
     }
 
     //初始化recyclerview
-    fun initRV(){
+    fun initRV() {
         val lm = LinearLayoutManager(this@VenueSelectionActivity)
         lm.orientation = RecyclerView.HORIZONTAL
-        val adapter = VenueSelectionAdapter(this@VenueSelectionActivity,infos)
+        val adapter = VenueSelectionAdapter(this@VenueSelectionActivity, infos)
         rv.layoutManager = lm
         rv.addItemDecoration(VenueSelectionActivityRecyclerHorizontalViewDecoration())
-        rv.adapter =adapter
+        rv.adapter = adapter
 
 
     }
@@ -93,44 +97,72 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
     //初始化tagsagment
     fun initTabSagment() {
         var tabBuilder: QMUITabBuilder =
-            mTabSag.tabBuilder().setIconPosition(QMUITab.ICON_POSITION_TOP)
+            mTabSag.tabBuilder().setGravity(Gravity.CENTER)
         mTabSag.setMode(QMUITabSegment.MODE_SCROLLABLE)
-        mTabSag.setPadding(40, 0, 40, 0)
-        mTabSag.setIndicator(
-            QMUITabIndicator(
-                4, false, true
-            )
-        )
+//        mTabSag.setPadding(40, 0, 40, 0)
+
+
+//        mTabSag.reset()
+//        mTabSag.setIndicator(null)
+//        tabBuilder.setDynamicChangeIconColor(true)
+//        val component = tabBuilder
+//            .setNormalDrawable(ContextCompat.getDrawable(this, R.drawable.icon_test_monday))
+//            .setSelectedDrawable(
+//                ContextCompat.getDrawable(
+//                    this,
+//                    R.drawable.icon_test_monday1
+//                )
+//            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
+//            .setText("Components")
+//            .build(this)
+//        val util = tabBuilder
+//            .setNormalDrawable(ContextCompat.getDrawable(this, R.drawable.icon_test_monday))
+//            .setSelectedDrawable(
+//                ContextCompat.getDrawable(
+//                    this,
+//                    R.drawable.icon_monday_selected
+//                )
+//            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
+//            .setText("Helper")
+//            .build(this)
+//        mTabSag.addTab(component)
+//        mTabSag.addTab(util)
+
+//        mTabSag.setIndicator(
+//            QMUITabIndicator(
+//                4, false, true
+//            )
+//        )
         val component = tabBuilder
             .setNormalDrawable(
                 ContextCompat.getDrawable(
-                    this@VenueSelectionActivity,
-                    R.mipmap.icon_monday_normal
+                    this,
+                    R.drawable.icon_monday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
-                    this@VenueSelectionActivity,
-                    R.mipmap.icon_monday_selected
+                    this,
+                    R.drawable.icon_monday_normal
                 )
-            )
-            .setTextSize(40,40)
+            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
+            .setTextSize(40, 40)
             .setText("1月11日")
-            .build(this@VenueSelectionActivity)
+            .build(this)
 
         val component1 = tabBuilder
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tuesday_normal
+                    R.drawable.icon_tuesday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_tuesday_selected
+                    R.drawable.icon_tuesday_normal
                 )
-            )
+            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
             .setText("1月12日")
             .build(this@VenueSelectionActivity)
 
@@ -138,15 +170,15 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_wednesday_normal
+                    R.drawable.icon_wednesday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_wednesday_selected
+                    R.drawable.icon_wednesday_normal
                 )
-            )
+            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
             .setText("1月13日")
             .build(this@VenueSelectionActivity)
 
@@ -154,30 +186,30 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_thursday_normal
+                    R.drawable.icon_thursday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_thursday_selected
+                    R.drawable.icon_thursday_normal
                 )
-            )
+            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
             .setText("1月14日")
             .build(this@VenueSelectionActivity)
         val component4 = tabBuilder
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_friday_normal
+                    R.drawable.icon_friday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_friday_selected
+                    R.drawable.icon_friday_normal
                 )
-            )
+            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
             .setText("1月15日")
             .build(this@VenueSelectionActivity)
 
@@ -185,15 +217,15 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_saturday_normal
+                    R.drawable.icon_saturday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_saturday_selected
+                    R.drawable.icon_saturday_normal
                 )
-            )
+            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
             .setText("1月17日")
             .build(this@VenueSelectionActivity)
 
@@ -201,15 +233,15 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
             .setNormalDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_sunday_normal
+                    R.drawable.icon_sunday_normal
                 )
             )
             .setSelectedDrawable(
                 ContextCompat.getDrawable(
                     this@VenueSelectionActivity,
-                    R.mipmap.icon_sunday_selected
+                    R.drawable.icon_sunday_normal
                 )
-            )
+            ).setIconPosition(QMUITab.ICON_POSITION_TOP)
             .setText("1月17日")
             .build(this@VenueSelectionActivity)
         mTabSag.addTab(
@@ -236,7 +268,7 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
         mTabSag.selectTab(0)
 //        mTabSag.selectTab(0)
         mTabSag.notifyDataChanged()
-        mTabSag.selectTab(0)
+//        mTabSag.selectTab(0)
 
     }
 
@@ -245,8 +277,8 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
         val week = arrayOf("日", "一", "二", "三", "四", "五", "六")
         //按照列数据展示数据
 
-
-//        table.config.setColumnTitleStyle(fontStyle)
+        val fontStyle = FontStyle(this, 10, ContextCompat.getColor(this, R.color.text_black))
+        table.config.setColumnTitleStyle(fontStyle)
         table.config.horizontalPadding = 0
         table.config.setFixedXSequence(true)
         table.config.setFixedYSequence(true)
@@ -255,7 +287,7 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
         table.config.setShowXSequence(false)
         table.config.verticalPadding = 0
         table.config.contentGridStyle = LineStyle()
-
+//        table.config.setMinTableWidth(60)
 
         table.config.tableGridFormat = object : BaseGridFormat() {
             override fun isShowYSequenceHorizontalLine(row: Int): Boolean {
@@ -298,6 +330,12 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                     config: TableConfig
                 ): Int {
                     x = position
+//                    if(column.columnName.equals("场地")){
+                    Log.i("measure", "column.columnName" + column.columnName)
+//
+//                        return DensityUtils.dp2px(this@VenueSelectionActivity, 50f)
+//                    }
+                    Log.i("measure", "Xposition" + position)
                     return DensityUtils.dp2px(this@VenueSelectionActivity, 80f)
                 }
 
@@ -307,6 +345,7 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                     config: TableConfig
                 ): Int {
                     y = position
+                    Log.i("measure", "Yposition" + position)
                     return DensityUtils.dp2px(this@VenueSelectionActivity, 40f)
                 }
 
@@ -333,6 +372,14 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                             R.color.text_gray
                         )
                     )
+                    Log.i("3ompact", "cellInfo" + cellInfo.col)
+                    Log.i("3ompact", "cellInfodata" + cellInfo.data)
+
+//                    if (cellInfo.col == 0) {
+//                        rect!!.set(Rect(rect!!.left, rect!!.top, rect!!.right - 100, rect!!.bottom))
+//                        Log.i("3ompact", "cellInfo" + cellInfo.col)
+//
+//                    }
 //                    infos.
                     //为不可预订时的处理
                     var bitmap = BitmapFactory.decodeResource(resources, R.drawable.icon_prohibit)
@@ -534,7 +581,8 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
 
                         //TODO 返回时间列表
                         var s =
-                            StringBuilder().append("09:00").append("\n").append("-").append("\n")
+                            StringBuilder().append("09:00")
+                                .append("\n").append("-").append("\n")
                                 .append("11:00")
                         return s.toString()
                     }
@@ -548,6 +596,10 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                 var t = format((sequence))
 
 
+//                rect!!.set(Rect(rect!!.left, rect!!.top, rect!!.right - 100, rect!!.bottom))
+
+                Log.i("3ompact", "rectwwww" + rect!!.width() + "canvas.widtwwwh" + canvas!!.width)
+
 //                val staticLayout2 = StaticLayout.Builder.obtain()
 
                 //字体缩放
@@ -556,31 +608,71 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
                 paint.textSize = paint.textSize * zoom
                 paint.textAlign = Paint.Align.CENTER
 
+                val paint1 = config!!.paint
 
-                var paint1 = TextPaint()
-                paint1.isAntiAlias = true
-                paint1.textAlign = Paint.Align.CENTER
-                paint1.textSize = 25 * zoom
-                paint1.setColor(Color.parseColor("#333333"))
+                paint.textSize = paint.textSize * zoom
+                paint.textAlign = Paint.Align.CENTER
+
+                val paint2 = config!!.paint
+
+                paint.textSize = paint.textSize * zoom
+                paint.textAlign = Paint.Align.CENTER
+
+
+                var paint3 = TextPaint()
+                paint3.isAntiAlias = true
+                paint3.textAlign = Paint.Align.CENTER
+//                paint1.textSize = 25 * zoom
+                paint3.setColor(Color.parseColor("#333333"))
 //                paint1.setColor(Color.parseColor("#3399fe"))
                 val staticLayout1 = StaticLayout(
-                    t, paint1, 100,
-                    Layout.Alignment.ALIGN_NORMAL, 1f, 0f, true
+                    t, paint3, 50,
+                    Layout.Alignment.ALIGN_CENTER, 1f, 0f, false
+                )
+
+                Log.i(
+                    "3ompact",
+                    "staticLayout1" + staticLayout1.bottomPadding + "cc" + "```````" + staticLayout1.width
                 )
 //                staticLayout1.toString()
                 if (sequence != 0 && sequence < 14) {
-
-                    canvas!!.save()
-                    canvas.translate(
+                    val textArray = format((sequence)).split("\n")
+                    canvas!!.drawText(
+                        textArray[0].toString(),
                         rect!!.centerX().toFloat(),
-                        (rect.centerY() - staticLayout1.height / 2).toFloat()
+                        rect!!.centerY() + ((paint.descent() + paint.ascent())),
+                        paint
                     )
-                    staticLayout1.draw(canvas!!)
-                    canvas!!.restore()
+                    Log.i("3ompact","paint.descent()"+paint.descent()+"paint.ascent()"+paint.ascent())
+                    canvas!!.drawText(
+                        textArray[1].toString(),
+                        rect!!.centerX().toFloat(),
+                        rect!!.centerY() - ((paint1.descent() + paint1.ascent()) / 2),
+                        paint1
+                    )
+                    Log.i("3ompact","paint1.descent()"+paint1.descent()+"paint1.ascent()"+paint1.ascent())
+
+                    canvas!!.drawText(
+                        textArray[2].toString(),
+                        rect!!.centerX().toFloat(),
+                        rect!!.centerY() + ((paint2.descent() - paint2.ascent()) + 5),
+                        paint2
+                    )
+                    Log.i("3ompact","paint2.descent()"+paint2.descent()+"paint2.ascent()"+paint2.ascent())
+
+//                    canvas!!.save()
+//                    canvas!!.translate(
+//                        rect!!.centerX().toFloat(),
+//                        (rect!!.centerY() - staticLayout1.height / 2).toFloat()
+//                    )
+//                    staticLayout1.draw(canvas!!)
+//                    canvas!!.restore()
+
+
                 } else {
                     canvas!!.drawText(
                         format((sequence)), rect!!.centerX().toFloat(), DrawUtils.getTextCenterY(
-                            rect.centerY(), paint
+                            rect!!.centerY(), paint
                         ), paint
                     )
                 }

@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.SportsPark" parent="QMUI.Compat.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/white_without_alpha</item>
+        <item name="colorPrimaryVariant">@color/white_without_alpha</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

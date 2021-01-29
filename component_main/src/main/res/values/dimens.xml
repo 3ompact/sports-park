@@ -90,5 +90,6 @@
     <dimen name="s10">10sp</dimen>
     <dimen name="d183">183dp</dimen>
     <dimen name="d210">210dp</dimen>
+    <dimen name="d7">7dp</dimen>
 
 </resources>

@@ -49,18 +49,18 @@ class CMMainActivity : BaseVMDBActivity<BaseViewModel, ActivityMainCmBinding>() 
                     Log.i("3ompact", "onDenied")
                 }
             })
-        DrawableUtil.setRBDrawableBounds(
-            mDataBinding.rbHomeCmMainActivity,
-            resources.getDrawable(R.drawable.selector_icon_home)
-        )
-        DrawableUtil.setRBDrawableBounds(
-            mDataBinding.rbSupermarketCmMainActivity,
-            resources.getDrawable(R.drawable.selector_icon_supermarket)
-        )
-        DrawableUtil.setRBDrawableBounds(
-            mDataBinding.rbMineCmMainActivity,
-            resources.getDrawable(R.drawable.selector_icon_mine)
-        )
+//        DrawableUtil.setRBDrawableBounds(
+//            mDataBinding.rbHomeCmMainActivity,
+//            resources.getDrawable(R.drawable.selector_icon_home)
+//        )
+//        DrawableUtil.setRBDrawableBounds(
+//            mDataBinding.rbSupermarketCmMainActivity,
+//            resources.getDrawable(R.drawable.selector_icon_supermarket)
+//        )
+//        DrawableUtil.setRBDrawableBounds(
+//            mDataBinding.rbMineCmMainActivity,
+//            resources.getDrawable(R.drawable.selector_icon_mine)
+//        )
         container = mDataBinding.flCmMainActivity
         var fragment = ARouter.getInstance().build("/cm/homefragment").navigation() as Fragment
         var fm = supportFragmentManager

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -14,13 +15,9 @@ import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.alibaba.android.arouter.launcher.ARouter
 import com.mda.component_main.R
-import com.mda.component_main.decoration.VenueActivityRecyclerHorizontalViewDecoration
 import com.qmuiteam.qmui.layout.QMUIButton
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
-import com.qmuiteam.qmui.widget.tab.QMUIBasicTabSegment
-import com.qmuiteam.qmui.widget.tab.QMUITabIndicator
-import com.qmuiteam.qmui.widget.tab.QMUITabSegment
-import com.qmuiteam.qmui.widget.tab.QMUITabSegment2
+import com.qmuiteam.qmui.widget.tab.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 /**
@@ -91,13 +88,15 @@ class VenueDetailActivityAdapter(context: Context) :
             TYPE.Category.value -> {
                 val tabBuilder = (holder as ViewHolderCategory).tabSag.tabBuilder()
                 val space: Int = QMUIDisplayHelper.dp2px(context, 16)
+                tabBuilder.setDynamicChangeIconColor(true)
+
 
                 (holder as ViewHolderCategory).apply {
+                    tabSag.reset()
                     tabSag.addTab(tabBuilder.setText("羽毛球").build(context))
                     tabSag.addTab(tabBuilder.setText("乒乓球").build(context))
                     tabSag.addTab(tabBuilder.setText("篮球").build(context))
                     tabSag.addTab(tabBuilder.setText("足球").build(context))
-
 
                     tabSag.setIndicator(
                         QMUITabIndicator(
@@ -107,8 +106,8 @@ class VenueDetailActivityAdapter(context: Context) :
                         )
                     )
                     tabSag.mode = QMUITabSegment.MODE_SCROLLABLE
-                    tabSag.setItemSpaceInScrollMode(space)
-                    tabSag.setPadding(space, 0, space, 0)
+//                    tabSag.setItemSpaceInScrollMode(space)
+//                    tabSag.setPadding(space, 0, space, 0)
                     tabSag.selectTab(0)
                     tabSag.notifyDataChanged()
                     //tab栏设置监听
@@ -131,9 +130,9 @@ class VenueDetailActivityAdapter(context: Context) :
                 var l = LinearLayoutManager(context)
                 l.orientation = LinearLayoutManager.HORIZONTAL
                 (holder as ViewHolderCategory).rv.layoutManager = l
-                (holder as ViewHolderCategory).rv.addItemDecoration(
-                    VenueActivityRecyclerHorizontalViewDecoration()
-                )
+//                (holder as ViewHolderCategory).rv.addItemDecoration(
+//                    VenueActivityRecyclerHorizontalViewDecoration()
+//                )
                 (holder as ViewHolderCategory).rv.adapter = object :
                     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     override fun onCreateViewHolder(

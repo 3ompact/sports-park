@@ -1,5 +1,6 @@
 package com.mda.component_main.ui.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.RelativeLayout
@@ -41,7 +42,8 @@ class HomeFragment :
             .setOnClickListener { }
         //进行topbar 相关设置
         mTopBar.setTitle("首页")
-
+//        mTopBar.setBackgroundColor(Color.parseColor("#333333"))
+        mTopBar.removeAllLeftViews()
         //设置分离器颜色
         mTopBar.updateBottomDivider(0,0,0,R.color.white_without_alpha)
         var button =  mTopBar.addLeftTextButton("重庆市∨",R.id.location_home_fragemnt)

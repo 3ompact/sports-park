@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+<androidx.recyclerview.widget.RecyclerView
+            android:paddingLeft="@dimen/d15"
+            app:layout_constraintTop_toBottomOf="@id/topbar_venue_selection_activity"
+            android:id="@+id/rv_week_venue_selection_activity"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d46"
+            android:background="@color/white_without_alpha"
+            android:visibility="gone"
+            android:scrollbars="none"
+            app:qmui_is_target="true" />
+
+-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -16,16 +30,7 @@
             android:fitsSystemWindows="true"
             />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:paddingLeft="@dimen/d15"
-            app:layout_constraintTop_toBottomOf="@id/topbar_venue_selection_activity"
-            android:id="@+id/rv_week_venue_selection_activity"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/d46"
-            android:background="@color/white_without_alpha"
-            android:visibility="gone"
-            android:scrollbars="none"
-            app:qmui_is_target="true" />
+
 
         <com.qmuiteam.qmui.widget.tab.QMUITabSegment2
             app:layout_constraintTop_toBottomOf="@id/topbar_venue_selection_activity"
@@ -37,26 +42,45 @@
             app:qmui_bottomDividerColor="?attr/qmui_skin_support_color_separator"
             app:qmui_bottomDividerHeight="@dimen/zero" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1_venue_selection_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.333"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2_venue_selection_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.666"
+            />
+
         <TextView
             android:id="@+id/tv_bookabel_venue_selection_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d24"
-            android:text="可预订"
+            android:text="\t可预订"
             android:layout_marginBottom="@dimen/d24"
+            android:gravity="center"
             android:textColor="@color/text_black"
             android:textSize="@dimen/s13"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:drawableLeft="@drawable/icon_bookable"
             app:layout_constraintRight_toLeftOf="@id/tv_sold_venue_selection_activity"
             app:layout_constraintTop_toBottomOf="@id/tabsag_week_venue_selection_activity" />
 
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:visibility="gone"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginRight="@dimen/eight"
-            android:src="@mipmap/icon_bookable"
+            android:src="@drawable/icon_bookable"
             app:layout_constraintBottom_toBottomOf="@id/tv_bookabel_venue_selection_activity"
             app:layout_constraintTop_toTopOf="@id/tv_bookabel_venue_selection_activity"
             app:layout_constraintRight_toLeftOf="@id/tv_bookabel_venue_selection_activity"
@@ -64,23 +88,25 @@
         <TextView
             android:id="@+id/tv_sold_venue_selection_activity"
             android:layout_marginBottom="@dimen/d24"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d24"
-            android:text="已售出"
+            android:text="\t已售出"
             android:textColor="@color/text_black"
             android:textSize="@dimen/s13"
+            android:gravity="center"
+            android:drawableLeft="@drawable/icon_sold"
             app:layout_constraintLeft_toRightOf="@id/tv_bookabel_venue_selection_activity"
             app:layout_constraintRight_toLeftOf="@id/tv_book_selected_venue_selection_activity"
             app:layout_constraintTop_toBottomOf="@id/tabsag_week_venue_selection_activity" />
 
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginRight="@dimen/eight"
-            android:src="@mipmap/icon_sold"
+            android:src="@drawable/icon_bookable"
             app:layout_constraintBottom_toBottomOf="@id/tv_sold_venue_selection_activity"
             app:layout_constraintTop_toTopOf="@id/tv_sold_venue_selection_activity"
             app:layout_constraintRight_toLeftOf="@id/tv_sold_venue_selection_activity"
@@ -93,9 +119,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d24"
-            android:text="已选定"
+            android:text="\t已选定"
+            android:drawableLeft="@drawable/icon_selected"
             android:textColor="@color/text_black"
             android:textSize="@dimen/s13"
+            android:gravity="center"
             app:layout_constraintLeft_toRightOf="@id/tv_sold_venue_selection_activity"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tabsag_week_venue_selection_activity"
@@ -103,10 +131,11 @@
 
             />
         <ImageView
+            android:visibility="gone"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginRight="@dimen/eight"
-            android:src="@mipmap/icon_selected"
+            android:src="@drawable/icon_selected"
             app:layout_constraintBottom_toBottomOf="@id/tv_book_selected_venue_selection_activity"
             app:layout_constraintTop_toTopOf="@id/tv_book_selected_venue_selection_activity"
             app:layout_constraintRight_toLeftOf="@id/tv_book_selected_venue_selection_activity"
