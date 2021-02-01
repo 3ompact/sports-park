@@ -56,19 +56,28 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
 
         mViewPager = mDataBinding.pagerVenueDetailActivity
         mTopBar = mDataBinding.topbarVenueDetailActivity
-        mTopBar.setBackgroundColor(Color.parseColor("#333333"))
+//        mTopBar.setBackgroundColor(Color.parseColor("#333333"))
         mCollTopBarLayout = mDataBinding.ctbVenueDetailActivity
-        tvProgress = mDataBinding.tvProgressVenueDetailActivity
+//        tvProgress = mDataBinding.tvProgressVenueDetailActivity
 
-        mCollTopBarLayout.setTitle(
-            "test"
-        )
+//        mCollTopBarLayout.setTitle(
+//            "test"
+//        )
         mTopBar.addLeftBackImageButton()
 
         mCollTopBarLayout.setScrimUpdateListener(AnimatorUpdateListener { animation ->
 
-            tvProgress.alpha = 1 - animation.animatedValue.toString().toFloat() / 255
+            if(animation.animatedValue.toString().toInt() > 250){
 
+//                mTopBar.setBackgroundColor(Color.parseColor("#333333"))
+                mViewPager.visibility = GONE
+            }else if (animation.animatedValue.toString().toInt() < 60) {
+                mViewPager.visibility = VISIBLE
+
+            }
+
+//            tvProgress.alpha = 1 - animation.animatedValue.toString().toFloat() / 255
+//
 //            if (animation.animatedValue.toString().toInt() > 250) {
 //
 //                tvProgress.visibility = GONE

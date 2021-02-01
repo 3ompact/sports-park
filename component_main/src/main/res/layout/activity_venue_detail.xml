@@ -13,6 +13,7 @@
             android:id="@+id/QMUIAppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="256dp"
+            android:background="@color/white_without_alpha"
             android:fitsSystemWindows="true">
 
             <com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout
@@ -46,6 +47,7 @@
                         android:visibility="visible"
                         android:fitsSystemWindows="true"
 
+
                         />
 
                     <TextView
@@ -69,8 +71,9 @@
                     android:id="@+id/topbar_venue_detail_activity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ff0000"
                     android:fitsSystemWindows="true"
+                    android:background="#9FD661"
+
                     app:qmui_bottomDividerHeight="0px"
                     app:qmui_layout_collapseMode="pin" />
             </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
@@ -80,7 +83,6 @@
             android:id="@+id/rv_venue_detail_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/recyclerview_backgroud_color"
             android:scrollbars="none"
             app:layout_anchor="@+id/QMUIAppBarLayout"
             app:layout_anchorGravity="bottom|center"
