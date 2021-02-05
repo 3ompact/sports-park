@@ -12,7 +12,9 @@ class OkHttpSingleton {
         okHttpClient = OkHttpClient.Builder()
             .writeTimeout(timeout, TimeUnit.SECONDS)
             .connectTimeout(timeout, TimeUnit.SECONDS)
-            .readTimeout(timeout, TimeUnit.SECONDS).build()
+            .readTimeout(timeout, TimeUnit.SECONDS)
+            .addInterceptor(LogInterceptor())
+            .build()
     }
 
 

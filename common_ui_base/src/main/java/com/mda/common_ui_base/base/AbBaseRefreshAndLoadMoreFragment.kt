@@ -77,6 +77,8 @@ abstract class AbBaseRefreshAndLoadMoreFragment<VM : BaseViewModel, DB : ViewDat
 
     override fun dismissLoading() {
     }
+    
+
 
     //QMUIPULLLAYOUT刷新或是加载完成
     fun finishRefresh(pullAction: QMUIPullLayout.PullAction) {

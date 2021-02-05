@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.launcher.ARouter
 
 abstract class BaseVMDBFragment<VM : BaseViewModel, DB : ViewDataBinding> : androidx.fragment.app.Fragment() {
 
@@ -25,6 +26,7 @@ abstract class BaseVMDBFragment<VM : BaseViewModel, DB : ViewDataBinding> : andr
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        ARouter.getInstance().inject(context)
         mDataBinding = DataBindingUtil.inflate(inflater,layoutId(),container,false)
         mDataBinding.lifecycleOwner = this
         return mDataBinding.root

@@ -20,13 +20,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import coil.load
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.mda.basics_lib.`interface`.OnResponseListener
+import com.mda.basics_lib.log.LogUtil
 import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.common_ui_base.base.BaseViewModel
 import com.mda.component_main.R
 import com.mda.component_main.adapter.VenueDetailActivityAdapter
+import com.mda.component_main.bean.VenueDetailData
 import com.mda.component_main.databinding.ActivityVenueDetailBinding
 import com.mda.component_main.decoration.VenueActivityRecyclerViewDecoration
+import com.mda.component_main.viewmodel.VenueDetailActivityModel
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.*
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout.GONE
@@ -37,13 +42,21 @@ import java.util.*
  * 场馆详情 activity
  */
 @Route(path = "/cm/venuedetailactivity")
-class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailBinding>() {
+class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityVenueDetailBinding>() {
     private val mItems: MutableList<String> = ArrayList()
     private lateinit var mViewPager: QMUIViewPager
     private lateinit var mTopBar: QMUITopBar
     private lateinit var mCollTopBarLayout: QMUICollapsingTopBarLayout
     private lateinit var rv: RecyclerView
     private lateinit var tvProgress: TextView
+    private lateinit var appBarLayout: QMUIAppBarLayout
+
+    private lateinit var emptyView: QMUIEmptyView
+    private lateinit var adapter :VenueDetailActivityAdapter
+    @JvmField
+    @Autowired
+    var id :Long = 0
+    //    private lateinit var emptyView : QMUIEmptyView
     override fun layoutId(): Int {
         return R.layout.activity_venue_detail
     }
@@ -53,38 +66,36 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
     }
 
     override fun initView() {
-
         mViewPager = mDataBinding.pagerVenueDetailActivity
         mTopBar = mDataBinding.topbarVenueDetailActivity
-//        mTopBar.setBackgroundColor(Color.parseColor("#333333"))
         mCollTopBarLayout = mDataBinding.ctbVenueDetailActivity
-//        tvProgress = mDataBinding.tvProgressVenueDetailActivity
-
+        tvProgress = mDataBinding.tvProgressVenueDetailActivity
+        appBarLayout = mDataBinding.appbarlayoutVenueDetailActivity
+        emptyView = mDataBinding.emptyViewVenueDetailActivity
 //        mCollTopBarLayout.setTitle(
 //            "test"
 //        )
+
+        emptyView.hide()
+
         mTopBar.addLeftBackImageButton()
 
         mCollTopBarLayout.setScrimUpdateListener(AnimatorUpdateListener { animation ->
+            val alpha = 1 - animation.animatedValue.toString().toFloat() / 255
+            tvProgress.alpha = alpha
+//            appBarLayout.alpha =  alpha
 
-            if(animation.animatedValue.toString().toInt() > 250){
-
-//                mTopBar.setBackgroundColor(Color.parseColor("#333333"))
+            if (animation.animatedValue.toString().toInt() > 250) {
                 mViewPager.visibility = GONE
-            }else if (animation.animatedValue.toString().toInt() < 60) {
+                mTopBar.removeAllLeftViews()
+                mTopBar.addLeftBackImageButton()
+                    .setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
+            } else if (animation.animatedValue.toString().toInt() < 60) {
                 mViewPager.visibility = VISIBLE
-
+                mTopBar.removeAllLeftViews()
+                mTopBar.addLeftBackImageButton()
             }
 
-//            tvProgress.alpha = 1 - animation.animatedValue.toString().toFloat() / 255
-//
-//            if (animation.animatedValue.toString().toInt() > 250) {
-//
-//                tvProgress.visibility = GONE
-//            } else if (animation.animatedValue.toString().toInt() < 60) {
-//                tvProgress.visibility = VISIBLE
-//
-//            }
             Log.i(
                 "3ompact",
                 "scrim: " + animation.animatedValue + "test" + animation.animatedValue.toString()
@@ -119,7 +130,7 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
         lp2.addRule(RelativeLayout.CENTER_VERTICAL)
         lp2.addRule(RelativeLayout.LEFT_OF, R.id.iv_share_venue_detail_activity)
 
-        mTopBar.setTitle(R.string.venue_detail)
+//        mTopBar.setTitle(R.string.venue_detail)
         var ibStar = mTopBar.addRightImageButton(
             R.drawable.icon_star_40,
             R.id.iv_start_venue_detail_activity
@@ -131,13 +142,11 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
 
         ibStar.layoutParams = lp2
         ibShare.layoutParams = lp1
-//
-//
-//        mTopBar.addLeftBackImageButton()
+
 
         rv.addItemDecoration(VenueActivityRecyclerViewDecoration())
         rv.layoutManager = LinearLayoutManager(this@VenueDetailActivity)
-        var adapter = VenueDetailActivityAdapter(this@VenueDetailActivity)
+        adapter = VenueDetailActivityAdapter(this@VenueDetailActivity)
         rv.adapter = adapter
 
         for (i in 0 until 5) {
@@ -195,6 +204,27 @@ class VenueDetailActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueDetailB
     }
 
     override fun initData() {
+        mViewModel.getVenueDetail(id,object:OnResponseListener<VenueDetailData>{
+            override fun onResult(t: VenueDetailData) {
+                adapter.setData(t)
+            }
+
+            override fun onError(msg: String) {
+                LogUtil.debugInfo("t.onError" + msg)
+
+            }
+
+            override fun onException(msg: String) {
+                LogUtil.debugInfo("t.onException" + msg)
+
+            }
+
+            override fun onMsg(msg: String) {
+                LogUtil.debugInfo("msg" + msg)
+
+            }
+        })
+
     }
 
     override fun showLoading(message: String) {

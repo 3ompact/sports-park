@@ -1,24 +1,29 @@
 package com.mda.component_main.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.alibaba.android.arouter.launcher.ARouter
+import com.mda.basics_lib.utils.DateAndTimeUtil
 import com.mda.component_main.R
+import com.mda.component_main.bean.VenueDetailData
 import com.qmuiteam.qmui.layout.QMUIButton
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.tab.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
+
 
 /**
  *
@@ -28,6 +33,9 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar
 class VenueDetailActivityAdapter(context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var context: Context
+    val FIXED = 4
+
+    var venueDatailData: VenueDetailData = VenueDetailData()
 
     init {
         this.context = context
@@ -78,14 +86,38 @@ class VenueDetailActivityAdapter(context: Context) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             TYPE.Detail.value -> {
+
+//                var tvDesc = itemView.findViewById<TextView>(R.id.tv_desc_venue_detail_item)
+//                var tvSelfAccount = itemView.findViewById<TextView>(R.id.tv_self_account_venue_detail_item)
+//                var ll = itemView.findViewById<LinearLayout>(R.id.ll_account_venue_detail_item)
+//                var rb = itemView.findViewById<MaterialRatingBar>(R.id.mrb_account_venue_detail_item)
+//                var tvEvalution =
+//                    itemView.findViewById<TextView>(R.id.tv_evaluate_account_venue_detail_item)
+//                var tvLoc = itemView.findViewById<TextView>(R.id.tv_location_account_venue_detail_item)
+
 //                (holder as ViewHolderDetail).rb.numStars = 3
                 (holder as ViewHolderDetail).rb.rating = 3.5f
                 (holder as ViewHolderDetail).rb.isClickable = false
                 (holder as ViewHolderDetail).rb.setIsIndicator(true)
+                holder.tvDesc.setText(venueDatailData.sysStadium!!.stadiumName)
+                venueDatailData.sysStadium!!.remark?.let {
+                    holder.tvSelfAccount.setText(it)
+                }
+                holder.rb.setIsIndicator(true)
+                holder.rb.rating = venueDatailData.sysStadium!!.averageScore.toFloat()
+                holder.tvEvalution.setText(venueDatailData.sysStadium!!.evaluationNumber)
+                holder.tvLoc.setText("\t" + venueDatailData.sysStadium!!.stadiumAdd)
 
-
+                holder.ivCall.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_CALL)
+                    val data: Uri = Uri.parse("tel:" + venueDatailData.sysStadium!!.stadiumPhone)
+                    intent.data = data
+                    context.startActivity(intent)
+                }
             }
             TYPE.Category.value -> {
+
+                var selectedItem = 0
                 val tabBuilder = (holder as ViewHolderCategory).tabSag.tabBuilder()
                 val space: Int = QMUIDisplayHelper.dp2px(context, 16)
                 tabBuilder.setDynamicChangeIconColor(true)
@@ -93,10 +125,17 @@ class VenueDetailActivityAdapter(context: Context) :
 
                 (holder as ViewHolderCategory).apply {
                     tabSag.reset()
-                    tabSag.addTab(tabBuilder.setText("羽毛球").build(context))
-                    tabSag.addTab(tabBuilder.setText("乒乓球").build(context))
-                    tabSag.addTab(tabBuilder.setText("篮球").build(context))
-                    tabSag.addTab(tabBuilder.setText("足球").build(context))
+
+                    for (i in 0 until venueDatailData.dateVO!!.size) {
+                        tabSag.addTab(
+                            tabBuilder.setText(venueDatailData.dateVO!!.get(i).projectName)
+                                .build(context)
+                        )
+                    }
+//                    tabSag.addTab(tabBuilder.setText("羽毛球").build(context))
+//                    tabSag.addTab(tabBuilder.setText("乒乓球").build(context))
+//                    tabSag.addTab(tabBuilder.setText("篮球").build(context))
+//                    tabSag.addTab(tabBuilder.setText("足球").build(context))
 
                     tabSag.setIndicator(
                         QMUITabIndicator(
@@ -114,6 +153,7 @@ class VenueDetailActivityAdapter(context: Context) :
                     tabSag.addOnTabSelectedListener(object :
                         QMUIBasicTabSegment.OnTabSelectedListener {
                         override fun onTabSelected(index: Int) {
+                            selectedItem = index
                         }
 
                         override fun onTabUnselected(index: Int) {
@@ -150,12 +190,51 @@ class VenueDetailActivityAdapter(context: Context) :
 
                     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                         (holder as TVd).tvBook.setOnClickListener {
-                            ARouter.getInstance().build("/cm/venueselectionactivity").navigation()
+                            ARouter.getInstance().build("/cm/venueselectionactivity")
+                                .withLong("id",venueDatailData.dateVO!!.get(selectedItem).projectId).navigation()
                         }
+                        val week = DateAndTimeUtil.getDay(
+                            venueDatailData.dateVO!!.get(selectedItem).date.get(position)
+                        )
+                        val day = DateAndTimeUtil.getDayOfMonth(
+                            venueDatailData.dateVO!!.get(selectedItem).date.get(position)
+                        )
+                        val Month = DateAndTimeUtil.getMonth(
+                            venueDatailData.dateVO!!.get(selectedItem).date.get(position)
+                        )
+
+                        when(week){
+                            1->{
+                                (holder as TVd).tvWeek.setText("周一")
+                            }
+                            2->{
+                                (holder as TVd).tvWeek.setText("周二")
+                            }
+                            3->{
+                                (holder as TVd).tvWeek.setText("周三")
+                            }
+                            4->{
+                                (holder as TVd).tvWeek.setText("周四")
+                            }
+                            5->{
+                                (holder as TVd).tvWeek.setText("周五")
+                            }
+                            6->{
+                                (holder as TVd).tvWeek.setText("周六")
+                            }
+                            7->{
+                                (holder as TVd).tvWeek.setText("周天")
+                            }
+
+                        }
+                        (holder as TVd).tvWeek.setText(week.toString())
+
+                        (holder as TVd).tvDate.setText(Month.toString() + "-" + day.toString())
+
                     }
 
                     override fun getItemCount(): Int {
-                        return 10
+                        return venueDatailData.dateVO!!.get(selectedItem).date.size
                     }
 
                     inner class TVd(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -168,86 +247,217 @@ class VenueDetailActivityAdapter(context: Context) :
 
                     }
                 }
+
+                (holder as ViewHolderCategory).tvBusinessTime.setText(venueDatailData.sysStadium!!.businessHours)
+
+                (holder as ViewHolderCategory).tvTrafficInfo.setText(venueDatailData.sysStadium!!.addressNavigation)
+
             }
             TYPE.Service.value -> {
+
+                (holder as ViewHolderService).tvEquRental.setText(venueDatailData.sysStadium!!.equipmentRental)
+                (holder as ViewHolderService).tvBath.setText(venueDatailData.sysStadium!!.bathFacilities)
+                (holder as ViewHolderService).tvFacil.setText(venueDatailData.sysStadium!!.facilities)
             }
             TYPE.Title.value -> {
             }
             TYPE.Valuation.value -> {
+
+                (holder as ViewHolderValuation).rb.setIsIndicator(true)
+
+
                 (holder as ViewHolderValuation).ivHeader.load(
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+                    venueDatailData.stadiumEvaluationVO!!.get(
+                        position-FIXED
+                    ).avatarName
                 ) {
                     placeholder(R.mipmap.leak_canary_icon)
 
                     crossfade(true)
                     transformations(CircleCropTransformation())
                 }
+                (holder as ViewHolderValuation).tvNickName.setText(
+                    venueDatailData.stadiumEvaluationVO!!.get(
+                        position-FIXED
+                    ).nickName
+                )
+                (holder as ViewHolderValuation).rb.rating =
+                    venueDatailData.stadiumEvaluationVO!!.get(position-FIXED).score.toFloat()
+                (holder as ViewHolderValuation).tvValua!!.setText(
+                    venueDatailData.stadiumEvaluationVO!!.get(
+                        position-FIXED
+                    ).evaluationContent
+                )
+//                (holder as ViewHolderValuation).tvDate.setText(
+//                    DateAndTimeUtil.getYearMonthDay(venueDatailData.stadiumEvaluationVO!!.get(position-FIXED).createDate.toString())
+//                )
+                (holder as ViewHolderValuation).tvDate.setText(
+                    venueDatailData.stadiumEvaluationVO!!.get(position-FIXED).createDate.substring(0,11)
+                )
+                venueDatailData.stadiumEvaluationVO!!.get(position-FIXED).pictureAdd?.let {
+                    if (it.size > 0) {
+                        for (i in 0 until it.size) {
+                            when (i) {
+                                0 -> {
+                                    (holder as ViewHolderValuation).ivQickOne.load(it[0]) {
+                                        placeholder(R.mipmap.leak_canary_icon)
+                                        crossfade(true)
+                                        transformations(
+                                            RoundedCornersTransformation(
+                                                10f,
+                                                10f,
+                                                10f,
+                                                10f
+                                            )
+                                        )
+                                    }
 
-                (holder as ViewHolderValuation).ivQickOne.load(
+                                }
+                                1 -> {
+                                    (holder as ViewHolderValuation).ivQickTwo.load(it[1]) {
+                                        placeholder(R.mipmap.leak_canary_icon)
+                                        crossfade(true)
+                                        transformations(
+                                            RoundedCornersTransformation(
+                                                10f,
+                                                10f,
+                                                10f,
+                                                10f
+                                            )
+                                        )
+                                    }
 
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
-                ) {
-                    placeholder(R.mipmap.leak_canary_icon)
-                    crossfade(true)
-                    transformations(RoundedCornersTransformation(10f, 10f, 10f, 10f))
-                }
-                (holder as ViewHolderValuation).ivQickTwo.load(
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
-                ) {
-                    placeholder(R.mipmap.leak_canary_icon)
-                    crossfade(true)
-                    transformations(RoundedCornersTransformation(10f, 10f, 10f, 10f))
-                }
-                (holder as ViewHolderValuation).ivQickTHr.load(
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
-                ) {
-                    placeholder(R.mipmap.leak_canary_icon)
-                    crossfade(true)
-                    transformations(RoundedCornersTransformation(10f, 10f, 10f, 10f))
-                }
-                (holder as ViewHolderValuation).rb.setIsIndicator(true)
+                                }
+                                2 -> {
+                                    (holder as ViewHolderValuation).ivQickTHr.load(it[2]) {
+                                        placeholder(R.mipmap.leak_canary_icon)
+                                        crossfade(true)
+                                        transformations(
+                                            RoundedCornersTransformation(
+                                                10f,
+                                                10f,
+                                                10f,
+                                                10f
+                                            )
+                                        )
+                                    }
 
+                                }
+                            }
+                        }
+                    }
+                }
             }
             else -> {
+
+                (holder as ViewHolderValuation).rb.setIsIndicator(true)
+
                 (holder as ViewHolderValuation).ivHeader.load(
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
+                    venueDatailData.stadiumEvaluationVO!!.get(
+                        position-FIXED
+                    ).avatarName
                 ) {
                     placeholder(R.mipmap.leak_canary_icon)
+
                     crossfade(true)
                     transformations(CircleCropTransformation())
                 }
+                (holder as ViewHolderValuation).tvNickName.setText(
+                    venueDatailData.stadiumEvaluationVO!!.get(
+                        position-FIXED
+                    ).nickName
+                )
+                (holder as ViewHolderValuation).rb.rating =
+                    venueDatailData.stadiumEvaluationVO!!.get(position-FIXED).score.toFloat()
+                (holder as ViewHolderValuation).tvValua!!.setText(
+                    venueDatailData.stadiumEvaluationVO!!.get(
+                        position-FIXED
+                    ).evaluationContent
+                )
+//                (holder as ViewHolderValuation).tvDate.setText(
+//                    DateAndTimeUtil.getYearMonthDay(venueDatailData.stadiumEvaluationVO!!.get(position-FIXED).createDate.toString())
+//                )
+                (holder as ViewHolderValuation).tvDate.setText(
+                   venueDatailData.stadiumEvaluationVO!!.get(position-FIXED).createDate.substring(0,11)
+                )
+                venueDatailData.stadiumEvaluationVO!!.get(position-FIXED).pictureAdd?.let {
+                    if (it.size > 0) {
+                        for (i in 0 until it.size) {
+                            when (i) {
+                                0 -> {
+                                    (holder as ViewHolderValuation).ivQickOne.load(it[0]) {
+                                        placeholder(R.mipmap.leak_canary_icon)
+                                        crossfade(true)
+                                        transformations(
+                                            RoundedCornersTransformation(
+                                                10f,
+                                                10f,
+                                                10f,
+                                                10f
+                                            )
+                                        )
+                                    }
 
-                (holder as ViewHolderValuation).ivQickOne.load(
+                                }
+                                1 -> {
+                                    (holder as ViewHolderValuation).ivQickTwo.load(it[1]) {
+                                        placeholder(R.mipmap.leak_canary_icon)
+                                        crossfade(true)
+                                        transformations(
+                                            RoundedCornersTransformation(
+                                                10f,
+                                                10f,
+                                                10f,
+                                                10f
+                                            )
+                                        )
+                                    }
 
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
-                ) {
-                    placeholder(R.mipmap.leak_canary_icon)
-                    crossfade(true)
-                    transformations(RoundedCornersTransformation(10f, 10f, 10f, 10f))
-                }
-                (holder as ViewHolderValuation).ivQickTwo.load(
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
-                ) {
-                    placeholder(R.mipmap.leak_canary_icon)
-                    crossfade(true)
-                    transformations(RoundedCornersTransformation(10f, 10f, 10f, 10f))
-                }
-                (holder as ViewHolderValuation).ivQickTHr.load(
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
-                ) {
-                    placeholder(R.mipmap.leak_canary_icon)
-                    crossfade(true)
-                    transformations(RoundedCornersTransformation(10f, 10f, 10f, 10f))
-                }
+                                }
+                                2 -> {
+                                    (holder as ViewHolderValuation).ivQickTHr.load(it[2]) {
+                                        placeholder(R.mipmap.leak_canary_icon)
+                                        crossfade(true)
+                                        transformations(
+                                            RoundedCornersTransformation(
+                                                10f,
+                                                10f,
+                                                10f,
+                                                10f
+                                            )
+                                        )
+                                    }
 
-                (holder as ViewHolderValuation).rb.setIsIndicator(true)
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
         }
     }
 
     override fun getItemCount(): Int {
-        return 10
+        if(venueDatailData != null){
+            if (venueDatailData.sysStadium!=null) {
+
+                return venueDatailData.stadiumEvaluationVO!!.size + FIXED
+            } else {
+                return 0
+            }
+        }else{
+            return 0
+        }
+    }
+
+    /**
+     *
+     * 对适配器设置数据
+     */
+    fun setData(venueDatailData: VenueDetailData) {
+        this.venueDatailData = venueDatailData
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -265,7 +475,7 @@ class VenueDetailActivityAdapter(context: Context) :
             3 -> {
                 return TYPE.Title.value
             }
-            0 -> {
+            4 -> {
                 return TYPE.Valuation.value
             }
             else -> {
@@ -285,6 +495,7 @@ class VenueDetailActivityAdapter(context: Context) :
         var tvEvalution =
             itemView.findViewById<TextView>(R.id.tv_evaluate_account_venue_detail_item)
         var tvLoc = itemView.findViewById<TextView>(R.id.tv_location_account_venue_detail_item)
+        var ivCall = itemView.findViewById<ImageView>(R.id.iv_call_venue_detail_item)
 
     }
 

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.launcher.ARouter
 import com.qmuiteam.qmui.arch.SwipeBackLayout
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
@@ -131,8 +132,11 @@ abstract class BaseVMDBActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         QMUIStatusBarHelper.translucent(this)
         QMUIStatusBarHelper.setStatusBarLightMode(this)
+
+        ARouter.getInstance().inject(this)
 
         initDataBindAndViewModel()
 //        if (actionBar())

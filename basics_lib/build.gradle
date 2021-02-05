@@ -69,7 +69,7 @@ dependencies {
 
     api rootProject.ext.dependencies["multidex"]
     api rootProject.ext.dependencies["logger"]
-
+    api rootProject.ext.dependencies["jodaTime"]
 
     debugApi('com.squareup.leakcanary:leakcanary-android:2.6')
 

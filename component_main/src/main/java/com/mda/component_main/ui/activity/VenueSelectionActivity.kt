@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bin.david.form.core.SmartTable
 import com.bin.david.form.core.TableConfig
@@ -26,23 +27,32 @@ import com.bin.david.form.data.table.ArrayTableData
 import com.bin.david.form.data.table.TableData
 import com.bin.david.form.utils.DensityUtils
 import com.bin.david.form.utils.DrawUtils
+import com.mda.basics_lib.`interface`.OnResponseListener
+import com.mda.basics_lib.log.LogUtil
 import com.mda.basics_lib.utils.PhoneInfo
 import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.common_ui_base.base.BaseViewModel
 import com.mda.component_main.R
 import com.mda.component_main.adapter.VenueSelectionAdapter
+import com.mda.component_main.bean.VenueDetailData
+import com.mda.component_main.bean.VenueSelectionData
 import com.mda.component_main.databinding.ActivityVenueSelectionBinding
 import com.mda.component_main.decoration.VenueSelectionActivityRecyclerHorizontalViewDecoration
+import com.mda.component_main.viewmodel.VenueSelectionActivityModel
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.tab.*
 
 @Route(path = "/cm/venueselectionactivity")
-class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSelectionBinding>() {
+class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, ActivityVenueSelectionBinding>() {
     private lateinit var table: SmartTable<Int>
     private lateinit var mTopBar: QMUITopBarLayout
     private lateinit var mTabSag: QMUITabSegment2
 
     private lateinit var rv: RecyclerView
+    lateinit var adapter:VenueSelectionAdapter
+    @JvmField
+    @Autowired
+    var id:Long= 0
     val infos = arrayOf(
         arrayOf(0, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2),
         arrayOf(0, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2, 2),
@@ -86,7 +96,7 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
     fun initRV() {
         val lm = LinearLayoutManager(this@VenueSelectionActivity)
         lm.orientation = RecyclerView.HORIZONTAL
-        val adapter = VenueSelectionAdapter(this@VenueSelectionActivity, infos)
+        adapter = VenueSelectionAdapter(this@VenueSelectionActivity, infos)
         rv.layoutManager = lm
         rv.addItemDecoration(VenueSelectionActivityRecyclerHorizontalViewDecoration())
         rv.adapter = adapter
@@ -687,6 +697,42 @@ class VenueSelectionActivity : BaseVMDBActivity<BaseViewModel, ActivityVenueSele
     }
 
     override fun initData() {
+        mViewModel.getVenueSelectionData(id,object:OnResponseListener<VenueSelectionData>{
+            override fun onError(msg: String) {
+                LogUtil.debugInfo("t.onError" + msg)
+
+            }
+
+            override fun onException(msg: String) {
+                LogUtil.debugInfo("t.onException" + msg)
+
+            }
+
+            override fun onMsg(msg: String) {
+                LogUtil.debugInfo("msg" + msg)
+
+            }
+
+            override fun onResult(t: VenueSelectionData) {
+                LogUtil.debugInfo("msg" + t)
+//                infos.
+                val venueNum = t.list.size
+                val timeintervalNum  = t.list.get(0).list.size
+                var newInfoC = arrayOfNulls<Array<Int>>(venueNum)
+                var newInfoR = arrayOfNulls<Int!!>(timeintervalNum)
+
+                for(i in 0 until venueNum){
+                    for(j in 0 until timeintervalNum){
+
+                        newInfoR.set(j,t.list.get(i).list.get(j).isReserve)
+                    }
+                    newInfoC.set(i,newInfoR)
+                }
+                var newInfo = arrayOf(t.list.get(0),t.list.get(1),t.list.get(2))
+
+
+            }
+        })
     }
 
 

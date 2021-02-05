@@ -14,7 +14,7 @@
         android:id="@+id/tv_titile_venue_detail_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="体育场馆推荐"
+        android:text="@string/user_comments"
         android:textSize="@dimen/s16"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

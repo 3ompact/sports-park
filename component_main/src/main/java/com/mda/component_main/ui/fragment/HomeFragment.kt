@@ -1,26 +1,30 @@
 package com.mda.component_main.ui.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.mda.basics_lib.utils.SpannerableStringUtil
+import com.mda.basics_lib.`interface`.OnResponseListener
+import com.mda.basics_lib.log.LogUtil
 import com.mda.common_ui_base.base.AbBaseRefreshAndLoadMoreFragment
 import com.mda.component_main.R
 import com.mda.component_main.adapter.HomeFragmentWithoutThrAdapter
+import com.mda.component_main.bean.HomeFragmentEncapsulation
+import com.mda.component_main.bean.VenueSummary
 import com.mda.component_main.databinding.FragmentHomeCmBinding
 import com.mda.component_main.decoration.HomeFragmentRecyclerViewDecoration
-import com.mda.component_main.viewmodel.MainFragmentViewModel
+import com.mda.component_main.viewmodel.HomeFragmentViewModel
 import com.qmuiteam.qmui.recyclerView.QMUIRVDraggableScrollBar
 import com.qmuiteam.qmui.recyclerView.QMUIRVItemSwipeAction
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout
 
 @Route(path = "/cm/homefragment")
 class HomeFragment :
-    AbBaseRefreshAndLoadMoreFragment<MainFragmentViewModel, FragmentHomeCmBinding>() {
+    AbBaseRefreshAndLoadMoreFragment<HomeFragmentViewModel, FragmentHomeCmBinding>() {
+    var datasList: MutableList<VenueSummary> = mutableListOf()
+    lateinit var adapter: HomeFragmentWithoutThrAdapter
     override fun layoutId(): Int {
         return R.layout.fragment_home_cm
     }
@@ -45,10 +49,13 @@ class HomeFragment :
 //        mTopBar.setBackgroundColor(Color.parseColor("#333333"))
         mTopBar.removeAllLeftViews()
         //设置分离器颜色
-        mTopBar.updateBottomDivider(0,0,0,R.color.white_without_alpha)
-        var button =  mTopBar.addLeftTextButton("重庆市∨",R.id.location_home_fragemnt)
+        mTopBar.updateBottomDivider(0, 0, 0, R.color.white_without_alpha)
+        var button = mTopBar.addLeftTextButton("重庆市\t∨", R.id.location_home_fragemnt)
         button.textSize = 10f
-        var lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        var lp = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         lp.leftMargin = 10
         lp.addRule(RelativeLayout.CENTER_VERTICAL)
 
@@ -96,7 +103,7 @@ class HomeFragment :
 
     override fun setAdapter() {
         mRecyclerView.addItemDecoration(HomeFragmentRecyclerViewDecoration())
-        var adapter = context?.let { HomeFragmentWithoutThrAdapter(it) }
+        adapter = context?.let { HomeFragmentWithoutThrAdapter(it) }!!
         mRecyclerView.adapter = adapter
     }
 
@@ -112,6 +119,32 @@ class HomeFragment :
     override fun onLoadMore(pullAction: QMUIPullLayout.PullAction) {
 //        finishRefresh(pullAction)
 
+    }
+
+    //初始化数据
+    override fun initData() {
+        super.initData()
+        mViewModel.getSummaryData(object : OnResponseListener<HomeFragmentEncapsulation> {
+            override fun onResult(t: HomeFragmentEncapsulation) {
+                LogUtil.debugInfo("t.total" + t.total)
+                adapter.setData(t.list)
+            }
+
+            override fun onError(msg: String) {
+                LogUtil.debugInfo("t.onError" + msg)
+
+            }
+
+            override fun onException(msg: String) {
+                LogUtil.debugInfo("t.onException" + msg)
+
+            }
+
+            override fun onMsg(msg: String) {
+                LogUtil.debugInfo("msg" + msg)
+
+            }
+        })
     }
 
     override fun <T : RecyclerView.ViewHolder> onDataLoaded(adapter: RecyclerView.Adapter<T>) {

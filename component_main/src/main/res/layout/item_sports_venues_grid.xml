@@ -19,7 +19,6 @@
         android:layout_marginRight="4dp"
         android:scaleType="centerCrop"
         android:background="@drawable/shape_sports_venuse_imageview_backgroud"
-        android:src="@mipmap/leak_canary_icon"
         />
     <TextView
         android:paddingTop="@dimen/d15"
@@ -67,7 +66,6 @@
         android:layout_marginLeft="4dp"
         android:scaleType="centerCrop"
         android:background="@drawable/shape_sports_venuse_imageview_backgroud"
-        android:src="@mipmap/leak_canary_icon"
 
         />
 

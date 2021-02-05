@@ -21,9 +21,11 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.mda.basics_lib.log.LogUtil
 import com.mda.basics_lib.utils.SpannerableStringUtil
 import com.mda.common_ui_base.entity.MultiItemType
 import com.mda.component_main.R
+import com.mda.component_main.bean.VenueSummary
 import com.youth.banner.Banner
 
 
@@ -32,7 +34,12 @@ import com.youth.banner.Banner
  */
 class HomeFragmentWithoutThrAdapter(context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    lateinit var context: Context
+    var context: Context
+
+    lateinit var listVariation: MutableList<Array<VenueSummary>>
+
+    val FIXDX = 5
+    var datasList: MutableList<VenueSummary> = mutableListOf()
 
     init {
         this.context = context
@@ -128,12 +135,9 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
                 var list = ArrayList<String>()
                 list.add("ss")
                 var imageUrls = listOf(
-                    "https://img.zcool.cn/community/011ad05e27a173a801216518a5c505.jpg",
-                    "https://img.zcool.cn/community/0148fc5e27a173a8012165184aad81.jpg",
-                    "https://img.zcool.cn/community/013c7d5e27a174a80121651816e521.jpg",
-                    "https://img.zcool.cn/community/01b8ac5e27a173a80120a895be4d85.jpg",
-                    "https://img.zcool.cn/community/01a85d5e27a174a80120a895111b2c.jpg",
-                    "https://img.zcool.cn/community/01085d5e27a174a80120a8958791c4.jpg"
+                    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3496258028,3081088322&fm=26&gp=0.jpg",
+                    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3496258028,3081088322&fm=26&gp=0.jpg",
+                    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3496258028,3081088322&fm=26&gp=0.jpg",
                 )
                 var adapter = ImageNetAdapter(imageUrls)
 
@@ -200,7 +204,6 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
 //                }
 
 
-
             }
             MultiItemType.LEFTTITLEANDRIGHTMORE -> {
 
@@ -209,39 +212,21 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
 
                 (holder as ViewHolderGrid).cl.setOnClickListener {
 
-                    ARouter.getInstance()
-                        .build("/cm/venuedetailactivity")
-                        .navigation(context, object : NavCallback() {
-
-                            override fun onFound(postcard: Postcard?) {
-                                Log.d("3ompact", "找到了")
-                            }
-
-                            override fun onLost(postcard: Postcard?) {
-                                Log.d("3ompact", "没找到")
-                            }
-
-                            override fun onArrival(postcard: Postcard?) {
-                                Log.d("3ompact", "跳转成功")
-                            }
-
-                            override fun onInterrupt(postcard: Postcard?) {
-                                Log.d("3ompact", "被拦截了")
-                            }
-
-                        })
 
                 }
 
 
-                val mRequestListener = object: RequestListener<Drawable>{
+                val mRequestListener = object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
                         target: Target<Drawable>?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        Log.d("3ompact", "onException: " + e.toString()+"  model:"+model+" isFirstResource: "+isFirstResource)
+                        Log.d(
+                            "3ompact",
+                            "onException: " + e.toString() + "  model:" + model + " isFirstResource: " + isFirstResource
+                        )
                         return false
                     }
 
@@ -252,7 +237,7 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
                         dataSource: DataSource?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        Log.e("3ompact",  "model:"+model+" isFirstResource: "+isFirstResource);
+                        Log.e("3ompact", "model:" + model + " isFirstResource: " + isFirstResource)
                         return false
                     }
 
@@ -265,16 +250,104 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
 //                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
 //                ).listener(mRequestListener).into((holder as ViewHolderGrid).ivTwo)
 
-                (holder as ViewHolderGrid).ivOne.load(
-                    "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1517417813,2367413112&fm=26&gp=0.jpg"
-                ) {
-//
+
+                LogUtil.debugInfo("postion" + position)
+                datasList.get((position - 5) * 2).id?.let {
+                    datasList.get((position - 5) * 2).pictureAdds?.let {
+                        (holder as ViewHolderGrid).ivOne.load(
+                            it
+                        ) {
+                        }
+                        holder.ivOne.setOnClickListener {
+                            ARouter.getInstance()
+                                .build("/cm/venuedetailactivity")
+                                .withLong("id", datasList.get((position - 5) * 2).id)
+                                .navigation(context, object : NavCallback() {
+
+                                    override fun onFound(postcard: Postcard?) {
+                                        Log.d("3ompact", "找到了")
+                                    }
+
+                                    override fun onLost(postcard: Postcard?) {
+                                        Log.d("3ompact", "没找到")
+                                    }
+
+                                    override fun onArrival(postcard: Postcard?) {
+                                        Log.d("3ompact", "跳转成功")
+                                    }
+
+                                    override fun onInterrupt(postcard: Postcard?) {
+                                        Log.d("3ompact", "被拦截了")
+                                    }
+
+                                })
+                        }
+                    }
+                    (holder as ViewHolderGrid).tvOneDesc.setText(datasList.get((position - 5) * 2).stadiumName)
+                    (holder as ViewHolderGrid).tvOneLocation.setText(datasList.get((position - 5) * 2).stadiumAdd)
+
                 }
-                (holder as ViewHolderGrid).ivTwo.load(
-                    "https://t7.baidu.com/it/u=3631608752,3069876728&fm=193&f=GIF"
-                ) {
-//
+
+                /**
+                 * !!.id  数据为空时进行逻辑判断（由于数据和界面的问题采用此种方式进行解决）
+                 */
+
+                if ((position - 5) * 2 + 1 > datasList.size - 1) {
+//                    if (datasList.get() == null) {
+//                    (holder as ViewHolderGrid).cl.visibility = View.GONE
+
+                    (holder as ViewHolderGrid).ivTwo.visibility = View.INVISIBLE
+                    (holder as ViewHolderGrid).tvTwoDesc.visibility = View.INVISIBLE
+                    (holder as ViewHolderGrid).tvTwoLocation.visibility = View.INVISIBLE
+//                    }
+                } else {
+                    datasList.get((position - 5) * 2 + 1).id?.let {
+                        datasList.get((position - 5) * 2 + 1).pictureAdds?.let {
+                            (holder as ViewHolderGrid).ivTwo.load(
+                                it
+                            )
+                            holder.ivTwo.setOnClickListener {
+                                ARouter.getInstance()
+                                    .build("/cm/venuedetailactivity")
+                                    .withLong("id", datasList.get((position - 5) * 2+ 1).id)
+                                    .navigation(context, object : NavCallback() {
+
+                                        override fun onFound(postcard: Postcard?) {
+                                            Log.d("3ompact", "找到了")
+                                        }
+
+                                        override fun onLost(postcard: Postcard?) {
+                                            Log.d("3ompact", "没找到")
+                                        }
+
+                                        override fun onArrival(postcard: Postcard?) {
+                                            Log.d("3ompact", "跳转成功")
+                                        }
+
+                                        override fun onInterrupt(postcard: Postcard?) {
+                                            Log.d("3ompact", "被拦截了")
+                                        }
+
+                                    })
+                            }
+                        }
+                        (holder as ViewHolderGrid).tvTwoDesc.setText(datasList.get((position - 5) * 2 + 1).stadiumName)
+                        (holder as ViewHolderGrid).tvTwoLocation.setText(datasList.get((position - 5) * 2 + 1).stadiumAdd)
+                    }
                 }
+
+
+//                else{
+//                    (holder as ViewHolderGrid).cl.visibility = View.GONE
+////                    var ivOne: ImageView = itemView.findViewById(R.id.iv_one_sports_venues_item)
+////                    var ivTwo: ImageView = itemView.findViewById(R.id.iv_two_sports_venues_item)
+////                    var tvOneDesc: TextView = itemView.findViewById(R.id.tv_desc_one_sports_venues_item)
+////                    var tvOneLocation: TextView = itemView.findViewById(R.id.tv_location_one_sports_venues_item)
+////                    var tvTwoDesc: TextView = itemView.findViewById(R.id.tv_desc_two_sports_venues_item)
+////                    var tvTwoLocation: TextView = itemView.findViewById(R.id.tv_location_two_sports_venues_item)
+//                }
+
+
                 if (position == 19) {
 //                    val params : ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 //                    var bottom = 12*PhoneInfo.getPhonDensity(context.applicationContext)
@@ -289,9 +362,17 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
     }
 
     override fun getItemCount(): Int {
+        if (datasList.size % 2 == 0) {
+            return datasList.size / 2 + FIXDX
+        } else {
+            return datasList.size / 2 + 1 + FIXDX
+        }
+    }
 
-        return 20
-
+    //进行全部数据更新
+    fun setData(datasList: MutableList<VenueSummary>) {
+        this.datasList = datasList
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -316,10 +397,10 @@ class HomeFragmentWithoutThrAdapter(context: Context) :
                 return MultiItemType.LEFTTITLEANDRIGHTMORE
 
             }
-            5 -> {
-                return MultiItemType.GRID
-
-            }
+//            5 -> {
+//                return MultiItemType.GRID
+//
+//            }
             else -> {
                 return MultiItemType.GRID
 

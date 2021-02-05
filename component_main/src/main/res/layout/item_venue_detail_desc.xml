@@ -86,12 +86,22 @@
         android:text="重庆市江北区石子山体育公园"
         android:textColor="@color/text_black"
         android:drawableLeft="@drawable/icon_location"
-        android:drawableRight="@drawable/icon_call_phone"
         android:paddingRight="@dimen/d20"
         android:textSize="@dimen/s13"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mrb_account_venue_detail_item" />
 
+
+    <ImageView
+        app:layout_constraintTop_toTopOf="@id/tv_location_account_venue_detail_item"
+        android:layout_width="@dimen/d38"
+        android:layout_height="@dimen/d38"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/d20"
+        android:src="@drawable/icon_call_phone"
+        android:scaleType="center"
+        android:id="@+id/iv_call_venue_detail_item"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,6 +53,7 @@ ext {
             bannerVersion                         : "2.1.0",
             zxingVersion                          : "3.4.1",
             ratingBarVersion                      : "1.4.0",
+            jodaTimeVersion                       : '2.10.9.1',
 
     ]
 
@@ -113,6 +114,8 @@ ext {
             //zxing 二维码
             zxing                          : "com.google.zxing:core:${versions["zxingVersion"]}",
 
-            ratingBar                      : "me.zhanghai.android.materialratingbar:library:${versions["ratingBarVersion"]}"
+            ratingBar                      : "me.zhanghai.android.materialratingbar:library:${versions["ratingBarVersion"]}",
+            jodaTime                       : "net.danlew:android.joda:${versions["jodaTimeVersion"]}",
+
     ]
 }

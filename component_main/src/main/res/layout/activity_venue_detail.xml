@@ -9,8 +9,9 @@
         android:layout_height="match_parent"
         >
 
+
         <com.qmuiteam.qmui.widget.QMUIAppBarLayout
-            android:id="@+id/QMUIAppBarLayout"
+            android:id="@+id/appbarlayout_venue_detail_activity"
             android:layout_width="match_parent"
             android:layout_height="256dp"
             android:background="@color/white_without_alpha"
@@ -55,7 +56,7 @@
                         android:layout_height="@dimen/d20"
                         android:layout_gravity="right|bottom"
                         android:layout_marginRight="@dimen/d15"
-                        android:layout_marginBottom="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/d30"
                         android:background="@drawable/shape_backgorund_venue_detail_vp_textindicator"
                         android:gravity="center"
                         android:text="1/5"
@@ -79,12 +80,23 @@
             </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
         </com.qmuiteam.qmui.widget.QMUIAppBarLayout>
 
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+            android:id="@+id/emptyView_venue_detail_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:background="@color/qmui_config_color_white"
+            app:qmui_skin_background="@color/qmui_config_color_white"
+            app:qmui_title_text=""
+            app:qmui_detail_text="无网络，请重新请求。"
+            android:fitsSystemWindows="true"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_venue_detail_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            app:layout_anchor="@+id/QMUIAppBarLayout"
+            app:layout_anchor="@+id/appbarlayout_venue_detail_activity"
             app:layout_anchorGravity="bottom|center"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

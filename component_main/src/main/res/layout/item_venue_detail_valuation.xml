@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/d15"
+    android:paddingBottom="@dimen/d15"
     android:background="@color/white_without_alpha"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
