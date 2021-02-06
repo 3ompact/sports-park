@@ -78,7 +78,9 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
 
         emptyView.hide()
 
-        mTopBar.addLeftBackImageButton()
+        mTopBar.addLeftBackImageButton().setOnClickListener {
+            finish()
+        }
 
         mCollTopBarLayout.setScrimUpdateListener(AnimatorUpdateListener { animation ->
             val alpha = 1 - animation.animatedValue.toString().toFloat() / 255

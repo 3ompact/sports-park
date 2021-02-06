@@ -40,7 +40,7 @@ interface ManApiS {
      */
     @POST("app/site-time-price/queryAll")
     @FormUrlEncoded
-    suspend fun getAllTimeIntervalOfVenueSeleection(@Field("projectId") stadiumId : Long): BaseResponse<VenueSelectionData>
+    suspend fun getAllTimeIntervalOfVenueSeleection(@Field("projectId") stadiumId : Long,@Field("time")time:String): BaseResponse<MutableList<SingleVenue>>
 
 
 

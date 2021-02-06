@@ -9,6 +9,7 @@ import com.mda.common_network.RequestUtil
 import com.mda.common_network.bean.Test
 import com.mda.common_ui_base.base.BaseViewModel
 import com.mda.component_main.ManApiS
+import com.mda.component_main.bean.SingleVenue
 import com.mda.component_main.bean.VenueSelectionData
 
 /**
@@ -49,8 +50,8 @@ class VenueSelectionActivityModel : BaseViewModel() {
     /**
      *   获取单个场馆 所有
      */
-    fun getVenueSelectionData(id:Long,onResponseListener: OnResponseListener<VenueSelectionData>){
-        launchRep({Req.getRequestUtilInstanceTest(ManApiS::class.java)!!.getAllTimeIntervalOfVenueSeleection(id)},onResponseListener)
+    fun getVenueSelectionData(id:Long,time:String,onResponseListener: OnResponseListener<MutableList<SingleVenue>>){
+        launchRep({Req.getRequestUtilInstanceTest(ManApiS::class.java)!!.getAllTimeIntervalOfVenueSeleection(id,time)},onResponseListener)
 
     }
 }

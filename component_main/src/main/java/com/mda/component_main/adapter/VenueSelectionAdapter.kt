@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mda.component_main.R
+import com.mda.component_main.bean.SingleTimeInterval
 
-class VenueSelectionAdapter(context: Context, arrayTwoDiemn: Array<Array<Int>>) :
+class VenueSelectionAdapter(context: Context, arrayTwoDiemn: MutableList<SingleTimeInterval>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var context: Context
-    private lateinit var arrayTwoDiemn: Array<Array<Int>>
+    private lateinit var arrayTwoDiemn: MutableList<SingleTimeInterval>
 
     init {
         this.context = context
@@ -31,7 +32,7 @@ class VenueSelectionAdapter(context: Context, arrayTwoDiemn: Array<Array<Int>>) 
     }
 
     //进行局部数据更新
-    fun updateData(newData :Array<Array<Int>>){
+    fun updateData(newData :MutableList<SingleTimeInterval>){
 
         //假如就第一个数据不一样
 
@@ -39,24 +40,25 @@ class VenueSelectionAdapter(context: Context, arrayTwoDiemn: Array<Array<Int>>) 
 
     }
 
-    //设置数据
-    fun setData(oriData:Array<Array<Int>>){
+    //设置数据 或者全量更新
+    fun setData(oriData:MutableList<SingleTimeInterval>){
         arrayTwoDiemn = oriData
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-        val col = arrayTwoDiemn.size
-        val row = arrayTwoDiemn[0].size
-        var count = 0
-        for (i in arrayTwoDiemn) {
-            for (j in i) {
-                if (j == 2) {
-                    count += 1
-                }
-            }
-        }
-        return count
+//        val col = arrayTwoDiemn.size
+//        val row = arrayTwoDiemn[0].size
+//        var count = 0
+//        for (i in arrayTwoDiemn) {
+//            for (j in i) {
+//                if (j == 2) {
+//                    count += 1
+//                }
+//            }
+//        }
+//        arrayTwoDiemn.size
+        return arrayTwoDiemn.size
     }
 
     class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {

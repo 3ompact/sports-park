@@ -31,37 +31,67 @@ import com.mda.basics_lib.`interface`.OnResponseListener
 import com.mda.basics_lib.log.LogUtil
 import com.mda.basics_lib.utils.PhoneInfo
 import com.mda.common_ui_base.base.BaseVMDBActivity
-import com.mda.common_ui_base.base.BaseViewModel
 import com.mda.component_main.R
 import com.mda.component_main.adapter.VenueSelectionAdapter
-import com.mda.component_main.bean.VenueDetailData
+import com.mda.component_main.bean.SingleTimeInterval
+import com.mda.component_main.bean.SingleVenue
 import com.mda.component_main.bean.VenueSelectionData
 import com.mda.component_main.databinding.ActivityVenueSelectionBinding
 import com.mda.component_main.decoration.VenueSelectionActivityRecyclerHorizontalViewDecoration
 import com.mda.component_main.viewmodel.VenueSelectionActivityModel
+import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.tab.*
+import java.lang.reflect.Method
+import java.util.*
+import java.util.stream.Collectors
+import kotlin.Comparator
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 @Route(path = "/cm/venueselectionactivity")
-class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, ActivityVenueSelectionBinding>() {
+class VenueSelectionActivity :
+    BaseVMDBActivity<VenueSelectionActivityModel, ActivityVenueSelectionBinding>() {
     private lateinit var table: SmartTable<Int>
     private lateinit var mTopBar: QMUITopBarLayout
     private lateinit var mTabSag: QMUITabSegment2
 
     private lateinit var rv: RecyclerView
-    lateinit var adapter:VenueSelectionAdapter
+    lateinit var adapter: VenueSelectionAdapter
+
     @JvmField
     @Autowired
-    var id:Long= 0
-    val infos = arrayOf(
-        arrayOf(0, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2),
-        arrayOf(0, 2, 1, 1, 0, 1, 1, 0, 1, 1, 2, 2, 2),
-        arrayOf(2, 2, 0, 1, 2, 2, 1, 0, 1, 1, 0, 1, 1),
-        arrayOf(2, 1, 1, 0, 1, 2, 0, 1, 1, 2, 2, 0, 0),
-        arrayOf(0, 1, 2, 1, 1, 0, 1, 0, 0, 1, 1, 2, 2),
-        arrayOf(1, 0, 1, 2, 2, 2, 0, 1, 2, 1, 1, 0, 0),
-        arrayOf(2, 1, 2, 1, 0, 1, 2, 1, 1, 0, 1, 1, 0)
+    var id: Long = 0
+
+    @JvmField
+    @Autowired
+    var time: String = ""
+//    val infoss = arrayOf(
+//        arrayOf(0),
+//        arrayOf(0),
+//        arrayOf(0)
+//    )
+    var infoss : Array<Array<Int?>?> = arrayOf(
+        arrayOf(0),
+        arrayOf(0),
+        arrayOf(0)
     )
+    var test : Array<Array<Int?>?> =arrayOf()
+
+
+
+//    lateinit var newInfoC:Array<Array<Int?>?>
+//    lateinit var newInfoR:Array<Int?>
+//
+//    lateinit var newMoneyC:Array<Array<Int?>>
+//    lateinit var newMoneyR:Array<Int?>
+//
+//    lateinit var newColName:Array<String?>
+    //该运动项目时间表数据
+    val venueInfoList : MutableList<SingleVenue> = ArrayList()
+    //已选则数据
+    var arrayTwoDiemn: MutableList<SingleTimeInterval> = ArrayList()
+    var mapDuplicate : TreeMap<Long,SingleTimeInterval> = TreeMap()
 
     override fun layoutId(): Int {
         return R.layout.activity_venue_selection
@@ -77,18 +107,17 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
         mTopBar = mDataBinding.topbarVenueSelectionActivity
 
         mTopBar.setTitle("场次选择")
-        mTopBar.addLeftBackImageButton()
-            .setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
-//            .setBackgroundColor(Color.parseColor("#333333"))
-//            .setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
+        var ivB: QMUIAlphaImageButton = mTopBar.addLeftBackImageButton()
+        ivB.setOnClickListener {
+            finish()
+        }
+        ivB.setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
+
         rv = mDataBinding.rvSelectedVenueSelectionActivity
         mTabSag = mDataBinding.tabsagWeekVenueSelectionActivity
-        var tabBuilder: QMUITabBuilder = mTabSag.tabBuilder()
-//        .build(this@VenueSelectionActivity)
-//        CustomeQMUITab("ssss\nssssss")
         initRV()
         initTabSagment()
-        inittable(table)
+//        inittable(table)
 
     }
 
@@ -96,7 +125,7 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
     fun initRV() {
         val lm = LinearLayoutManager(this@VenueSelectionActivity)
         lm.orientation = RecyclerView.HORIZONTAL
-        adapter = VenueSelectionAdapter(this@VenueSelectionActivity, infos)
+        adapter = VenueSelectionAdapter(this@VenueSelectionActivity, arrayTwoDiemn)
         rv.layoutManager = lm
         rv.addItemDecoration(VenueSelectionActivityRecyclerHorizontalViewDecoration())
         rv.adapter = adapter
@@ -279,13 +308,15 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
 //        mTabSag.selectTab(0)
         mTabSag.notifyDataChanged()
 //        mTabSag.selectTab(0)
-
+//        inittable(table)
+        //, colName: Array<String?>, infos: Array<Array<Int?>?>
     }
 
     //初始化场地选择器
-    fun inittable(table: SmartTable<Int>) {
+    fun inittable(table: SmartTable<Int>, colName: Array<String?>, infos: Array<Array<Int?>?>) {
         val week = arrayOf("日", "一", "二", "三", "四", "五", "六")
         //按照列数据展示数据
+
 
         val fontStyle = FontStyle(this, 10, ContextCompat.getColor(this, R.color.text_black))
         table.config.setColumnTitleStyle(fontStyle)
@@ -329,8 +360,8 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
 
         var s = 1111
 
-        val tableData: ArrayTableData<Int> =
-            ArrayTableData.create("", week, infos, object : IDrawFormat<Int> {
+        var tableData: ArrayTableData<Int> =
+            ArrayTableData.create("", colName, infos, object : IDrawFormat<Int> {
                 var x: Int = 0
                 var y: Int = 0
 
@@ -340,12 +371,6 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                     config: TableConfig
                 ): Int {
                     x = position
-//                    if(column.columnName.equals("场地")){
-                    Log.i("measure", "column.columnName" + column.columnName)
-//
-//                        return DensityUtils.dp2px(this@VenueSelectionActivity, 50f)
-//                    }
-                    Log.i("measure", "Xposition" + position)
                     return DensityUtils.dp2px(this@VenueSelectionActivity, 80f)
                 }
 
@@ -355,7 +380,6 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                     config: TableConfig
                 ): Int {
                     y = position
-                    Log.i("measure", "Yposition" + position)
                     return DensityUtils.dp2px(this@VenueSelectionActivity, 40f)
                 }
 
@@ -368,13 +392,7 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                 ) {
                     val paint: Paint = config.paint
                     val color: Int
-                    when (cellInfo.data) {
-                        1 -> color = R.color.purple_200
-                        2 -> color = R.color.purple_500
-                        3 -> color = R.color.purple_700
-                        4 -> color = R.color.teal_200
-                        else -> color = R.color.teal_700
-                    }
+
                     paint.setStyle(Paint.Style.FILL)
                     paint.setColor(
                         ContextCompat.getColor(
@@ -382,15 +400,8 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                             R.color.text_gray
                         )
                     )
-                    Log.i("3ompact", "cellInfo" + cellInfo.col)
-                    Log.i("3ompact", "cellInfodata" + cellInfo.data)
 
-//                    if (cellInfo.col == 0) {
-//                        rect!!.set(Rect(rect!!.left, rect!!.top, rect!!.right - 100, rect!!.bottom))
-//                        Log.i("3ompact", "cellInfo" + cellInfo.col)
-//
-//                    }
-//                    infos.
+
                     //为不可预订时的处理
                     var bitmap = BitmapFactory.decodeResource(resources, R.drawable.icon_prohibit)
                     var zoomX = PhoneInfo.getPhonDensity(this@VenueSelectionActivity.application)
@@ -406,9 +417,10 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                     paintBackground.isAntiAlias = true
                     paintText.isAntiAlias = true
 
-                    //进行状态判断
-                    when (infos[cellInfo.col][cellInfo.row]) {
-                        0 -> {
+                    //进行状态判断  0 未预定 ， 1 已预订，
+                    when (infos[cellInfo.col]!![cellInfo.row]) {
+
+                        1 -> {
                             paintBackground.style = Paint.Style.FILL
 
                             paintBackground.setColor(Color.parseColor("#e4e4e4"))
@@ -428,7 +440,9 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                                 paintBitmap
                             )
                         }
-                        1 -> {
+                        0 -> {
+                            LogUtil.debugInfo("绘画次数 ")
+
                             paintText.textSize = 13f * zoomX
                             var w = paintText.measureText("¥50")
                             paintText.setColor(Color.parseColor("#3399fe"))
@@ -481,29 +495,29 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
 
                         }
                         else -> {
-                            paintBackground.style = Paint.Style.FILL
-                            paintBackground.setColor(Color.parseColor("#3399fe"))
-
-                            paintBackground.strokeWidth = 2f
-                            c.drawRoundRect(
-                                (rect.left + 5).toFloat(),
-                                (rect.top + 5).toFloat(),
-                                (rect.right - 5).toFloat(),
-                                (rect.bottom - 5).toFloat(),
-                                8f, 8f,
-                                paintBackground
-                            )
-                            paintText.textSize = 13f * zoomX
-                            var w = paintText.measureText("¥50")
-                            paintText.setColor(Color.parseColor("#ffffff"))
-
-                            c.drawText(
-                                "¥50",
-                                rect.centerX().toFloat() - w / 2,
-                                rect.centerY()
-                                    .toFloat() - (paintText.ascent() + paintText.descent()) / 2,
-                                paintText
-                            )
+//                            paintBackground.style = Paint.Style.FILL
+//                            paintBackground.setColor(Color.parseColor("#3399fe"))
+//
+//                            paintBackground.strokeWidth = 2f
+//                            c.drawRoundRect(
+//                                (rect.left + 5).toFloat(),
+//                                (rect.top + 5).toFloat(),
+//                                (rect.right - 5).toFloat(),
+//                                (rect.bottom - 5).toFloat(),
+//                                8f, 8f,
+//                                paintBackground
+//                            )
+//                            paintText.textSize = 13f * zoomX
+//                            var w = paintText.measureText("¥50")
+//                            paintText.setColor(Color.parseColor("#ffffff"))
+//
+//                            c.drawText(
+//                                "¥50",
+//                                rect.centerX().toFloat() - w / 2,
+//                                rect.centerY()
+//                                    .toFloat() - (paintText.ascent() + paintText.descent()) / 2,
+//                                paintText
+//                            )
 
                         }
 
@@ -515,57 +529,53 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
 //                    paintBackground.style = Paint.Style.STROKE
 //                    paintBackground.strokeWidth = 2f
 //                    paintBackground.isAntiAlias = true
-//
-//
-//
-//
-//                    c.drawText(
-//                        "¥50",
-//                        rect.centerX().toFloat() - w / 2,
-//                        rect.centerY().toFloat() - (paintText.ascent() + paintText.descent()) / 2,
-//                        paintText
-//                    )
-//
-//                    var shader: Shader =
-//                        BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-//
-//                    c.drawRoundRect(
-//                        (rect.left + 5).toFloat(),
-//                        (rect.top + 5).toFloat(),
-//                        (rect.right - 5).toFloat(),
-//                        (rect.bottom - 5).toFloat(),
-//                        8f, 8f,
-//                        paintBackground
-//                    )
-//
-//
-//
-//
-//                    c.drawBitmap(
-//                        bitmap,
-//                        (rect.left + widthM),
-//                        (rect.top + heightM),
-//                        paintBitmap
-//                    )
 
                 }
             })
 
         tableData.onItemClickListener = object : TableData.OnItemClickListener<Int> {
             override fun onClick(column: Column<Int>, value: String, t: Int, col: Int, row: Int) {
-                val status = tableData.arrayColumns[col].datas[row]
-
+                val status = tableData.data[col][row]
+                /**
+                 * @param status 0 未预定 ， 1 已预订，  2  完全不可选
+                 */
                 when (status) {
                     0 -> {
-
+                        tableData.data[col][row] = 2
+//                        tableData. = 2
+                        mapDuplicate.set(venueInfoList.get(col).list.get(row).id,venueInfoList.get(col).list.get(row))
+                        arrayTwoDiemn.add(venueInfoList.get(col).list.get(row))
+                        adapter.setData(arrayTwoDiemn)
+//                        table.notifyDataChanged()
+                        Log.i("3o",infoss.toString())
                     }
                     1 -> {
-                        tableData.arrayColumns[col].datas[row] = 2
-//                        table.setTableData(tableData)
-                        table.notifyDataChanged()
+
+
                     }
                     2 -> {
-                        tableData.arrayColumns[col].datas[row] = 1
+                        if(mapDuplicate.containsKey(venueInfoList.get(col).list.get(row).id)){
+                            mapDuplicate.remove(venueInfoList.get(col).list.get(row).id)
+                            val keys = mapDuplicate.keys
+                            val iter = keys.iterator()
+                            val list = ArrayList<SingleTimeInterval?>()
+                            while(iter.hasNext()){
+                                list.add(mapDuplicate.get(iter.next()))
+
+                            }
+                            val length  = arrayTwoDiemn.size
+                            for(i in 0 until length){
+                                if(arrayTwoDiemn.get(i).id == venueInfoList.get(col).list.get(row).id){
+                                    arrayTwoDiemn.removeAt(i)
+                                    break
+                                }
+
+                            }
+                            adapter.setData(arrayTwoDiemn)
+
+
+                        }
+                        tableData.data[col][row] = 0
                         table.notifyDataChanged()
 
 
@@ -602,16 +612,7 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
 
 
             override fun draw(canvas: Canvas?, sequence: Int, rect: Rect?, config: TableConfig?) {
-                var text1 = "Lorem\nindustry."
                 var t = format((sequence))
-
-
-//                rect!!.set(Rect(rect!!.left, rect!!.top, rect!!.right - 100, rect!!.bottom))
-
-                Log.i("3ompact", "rectwwww" + rect!!.width() + "canvas.widtwwwh" + canvas!!.width)
-
-//                val staticLayout2 = StaticLayout.Builder.obtain()
-
                 //字体缩放
                 val paint = config!!.paint
                 val zoom: Float = if (config.getZoom() > 1) 1f else config.getZoom()
@@ -640,10 +641,6 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                     Layout.Alignment.ALIGN_CENTER, 1f, 0f, false
                 )
 
-                Log.i(
-                    "3ompact",
-                    "staticLayout1" + staticLayout1.bottomPadding + "cc" + "```````" + staticLayout1.width
-                )
 //                staticLayout1.toString()
                 if (sequence != 0 && sequence < 14) {
                     val textArray = format((sequence)).split("\n")
@@ -653,14 +650,12 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                         rect!!.centerY() + ((paint.descent() + paint.ascent())),
                         paint
                     )
-                    Log.i("3ompact","paint.descent()"+paint.descent()+"paint.ascent()"+paint.ascent())
                     canvas!!.drawText(
                         textArray[1].toString(),
                         rect!!.centerX().toFloat(),
                         rect!!.centerY() - ((paint1.descent() + paint1.ascent()) / 2),
                         paint1
                     )
-                    Log.i("3ompact","paint1.descent()"+paint1.descent()+"paint1.ascent()"+paint1.ascent())
 
                     canvas!!.drawText(
                         textArray[2].toString(),
@@ -668,16 +663,6 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
                         rect!!.centerY() + ((paint2.descent() - paint2.ascent()) + 5),
                         paint2
                     )
-                    Log.i("3ompact","paint2.descent()"+paint2.descent()+"paint2.ascent()"+paint2.ascent())
-
-//                    canvas!!.save()
-//                    canvas!!.translate(
-//                        rect!!.centerX().toFloat(),
-//                        (rect!!.centerY() - staticLayout1.height / 2).toFloat()
-//                    )
-//                    staticLayout1.draw(canvas!!)
-//                    canvas!!.restore()
-
 
                 } else {
                     canvas!!.drawText(
@@ -697,42 +682,73 @@ class VenueSelectionActivity : BaseVMDBActivity<VenueSelectionActivityModel, Act
     }
 
     override fun initData() {
-        mViewModel.getVenueSelectionData(id,object:OnResponseListener<VenueSelectionData>{
-            override fun onError(msg: String) {
-                LogUtil.debugInfo("t.onError" + msg)
+        mViewModel.getVenueSelectionData(
+            id,
+            time,
+            object : OnResponseListener<MutableList<SingleVenue>> {
+                override fun onError(msg: String) {
+                    LogUtil.debugInfo("t.onError" + msg)
 
-            }
-
-            override fun onException(msg: String) {
-                LogUtil.debugInfo("t.onException" + msg)
-
-            }
-
-            override fun onMsg(msg: String) {
-                LogUtil.debugInfo("msg" + msg)
-
-            }
-
-            override fun onResult(t: VenueSelectionData) {
-                LogUtil.debugInfo("msg" + t)
-//                infos.
-                val venueNum = t.list.size
-                val timeintervalNum  = t.list.get(0).list.size
-                var newInfoC = arrayOfNulls<Array<Int>>(venueNum)
-                var newInfoR = arrayOfNulls<Int!!>(timeintervalNum)
-
-                for(i in 0 until venueNum){
-                    for(j in 0 until timeintervalNum){
-
-                        newInfoR.set(j,t.list.get(i).list.get(j).isReserve)
-                    }
-                    newInfoC.set(i,newInfoR)
                 }
-                var newInfo = arrayOf(t.list.get(0),t.list.get(1),t.list.get(2))
+
+                override fun onException(msg: String) {
+                    LogUtil.debugInfo("t.onException" + msg)
+
+                }
+
+                override fun onMsg(msg: String) {
+                    LogUtil.debugInfo("msg" + msg)
+
+                }
+
+                @RequiresApi(Build.VERSION_CODES.N)
+                override fun onResult(t: MutableList<SingleVenue>) {
+                    LogUtil.debugInfo("msg" + t)
+                    venueInfoList.clear()
+                    venueInfoList.addAll(t)
+                    dataSquence(t)
 
 
+                }
+            })
+    }
+
+    /**
+     * 对数据进行重排序
+     * */
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun dataSquence(t: MutableList<SingleVenue>) {
+
+        val newList: List<SingleVenue> =
+            t.stream().sorted(Comparator.comparing(SingleVenue::sequence))
+                .collect(Collectors.toList())
+
+        var venueNum = t.size
+        var timeintervalNum = t.get(0).list.size
+        var newInfoC = arrayOfNulls<Array<Int?>>(venueNum)
+
+        var newInfoR = arrayOfNulls<Int>(timeintervalNum)
+
+        var newMoneyC = arrayOfNulls<Array<Int?>>(venueNum)
+        var newMoneyR = arrayOfNulls<Int>(timeintervalNum)
+
+        var newColName = arrayOfNulls<String>(venueNum)
+
+        for (i in 0 until venueNum) {
+            newColName.set(i, i.toString())
+            for (j in 0 until timeintervalNum) {
+                newMoneyR.set(j, newList[i].list[j].price)
+                newInfoR.set(j, newList[i].list[j].isReserve)
             }
-        })
+            newMoneyC.set(i, newMoneyR)
+            newInfoC.set(i, newInfoR)
+        }
+
+        infoss = newInfoC
+//        newInfoC = arrayOf(arrayOf(0), arrayOf(0), arrayOf(0))
+
+        inittable(table, newColName!!, newInfoC)
+
     }
 
 

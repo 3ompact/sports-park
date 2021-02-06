@@ -191,7 +191,9 @@ class VenueDetailActivityAdapter(context: Context) :
                     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                         (holder as TVd).tvBook.setOnClickListener {
                             ARouter.getInstance().build("/cm/venueselectionactivity")
-                                .withLong("id",venueDatailData.dateVO!!.get(selectedItem).projectId).navigation()
+                                .withLong("id",venueDatailData.dateVO!!.get(selectedItem).projectId)
+                                .withString("time",venueDatailData.dateVO!!.get(selectedItem).date[position])
+                                .navigation()
                         }
                         val week = DateAndTimeUtil.getDay(
                             venueDatailData.dateVO!!.get(selectedItem).date.get(position)
