@@ -1,11 +1,13 @@
 package com.mda.common_ui_base.base
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
 import com.mda.basics_lib.`interface`.OnResponseListener
 import com.mda.basics_lib.bean.BaseResponse
+import com.mda.basics_lib.utils.DataStoreUtil
 import com.mda.basics_lib.work.CustomWorker
 import com.mda.basics_lib.work.WorkManagerType
 import com.mda.basics_lib.work.WorkerUtil
@@ -14,7 +16,7 @@ import kotlinx.coroutines.flow.*
 
 
 open class BaseViewModel : ViewModel() {
-    var isContinue: Boolean = true
+    private var isContinue: Boolean = true
 
 
     /**
@@ -28,11 +30,11 @@ open class BaseViewModel : ViewModel() {
     ) {
         when (wmt) {
             WorkManagerType.ONETIME -> {
-                var one = WorkerUtil.OneTimeWork2(customWorker, tag)
+                val one = WorkerUtil.OneTimeWork2(customWorker, tag)
                 WorkManager.getInstance(application).enqueue(one)
             }
             WorkManagerType.PERIODIC -> {
-                var repeat = WorkerUtil.periodicWork(customWorker, tag)
+                val repeat = WorkerUtil.periodicWork(customWorker, tag)
                 WorkManager.getInstance(application).enqueue(repeat)
             }
         }
@@ -84,6 +86,43 @@ open class BaseViewModel : ViewModel() {
         return job
     }
 
+
+    /**
+     * 存储datastore数据 （存储的数据类型为string）
+     * @param context 此处的context尽量使用applicationcontext
+     */
+    fun <T> saveDataStore(
+        context: Context,
+        key:String,
+        value:String
+    ): Job? {
+
+        var job = viewModelScope.launch {
+            ensureActive()
+            withContext(Dispatchers.IO) {
+                DataStoreUtil(context).saveValue(key,value)
+            }
+        }
+        return job
+    }
+
+    /**
+     * 读取datastore数据
+     */
+    fun <T> getDataStore(
+        context: Context,
+        key:String,
+        listener: DataStoreUtil.DataStoreReadAndWirteListener
+    ): Job? {
+
+        var job = viewModelScope.launch {
+            ensureActive()
+            withContext(Dispatchers.IO) {
+                DataStoreUtil(context).getValue(key,listener)
+            }
+        }
+        return job
+    }
 
     /**
      * 数据请求并调用相应的接口,可以取消
