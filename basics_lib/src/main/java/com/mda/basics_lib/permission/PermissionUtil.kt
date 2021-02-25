@@ -28,7 +28,7 @@ class PermissionUtil {
             if (allGranted) {
                 permissionListener.onGranted()
             } else {
-                ToastUtil.showLengthShort(fa.applicationContext,fa.getString(R.string.permission_denied_bl)+deniedList)
+                ToastUtil.showLengthShort(fa.getString(R.string.permission_denied_bl)+deniedList)
                 permissionListener.onDenied()
             }
 
@@ -51,7 +51,7 @@ class PermissionUtil {
             if (allGranted) {
                 permissionListener.onGranted()
             } else {
-                ToastUtil.showLengthShort(fa.applicationContext,fa.getString(R.string.permission_denied_bl)+deniedList)
+                ToastUtil.showLengthShort(fa.getString(R.string.permission_denied_bl)+deniedList)
                 permissionListener.onDenied()
             }
 

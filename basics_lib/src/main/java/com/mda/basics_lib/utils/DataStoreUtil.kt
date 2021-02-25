@@ -33,7 +33,7 @@ class DataStoreUtil(val context: Context) {
     /**
      * 获取数据
      */
-    suspend fun getValue(key: String, listener :DataStoreReadAndWirteListener) {
+    suspend fun getValue(key: String, listener: DataStoreReadAndWirteListener) {
 
         dataStore.data.map { it[preferencesKey<String>(key)] ?: "" }.flowOn(Dispatchers.IO)
             .collect { value ->
@@ -48,11 +48,29 @@ class DataStoreUtil(val context: Context) {
             }
     }
 
+    enum class TYPE(val type: String) {
+        NETSTATUS("NetStatus"),
+        NETTYPE("NetType")
+    }
 
-    interface DataStoreReadAndWirteListener{
+    enum class NETTYPE(val typeStatus: Int) {
+        WIFI(1),
+        CELLULAR(2)
+
+    }
+    enum class NETSTATUS(val typeStatus: String) {
+        WIFI("wifi"),
+        CELLULAR("cellular"),
+        VPN("vpn"),
+        AVAILABLE("available"),
+        LOST("lost")
+    }
+
+    interface DataStoreReadAndWirteListener {
         //当读取数据为空字符串时的回调
         fun onReadEmptyString()
+
         //结果回调
-        fun <T> onResult(t:T)
+        fun <T> onResult(t: T)
     }
 }
