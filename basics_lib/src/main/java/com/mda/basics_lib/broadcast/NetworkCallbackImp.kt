@@ -34,11 +34,9 @@ class NetworkCallbackImp (val context: Context) : ConnectivityManager.NetworkCal
 //            DataStoreUtil(context).getValue(DataStoreUtil.TYPE.NETSTATUS.type,object :
 //                DataStoreUtil.DataStoreReadAndWirteListener{
 //                override fun onReadEmptyString() {
-////                    TODO("Not yet implemented")
 //                }
 //
 //                override fun <T> onResult(t: T) {
-////                    TODO("Not yet implemented")
 //                    ToastUtil.showLengthShort(t as String)
 //                }
 //            })
