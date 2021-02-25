@@ -59,7 +59,6 @@
                         android:layout_marginBottom="@dimen/d30"
                         android:background="@drawable/shape_backgorund_venue_detail_vp_textindicator"
                         android:gravity="center"
-                        android:text="1/5"
                         android:id="@+id/tv_progress_venue_detail_activity"
                         android:textColor="@color/white_without_alpha"
 

@@ -162,11 +162,12 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             }
 
             override fun getCount(): Int {
-                return mItems.size
+                return testUrl.size
             }
 
             override fun getPageTitle(position: Int): CharSequence? {
-                return mItems.get(position)
+
+                return testUrl.get(position)
             }
 
             override fun hydrate(container: ViewGroup, position: Int): Any {
@@ -174,10 +175,12 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             }
 
             override fun populate(container: ViewGroup, item: Any, position: Int) {
-
+                LogUtil.debugInfo(position.toString())
+                tvProgress.setText((position+1).toString()+"/"+testUrl.size)
                 var itemView = item as (ItemView)
                 itemView.setImageUrl(testUrl[position])
                 container.addView(itemView)
+//                itemView.sett
 
             }
 
@@ -195,6 +198,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
         mViewPager.setInfiniteRatio(500)
         mViewPager.setEnableLoop(true)
         mViewPager.setAdapter(pagerAdapter)
+//        mViewPager.
 
     }
 
