@@ -3,6 +3,7 @@ package com.mda.common_network
 import android.text.TextUtils
 import android.util.Log
 import com.mda.basics_lib.log.FormatPrinter
+import com.mda.basics_lib.log.LogUtil
 import com.mda.basics_lib.utils.ZipHelper.Companion.decompressForGzip
 import com.mda.basics_lib.utils.ZipHelper.Companion.decompressToStringForZlib
 import com.mda.common_network.utils.NetworkFormatPrinter
@@ -50,7 +51,7 @@ class LogInterceptor : Interceptor {
         originalResponse = try {
             chain.proceed(request)
         }catch (e:Exception){
-            Log.d("Http Error: %s", e.message.toString())
+            LogUtil.debugInfo("Http Error: %s", e.message.toString())
             throw e
         }
 

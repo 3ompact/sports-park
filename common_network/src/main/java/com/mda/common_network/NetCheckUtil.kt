@@ -17,6 +17,8 @@ class NetCheckUtil(context: Context) {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
+
+
     /**
      *  注册网络监听器
      */

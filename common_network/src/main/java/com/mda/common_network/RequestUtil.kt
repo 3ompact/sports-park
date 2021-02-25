@@ -19,8 +19,11 @@ class RequestUtil<T> {
 
 //    private var timeout: Long = 120L
 
-//    private val baseUrl: String = "https://api.apiopen.top/"
-    private val baseUrl:String = "http://192.168.5.220:8089/"
+    //    private val baseUrl: String = "https://api.apiopen.top/"
+    //本地服务地址
+//    private val baseUrl:String = "http://192.168.5.220:8089/"
+    //远程服务地址
+    private val baseUrl: String = "http://121.36.61.228:8888/sportspark/"
 
 
     private constructor(okHttpClient: OkHttpClient) {
@@ -35,7 +38,7 @@ class RequestUtil<T> {
         apiService = retrofit.create(ManApiService::class.java)
     }
 
-    private constructor(clazz: Class<T>,okHttpClient: OkHttpClient) {
+    private constructor(clazz: Class<T>, okHttpClient: OkHttpClient) {
 //        this.okHttpClient = okHttpClient
 
         retrofit = Retrofit.Builder()
@@ -53,7 +56,7 @@ class RequestUtil<T> {
         val instance = RequestUtil<ManApiService>(OkHttpSingleton.okhttpInstance).apiService
 
         fun <T> getInstance(clazz: Class<T>): RequestUtil<T> {
-            return RequestUtil(clazz,OkHttpSingleton.okhttpInstance)
+            return RequestUtil(clazz, OkHttpSingleton.okhttpInstance)
         }
 
     }
