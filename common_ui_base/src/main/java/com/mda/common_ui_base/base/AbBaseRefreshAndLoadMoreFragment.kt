@@ -27,18 +27,17 @@ abstract class AbBaseRefreshAndLoadMoreFragment<VM : BaseViewModel, DB : ViewDat
 
     }
 
-    //设置上啦下拉监听  mPullLayout.finishActionRun(pullAction)暂时测试的结果是需要有时间间隔才能完成刷新动作
+    //设置上啦下拉监听  mPullLayout.finishActionRun(pullAction)暂时测试的结果是需要有时间间隔才能完成刷新动作 具体逻辑交由子类进行处理
     fun setPullLayoutActionListener() {
         mPullLayout.setActionListener { pullAction ->
             if (pullAction.pullEdge == QMUIPullLayout.PULL_EDGE_TOP) {
-//                onRefreshData(pullAction)
+                onRefreshData(pullAction)
 
 
             } else if (pullAction.pullEdge == QMUIPullLayout.PULL_EDGE_BOTTOM) {
                 onLoadMore(pullAction)
             }
-            mPullLayout.finishActionRun(pullAction)
-
+//            mPullLayout.finishActionRun(pullAction)
         }
 
 //
