@@ -38,6 +38,8 @@ class HomeFragment :
         initTopBar()
         setAdapter()
         setPullLayoutActionListener()
+
+
     }
 
 
@@ -111,13 +113,17 @@ class HomeFragment :
         finishRefresh(pullAction)
     }
 
+    //TODO刷新逻辑
     override fun onRefreshData(pullAction: QMUIPullLayout.PullAction) {
 //        finishRefresh(pullAction)
+        mPullLayout.postDelayed({ doFinishActionRun(pullAction) }, 1000)
 
     }
 
+    //TODO加载逻辑
     override fun onLoadMore(pullAction: QMUIPullLayout.PullAction) {
 //        finishRefresh(pullAction)
+        mPullLayout.postDelayed({ doFinishActionRun(pullAction) }, 1000)
 
     }
 

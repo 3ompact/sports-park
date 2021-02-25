@@ -23,10 +23,12 @@ class VenueSelectionActivityRecyclerHorizontalViewDecoration : RecyclerView.Item
 
         if (position == 0) {
             outRect.left = margin1.toInt()
-        } else if (position >= 1 && position < (count - 1)) {
+            outRect.right = margin.toInt()
+        } else if (position >= 1 && position < (count - 2)) {
             outRect.left = margin.toInt()
+            outRect.right = margin.toInt()
         }else{
-            outRect.right = margin1.toInt()
+            outRect.right = margin.toInt()
         }
     }
 }

@@ -28,6 +28,10 @@ class VenueSelectionAdapter(context: Context, arrayTwoDiemn: MutableList<SingleT
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as VH).tvTime.setText(arrayTwoDiemn.get(position).startTime.subSequence(0,6).toString()+"-"+arrayTwoDiemn.get(position).endTime.subSequence(0,6))
+
+        (holder as VH).tvVenueNum.setText(arrayTwoDiemn.get(position).siteName)
+
 
     }
 

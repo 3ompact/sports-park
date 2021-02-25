@@ -229,7 +229,7 @@ class VenueDetailActivityAdapter(context: Context) :
                             }
 
                         }
-                        (holder as TVd).tvWeek.setText(week.toString())
+//                        (holder as TVd).tvWeek.setText(week.toString())
 
                         (holder as TVd).tvDate.setText(Month.toString() + "-" + day.toString())
 

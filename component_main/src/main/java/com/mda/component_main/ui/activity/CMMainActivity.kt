@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.mda.basics_lib.`interface`.OnResponseListener
+import com.mda.basics_lib.log.LogUtil
 import com.mda.basics_lib.permission.PermissionUtil
 import com.mda.basics_lib.utils.DrawableUtil
 import com.mda.common_network.Req
@@ -42,11 +43,11 @@ class CMMainActivity : BaseVMDBActivity<BaseViewModel, ActivityMainCmBinding>() 
             Manifest.permission.INTERNET,
             object : PermissionUtil.PermissionListener {
                 override fun onGranted() {
-                    Log.i("3ompact", "onGranted")
+                    LogUtil.debugInfo("3ompact", "onGranted")
                 }
 
                 override fun onDenied() {
-                    Log.i("3ompact", "onDenied")
+                    LogUtil.debugInfo("3ompact", "onDenied")
                 }
             })
 //        DrawableUtil.setRBDrawableBounds(

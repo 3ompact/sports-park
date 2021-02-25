@@ -210,7 +210,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/d50"
             android:gravity="center"
-            android:text="订单金额:1000.00"
+            android:text="订单金额:"
             android:background="@drawable/shape_backgorund_textview_money"
             android:textSize="@dimen/s16"
             app:layout_constraintBottom_toBottomOf="parent"

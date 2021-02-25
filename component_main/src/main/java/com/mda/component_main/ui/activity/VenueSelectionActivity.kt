@@ -7,6 +7,7 @@ import android.text.StaticLayout
 import android.text.TextPaint
 import android.util.Log
 import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -30,6 +31,7 @@ import com.bin.david.form.utils.DrawUtils
 import com.mda.basics_lib.`interface`.OnResponseListener
 import com.mda.basics_lib.log.LogUtil
 import com.mda.basics_lib.utils.PhoneInfo
+import com.mda.basics_lib.utils.SpannerableStringUtil
 import com.mda.common_ui_base.base.BaseVMDBActivity
 import com.mda.component_main.R
 import com.mda.component_main.adapter.VenueSelectionAdapter
@@ -58,6 +60,8 @@ class VenueSelectionActivity :
 
     private lateinit var rv: RecyclerView
     lateinit var adapter: VenueSelectionAdapter
+    private lateinit var tvSelNum: TextView
+    private lateinit var tvTotalMoney: TextView
 
     @JvmField
     @Autowired
@@ -66,21 +70,24 @@ class VenueSelectionActivity :
     @JvmField
     @Autowired
     var time: String = ""
-//    val infoss = arrayOf(
+
+    //    val infoss = arrayOf(
 //        arrayOf(0),
 //        arrayOf(0),
 //        arrayOf(0)
 //    )
-    var infoss : Array<Array<Int?>?> = arrayOf(
+
+    private lateinit var originData: List<SingleVenue>
+
+    var infoss: Array<Array<Int?>?> = arrayOf(
         arrayOf(0),
         arrayOf(0),
         arrayOf(0)
     )
-    var test : Array<Array<Int?>?> =arrayOf()
+    var test: Array<Array<Int?>?> = arrayOf()
 
 
-
-//    lateinit var newInfoC:Array<Array<Int?>?>
+    //    lateinit var newInfoC:Array<Array<Int?>?>
 //    lateinit var newInfoR:Array<Int?>
 //
 //    lateinit var newMoneyC:Array<Array<Int?>>
@@ -88,10 +95,11 @@ class VenueSelectionActivity :
 //
 //    lateinit var newColName:Array<String?>
     //该运动项目时间表数据
-    val venueInfoList : MutableList<SingleVenue> = ArrayList()
+    val venueInfoList: MutableList<SingleVenue> = ArrayList()
+
     //已选则数据
     var arrayTwoDiemn: MutableList<SingleTimeInterval> = ArrayList()
-    var mapDuplicate : TreeMap<Long,SingleTimeInterval> = TreeMap()
+    var mapDuplicate: TreeMap<Long, SingleTimeInterval> = TreeMap()
 
     override fun layoutId(): Int {
         return R.layout.activity_venue_selection
@@ -102,6 +110,9 @@ class VenueSelectionActivity :
     }
 
     override fun initView() {
+        tvSelNum = mDataBinding.tvSelectedVenueSelectionActivity
+        tvTotalMoney = mDataBinding.tvMoneyVenueSelectionActivity
+
         table = mDataBinding.tableSsss as SmartTable<Int>
 
         mTopBar = mDataBinding.topbarVenueSelectionActivity
@@ -313,7 +324,7 @@ class VenueSelectionActivity :
     }
 
     //初始化场地选择器
-    fun inittable(table: SmartTable<Int>, colName: Array<String?>, infos: Array<Array<Int?>?>) {
+    fun inittable(table: SmartTable<Int>, colName: Array<String?>, infos: Array<Array<Int?>?>,money: Array<Array<Int?>?>) {
         val week = arrayOf("日", "一", "二", "三", "四", "五", "六")
         //按照列数据展示数据
 
@@ -419,7 +430,6 @@ class VenueSelectionActivity :
 
                     //进行状态判断  0 未预定 ， 1 已预订，
                     when (infos[cellInfo.col]!![cellInfo.row]) {
-
                         1 -> {
                             paintBackground.style = Paint.Style.FILL
 
@@ -460,7 +470,7 @@ class VenueSelectionActivity :
                             )
 
                             c.drawText(
-                                "¥50",
+                                "¥"+money[cellInfo.col]!![cellInfo.row],
                                 rect.centerX().toFloat() - w / 2,
                                 rect.centerY()
                                     .toFloat() - (paintText.ascent() + paintText.descent()) / 2,
@@ -486,7 +496,7 @@ class VenueSelectionActivity :
                             paintText.setColor(Color.parseColor("#ffffff"))
 
                             c.drawText(
-                                "¥50",
+                                "¥"+money[cellInfo.col]!![cellInfo.row],
                                 rect.centerX().toFloat() - w / 2,
                                 rect.centerY()
                                     .toFloat() - (paintText.ascent() + paintText.descent()) / 2,
@@ -543,49 +553,54 @@ class VenueSelectionActivity :
                     0 -> {
                         tableData.data[col][row] = 2
 //                        tableData. = 2
-                        mapDuplicate.set(venueInfoList.get(col).list.get(row).id,venueInfoList.get(col).list.get(row))
+                        mapDuplicate.set(
+                            venueInfoList.get(col).list.get(row).id,
+                            venueInfoList.get(col).list.get(row)
+                        )
                         arrayTwoDiemn.add(venueInfoList.get(col).list.get(row))
-                        adapter.setData(arrayTwoDiemn)
+//                        adapter.setData(arrayTwoDiemn)
+                        //
+                        updateTableDataAndRV(arrayTwoDiemn)
 //                        table.notifyDataChanged()
-                        Log.i("3o",infoss.toString())
                     }
                     1 -> {
 
 
                     }
                     2 -> {
-                        if(mapDuplicate.containsKey(venueInfoList.get(col).list.get(row).id)){
-                            mapDuplicate.remove(venueInfoList.get(col).list.get(row).id)
-                            val keys = mapDuplicate.keys
-                            val iter = keys.iterator()
-                            val list = ArrayList<SingleTimeInterval?>()
-                            while(iter.hasNext()){
-                                list.add(mapDuplicate.get(iter.next()))
-
-                            }
-                            val length  = arrayTwoDiemn.size
-                            for(i in 0 until length){
-                                if(arrayTwoDiemn.get(i).id == venueInfoList.get(col).list.get(row).id){
-                                    arrayTwoDiemn.removeAt(i)
-                                    break
-                                }
-
-                            }
-                            adapter.setData(arrayTwoDiemn)
-
-
-                        }
+//                        if(mapDuplicate.containsKey(venueInfoList.get(col).list.get(row).id)){
+//                            mapDuplicate.remove(venueInfoList.get(col).list.get(row).id)
+//                            val keys = mapDuplicate.keys
+//                            val iter = keys.iterator()
+//                            val list = ArrayList<SingleTimeInterval?>()
+//                            while(iter.hasNext()){
+//                                list.add(mapDuplicate.get(iter.next()))
+//
+//                            }
                         tableData.data[col][row] = 0
                         table.notifyDataChanged()
+                        val length = arrayTwoDiemn.size
+                        for (i in 0 until length) {
+                            if (arrayTwoDiemn.get(i).id == venueInfoList.get(col).list.get(row).id) {
+                                arrayTwoDiemn.removeAt(i)
+                                break
+                            }
+
+                        }
+//                        adapter.setData(arrayTwoDiemn)
+                        updateTableDataAndRV(arrayTwoDiemn)
+
+//                        }
 
 
                     }
                 }
-                Toast.makeText(
-                    this@VenueSelectionActivity,
-                    "列:" + col + " 行：" + row + "数据：" + value,
-                    Toast.LENGTH_SHORT
-                ).show()
+                //去掉数据显示提示
+//                Toast.makeText(
+//                    this@VenueSelectionActivity,
+//                    "列:" + col + " 行：" + row + "数据：" + value,
+//                    Toast.LENGTH_SHORT
+//                ).show()
             }
 
         }
@@ -671,8 +686,6 @@ class VenueSelectionActivity :
                         ), paint
                     )
                 }
-
-
             }
 
         }
@@ -707,14 +720,15 @@ class VenueSelectionActivity :
                     venueInfoList.clear()
                     venueInfoList.addAll(t)
                     dataSquence(t)
-
-
                 }
             })
     }
 
     /**
      * 对数据进行重排序
+     * 组装成table组件需要的数据格式
+     *
+     *
      * */
     @RequiresApi(Build.VERSION_CODES.N)
     private fun dataSquence(t: MutableList<SingleVenue>) {
@@ -722,6 +736,8 @@ class VenueSelectionActivity :
         val newList: List<SingleVenue> =
             t.stream().sorted(Comparator.comparing(SingleVenue::sequence))
                 .collect(Collectors.toList())
+        //暂时去掉
+//        originData = newList
 
         var venueNum = t.size
         var timeintervalNum = t.get(0).list.size
@@ -737,18 +753,39 @@ class VenueSelectionActivity :
         for (i in 0 until venueNum) {
             newColName.set(i, i.toString())
             for (j in 0 until timeintervalNum) {
-                newMoneyR.set(j, newList[i].list[j].price)
-                newInfoR.set(j, newList[i].list[j].isReserve)
+                if (j == 0) {
+                    newMoneyR = Array(timeintervalNum, { 0 })
+                    newInfoR = Array(timeintervalNum, { 0 })
+
+                    newMoneyR.set(j, newList[i].list[j].price)
+                    newInfoR.set(j, newList[i].list[j].isReserve)
+
+                } else {
+                    newMoneyR.set(j, newList[i].list[j].price)
+                    newInfoR.set(j, newList[i].list[j].isReserve)
+                }
+
             }
             newMoneyC.set(i, newMoneyR)
             newInfoC.set(i, newInfoR)
         }
-
-        infoss = newInfoC
+//        infoss = newInfoC
 //        newInfoC = arrayOf(arrayOf(0), arrayOf(0), arrayOf(0))
 
-        inittable(table, newColName!!, newInfoC)
+        inittable(table, newColName!!, newInfoC,newMoneyC)
 
+    }
+
+
+    //更新已选场次数据并计算场次和价格
+    private fun updateTableDataAndRV(arrayTwoDiemn: MutableList<SingleTimeInterval>) {
+        var sum: Float = 0f
+        adapter.setData(arrayTwoDiemn)
+        tvSelNum.setText("已选场次(" + arrayTwoDiemn.size + ")")
+        for (i in 0 until arrayTwoDiemn.size) {
+            sum += arrayTwoDiemn.get(i).price
+        }
+        tvTotalMoney.setText(SpannerableStringUtil.genStrForBtnCommit("订单金额:" +sum))
     }
 
 

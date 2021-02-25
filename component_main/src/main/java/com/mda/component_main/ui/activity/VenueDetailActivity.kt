@@ -98,18 +98,11 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
                 mTopBar.addLeftBackImageButton()
             }
 
-            Log.i(
-                "3ompact",
-                "scrim: " + animation.animatedValue + "test" + animation.animatedValue.toString()
-                    .toInt()
-            )
+
         })
 
         mCollTopBarLayout.addOnOffsetUpdateListener(OnOffsetUpdateListener { layout, offset, expandFraction ->
-            Log.i(
-                "3ompact",
-                "offset = $offset; expandFraction = $expandFraction"
-            )
+
         })
 
         rv = mDataBinding.rvVenueDetailActivity
@@ -209,6 +202,8 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
         mViewModel.getVenueDetail(id,object:OnResponseListener<VenueDetailData>{
             override fun onResult(t: VenueDetailData) {
                 adapter.setData(t)
+                LogUtil.debugInfo("3ompact" + "test-success")
+
             }
 
             override fun onError(msg: String) {
