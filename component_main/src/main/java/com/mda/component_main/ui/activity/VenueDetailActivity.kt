@@ -16,6 +16,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -37,6 +38,7 @@ import com.qmuiteam.qmui.widget.*
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout.GONE
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout.OnOffsetUpdateListener
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * 场馆详情 activity
@@ -53,6 +55,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
 
     private lateinit var emptyView: QMUIEmptyView
     private lateinit var adapter :VenueDetailActivityAdapter
+    private val venuePicsList:ArrayList<String> = ArrayList()
     @JvmField
     @Autowired
     var id :Long = 0
@@ -65,6 +68,9 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
         return true
     }
 
+    /**
+     * 控件初始化
+     */
     override fun initView() {
         mViewPager = mDataBinding.pagerVenueDetailActivity
         mTopBar = mDataBinding.topbarVenueDetailActivity
@@ -155,6 +161,10 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=358219555,1592757067&fm=26&gp=0.jpg",
             "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=101138672,367522421&fm=26&gp=0.jpg"
         )
+        //场馆图片地址数据
+        venuePicsList.addAll(testUrl)
+        //初始图片个数指示
+        tvProgress.setText((1%venuePicsList.size).toString()+"/"+venuePicsList.size)
 
         val pagerAdapter: QMUIPagerAdapter = object : QMUIPagerAdapter() {
             override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -166,6 +176,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             }
 
             override fun getPageTitle(position: Int): CharSequence? {
+                LogUtil.debugInfo("position",position.toString())
 
                 return testUrl.get(position)
             }
@@ -175,10 +186,10 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             }
 
             override fun populate(container: ViewGroup, item: Any, position: Int) {
-                LogUtil.debugInfo(position.toString())
-                tvProgress.setText((position+1).toString()+"/"+testUrl.size)
+
                 var itemView = item as (ItemView)
-                itemView.setImageUrl(testUrl[position])
+                itemView.setTag(position)
+                itemView.setImageUrl(testUrl.get(position),venuePicsList,tvProgress)
                 container.addView(itemView)
 //                itemView.sett
 
@@ -196,12 +207,46 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             if (canUseHardware) ViewCompat.LAYER_TYPE_HARDWARE else ViewCompat.LAYER_TYPE_SOFTWARE
         )
         mViewPager.setInfiniteRatio(500)
-        mViewPager.setEnableLoop(true)
+        mViewPager.setEnableLoop(false)
         mViewPager.setAdapter(pagerAdapter)
+        mViewPager.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                LogUtil.debugInfo("debugInfo" + position)
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                //对当前图片选择进行显示
+                LogUtil.debugInfo("debugInfo-onPageSelected" + position)
+                if((position+1)%venuePicsList.size== 0){
+                    if((position+1)/venuePicsList.size!=0){
+                        tvProgress.setText(venuePicsList.size.toString()+"/"+venuePicsList.size)
+
+                    }else{
+                        tvProgress.setText((1%venuePicsList.size).toString()+"/"+venuePicsList.size)
+
+                    }
+                }else{
+                    tvProgress.setText(((position+1)%venuePicsList.size).toString()+"/"+venuePicsList.size)
+                }
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+//                LogUtil.debugInfo("debugInfo" + "test-success")
+
+            }
+        })
 //        mViewPager.
 
     }
 
+    /**
+     * 初始化数据
+     */
     override fun initData() {
         mViewModel.getVenueDetail(id,object:OnResponseListener<VenueDetailData>{
             override fun onResult(t: VenueDetailData) {
@@ -211,6 +256,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             }
 
             override fun onError(msg: String) {
+
                 LogUtil.debugInfo("t.onError" + msg)
 
             }
@@ -237,32 +283,70 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
     override fun createObserver() {
     }
 
+    /**
+     * 场馆总概览图相关辅助类
+     */
     class ItemView(context: Context?) : FrameLayout(context!!) {
         private val iv: ImageView
+        private var url:String = ""
+        private val tv: TextView
 
-        fun setImageUrl(url: String) {
+
+        fun setImageUrl(url: String,venuePicsList: ArrayList<String>,tvProgress:TextView) {
+            this.url = url
+            LogUtil.debugInfo("position-url",url)
+
             iv.load(url)
+
+            //对图片顺序进行排序
+            for(i in 0 until venuePicsList.size){
+                if(url.equals(venuePicsList.get(i))){
+//                    tvProgress.setText((i+1).toString()+"/"+venuePicsList.size)
+                    tv.setText((i+1).toString()+"/"+venuePicsList.size)
+                    LogUtil.debugInfo("position-1",tag.toString())
+
+                }
+            }
         }
 
+        fun getImageUrl():String {
+            return url
+        }
         init {
             iv = ImageView(context)
+            tv = TextView(context)
+            tv.setTextColor(Color.parseColor("#ffffff"))
+            tv.setBackgroundResource(R.drawable.shape_backgorund_venue_detail_vp_textindicator)
+            tv.gravity = Gravity.CENTER
+
             iv.scaleType = ImageView.ScaleType.CENTER_CROP
             val size = QMUIDisplayHelper.dp2px(context, 300)
             val lp = LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
+            val lpTV = LayoutParams(
+                QMUIDisplayHelper.dp2px(context, 40),
+                QMUIDisplayHelper.dp2px(context, 20)
+            )
+            //and  Gravity.RIGHT
+            lpTV.gravity = Gravity.BOTTOM or Gravity.RIGHT
+            lpTV.setMargins(0,0,QMUIDisplayHelper.dp2px(context, 15),QMUIDisplayHelper.dp2px(context, 30))
             addView(iv, lp)
+            //去掉图片张数指示器
+//            addView(tv, lpTV)
+
         }
     }
 
+    //viewpager 过度模式
     class CardTransformer : ViewPager.PageTransformer {
         override fun transformPage(page: View, position: Float) {
             // 刷新数据notifyDataSetChange之后也会调用到transformPage，但此时的position可能不在[-1, 1]之间
             if (position <= -1 || position >= 1f) {
                 page.rotation = 0f
             } else {
-                page.rotation = position * 30
+//                page.rotation = position * 30
                 page.pivotX = page.width * .5f
                 page.pivotY = page.height * 1f
             }

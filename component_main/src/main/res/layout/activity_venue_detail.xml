@@ -61,7 +61,7 @@
                         android:gravity="center"
                         android:id="@+id/tv_progress_venue_detail_activity"
                         android:textColor="@color/white_without_alpha"
-
+                        android:visibility="visible"
                         />
 
                 </FrameLayout>
