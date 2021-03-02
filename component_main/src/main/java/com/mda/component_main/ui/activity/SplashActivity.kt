@@ -13,7 +13,7 @@ import com.mda.component_main.viewmodel.SplashActivityModel
 /**
  * 用户启动app时的首个界面
  */
-@Route(path = "/main/splashactivity")
+@Route(path = "/cm/splashactivity")
 class SplashActivity : BaseVMDBActivity<SplashActivityModel, ActivitySplashCmBinding>() {
 
     var qr : QRScanView? = null
