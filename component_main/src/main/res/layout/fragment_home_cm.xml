@@ -8,6 +8,8 @@
         android:layout_height="match_parent"
         >
 
+
+
         <com.qmuiteam.qmui.widget.QMUITopBarLayout
             android:id="@+id/topbar_base_refresh_and_load_more_cm_home_fragment"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +61,18 @@
                 app:qmui_need_receive_fling_from_target_view="true"/>
 
         </com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout>
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/emptyview_base_refresh_and_load_more_cm_home_fragment"
+            android:fitsSystemWindows="true"
+            android:background="@color/rb_textcolor_check"
+            app:qmui_skin_background="@color/rb_textcolor_check"
+            app:qmui_title_text="sssssss"
+            app:qmui_detail_text="xxxxxxxx"
+            android:layout_marginTop="?attr/qmui_topbar_height"
 
+            />
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2>
 
 </layout>

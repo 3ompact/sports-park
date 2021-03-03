@@ -235,7 +235,17 @@
 
             />
 
-
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/emptyview_venue_selection_activity"
+            android:fitsSystemWindows="true"
+            android:background="@color/rb_textcolor_check"
+            app:qmui_skin_background="@color/rb_textcolor_check"
+            app:qmui_title_text="sssssss"
+            app:qmui_detail_text="xxxxxxxx"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            />
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2>
 
 </layout>

@@ -77,7 +77,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
         mCollTopBarLayout = mDataBinding.ctbVenueDetailActivity
         tvProgress = mDataBinding.tvProgressVenueDetailActivity
         appBarLayout = mDataBinding.appbarlayoutVenueDetailActivity
-        emptyView = mDataBinding.emptyViewVenueDetailActivity
+        emptyView = mDataBinding.emptyviewVenueDetailActivity
 //        mCollTopBarLayout.setTitle(
 //            "test"
 //        )

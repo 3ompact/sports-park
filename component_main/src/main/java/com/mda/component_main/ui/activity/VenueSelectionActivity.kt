@@ -42,6 +42,7 @@ import com.mda.component_main.databinding.ActivityVenueSelectionBinding
 import com.mda.component_main.decoration.VenueSelectionActivityRecyclerHorizontalViewDecoration
 import com.mda.component_main.viewmodel.VenueSelectionActivityModel
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+import com.qmuiteam.qmui.widget.QMUIEmptyView
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.tab.*
 import java.lang.reflect.Method
@@ -62,6 +63,7 @@ class VenueSelectionActivity :
     lateinit var adapter: VenueSelectionAdapter
     private lateinit var tvSelNum: TextView
     private lateinit var tvTotalMoney: TextView
+    private lateinit var emptyView:QMUIEmptyView
 
     @JvmField
     @Autowired
@@ -118,6 +120,9 @@ class VenueSelectionActivity :
         mTopBar = mDataBinding.topbarVenueSelectionActivity
 
         mTopBar.setTitle("场次选择")
+
+        emptyView = mDataBinding.emptyviewVenueSelectionActivity
+        emptyView.hide()
         var ivB: QMUIAlphaImageButton = mTopBar.addLeftBackImageButton()
         ivB.setOnClickListener {
             finish()

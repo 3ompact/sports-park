@@ -46,6 +46,8 @@ class HomeFragment :
     private fun initTopBar() {
         mDataBinding.topbarBaseRefreshAndLoadMoreCmHomeFragment.addLeftBackImageButton()
             .setOnClickListener { }
+
+        mDataBinding.emptyviewBaseRefreshAndLoadMoreCmHomeFragment.hide()
         //进行topbar 相关设置
         mTopBar.setTitle("首页")
 //        mTopBar.setBackgroundColor(Color.parseColor("#333333"))

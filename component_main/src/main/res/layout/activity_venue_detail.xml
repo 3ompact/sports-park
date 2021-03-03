@@ -79,16 +79,7 @@
             </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
         </com.qmuiteam.qmui.widget.QMUIAppBarLayout>
 
-        <com.qmuiteam.qmui.widget.QMUIEmptyView
-            android:id="@+id/emptyView_venue_detail_activity"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/qmui_topbar_height"
-            android:background="@color/qmui_config_color_white"
-            app:qmui_skin_background="@color/qmui_config_color_white"
-            app:qmui_title_text=""
-            app:qmui_detail_text="无网络，请重新请求。"
-            android:fitsSystemWindows="true"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_venue_detail_activity"
@@ -100,6 +91,18 @@
             app:layout_anchorGravity="bottom|center"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/emptyview_venue_detail_activity"
+            android:fitsSystemWindows="true"
+            android:background="@color/rb_textcolor_check"
+            app:qmui_skin_background="@color/rb_textcolor_check"
+            app:qmui_title_text="sssssss"
+            app:qmui_detail_text="xxxxxxxx"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

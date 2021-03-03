@@ -1,7 +1,5 @@
 package com.mda.component_main.ui.activity
 
-import android.os.Handler
-import android.os.Message
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.mda.common_ui_base.base.BaseVMDBActivity

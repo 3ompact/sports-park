@@ -8,6 +8,7 @@ import com.mda.component_main.bean.HomeFragmentEncapsulation
 
 class HomeFragmentViewModel : BaseViewModel() {
 
+
     /**
      * 获取homefragment总览数据
      */
