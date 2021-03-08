@@ -90,7 +90,7 @@ class CMMainActivity : BaseVMDBActivity<BaseViewModel, ActivityMainCmBinding>() 
 
                 override fun onMsg(msg: String) {
 //                        TODO("Not yet implemented")
-                    Log.i("3ompact", "测试接口" + msg)
+                    LogUtil.debugInfo("3ompact", "测试接口" + msg)
                 }
             })
 //            }
