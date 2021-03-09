@@ -33,6 +33,7 @@ import com.mda.component_main.bean.VenueDetailData
 import com.mda.component_main.databinding.ActivityVenueDetailBinding
 import com.mda.component_main.decoration.VenueActivityRecyclerViewDecoration
 import com.mda.component_main.viewmodel.VenueDetailActivityModel
+import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.*
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout.GONE
@@ -44,7 +45,8 @@ import kotlin.collections.ArrayList
  * 场馆详情 activity
  */
 @Route(path = "/cm/venuedetailactivity")
-class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityVenueDetailBinding>() {
+class VenueDetailActivity :
+    BaseVMDBActivity<VenueDetailActivityModel, ActivityVenueDetailBinding>() {
     private val mItems: MutableList<String> = ArrayList()
     private lateinit var mViewPager: QMUIViewPager
     private lateinit var mTopBar: QMUITopBar
@@ -54,11 +56,13 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
     private lateinit var appBarLayout: QMUIAppBarLayout
 
     private lateinit var emptyView: QMUIEmptyView
-    private lateinit var adapter :VenueDetailActivityAdapter
-    private val venuePicsList:ArrayList<String> = ArrayList()
+    private lateinit var adapter: VenueDetailActivityAdapter
+    private val venuePicsList: ArrayList<String> = ArrayList()
+
     @JvmField
     @Autowired
-    var id :Long = 0
+    var id: Long = 0
+
     //    private lateinit var emptyView : QMUIEmptyView
     override fun layoutId(): Int {
         return R.layout.activity_venue_detail
@@ -93,15 +97,21 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             tvProgress.alpha = alpha
 //            appBarLayout.alpha =  alpha
 
+            //配合collapsing实现左侧的返回键的动态改变
             if (animation.animatedValue.toString().toInt() > 250) {
                 mViewPager.visibility = GONE
                 mTopBar.removeAllLeftViews()
-                mTopBar.addLeftBackImageButton()
-                    .setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
+                val leftBack: QMUIAlphaImageButton = mTopBar.addLeftBackImageButton()
+                leftBack.setImageDrawable(resources.getDrawable(R.drawable.icon_left_back))
+                leftBack.setOnClickListener {
+                    finish()
+                }
             } else if (animation.animatedValue.toString().toInt() < 60) {
                 mViewPager.visibility = VISIBLE
                 mTopBar.removeAllLeftViews()
-                mTopBar.addLeftBackImageButton()
+                mTopBar.addLeftBackImageButton().setOnClickListener {
+                    finish()
+                }
             }
 
 
@@ -164,7 +174,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
         //场馆图片地址数据
         venuePicsList.addAll(testUrl)
         //初始图片个数指示
-        tvProgress.setText((1%venuePicsList.size).toString()+"/"+venuePicsList.size)
+        tvProgress.setText((1 % venuePicsList.size).toString() + "/" + venuePicsList.size)
 
         val pagerAdapter: QMUIPagerAdapter = object : QMUIPagerAdapter() {
             override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -176,7 +186,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             }
 
             override fun getPageTitle(position: Int): CharSequence? {
-                LogUtil.debugInfo("position",position.toString())
+                LogUtil.debugInfo("position", position.toString())
 
                 return testUrl.get(position)
             }
@@ -189,7 +199,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
 
                 var itemView = item as (ItemView)
                 itemView.setTag(position)
-                itemView.setImageUrl(testUrl.get(position),venuePicsList,tvProgress)
+                itemView.setImageUrl(testUrl.get(position), venuePicsList, tvProgress)
                 container.addView(itemView)
 //                itemView.sett
 
@@ -209,7 +219,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
         mViewPager.setInfiniteRatio(500)
         mViewPager.setEnableLoop(false)
         mViewPager.setAdapter(pagerAdapter)
-        mViewPager.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
+        mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -222,16 +232,16 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             override fun onPageSelected(position: Int) {
                 //对当前图片选择进行显示
                 LogUtil.debugInfo("debugInfo-onPageSelected" + position)
-                if((position+1)%venuePicsList.size== 0){
-                    if((position+1)/venuePicsList.size!=0){
-                        tvProgress.setText(venuePicsList.size.toString()+"/"+venuePicsList.size)
+                if ((position + 1) % venuePicsList.size == 0) {
+                    if ((position + 1) / venuePicsList.size != 0) {
+                        tvProgress.setText(venuePicsList.size.toString() + "/" + venuePicsList.size)
 
-                    }else{
-                        tvProgress.setText((1%venuePicsList.size).toString()+"/"+venuePicsList.size)
+                    } else {
+                        tvProgress.setText((1 % venuePicsList.size).toString() + "/" + venuePicsList.size)
 
                     }
-                }else{
-                    tvProgress.setText(((position+1)%venuePicsList.size).toString()+"/"+venuePicsList.size)
+                } else {
+                    tvProgress.setText(((position + 1) % venuePicsList.size).toString() + "/" + venuePicsList.size)
                 }
             }
 
@@ -248,7 +258,7 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
      * 初始化数据
      */
     override fun initData() {
-        mViewModel.getVenueDetail(id,object:OnResponseListener<VenueDetailData>{
+        mViewModel.getVenueDetail(id, object : OnResponseListener<VenueDetailData> {
             override fun onResult(t: VenueDetailData) {
                 adapter.setData(t)
                 LogUtil.debugInfo("3ompact" + "test-success")
@@ -288,30 +298,31 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
      */
     class ItemView(context: Context?) : FrameLayout(context!!) {
         private val iv: ImageView
-        private var url:String = ""
+        private var url: String = ""
         private val tv: TextView
 
 
-        fun setImageUrl(url: String,venuePicsList: ArrayList<String>,tvProgress:TextView) {
+        fun setImageUrl(url: String, venuePicsList: ArrayList<String>, tvProgress: TextView) {
             this.url = url
-            LogUtil.debugInfo("position-url",url)
+            LogUtil.debugInfo("position-url", url)
 
             iv.load(url)
 
             //对图片顺序进行排序
-            for(i in 0 until venuePicsList.size){
-                if(url.equals(venuePicsList.get(i))){
+            for (i in 0 until venuePicsList.size) {
+                if (url.equals(venuePicsList.get(i))) {
 //                    tvProgress.setText((i+1).toString()+"/"+venuePicsList.size)
-                    tv.setText((i+1).toString()+"/"+venuePicsList.size)
-                    LogUtil.debugInfo("position-1",tag.toString())
+                    tv.setText((i + 1).toString() + "/" + venuePicsList.size)
+                    LogUtil.debugInfo("position-1", tag.toString())
 
                 }
             }
         }
 
-        fun getImageUrl():String {
+        fun getImageUrl(): String {
             return url
         }
+
         init {
             iv = ImageView(context)
             tv = TextView(context)
@@ -331,7 +342,12 @@ class VenueDetailActivity : BaseVMDBActivity<VenueDetailActivityModel, ActivityV
             )
             //and  Gravity.RIGHT
             lpTV.gravity = Gravity.BOTTOM or Gravity.RIGHT
-            lpTV.setMargins(0,0,QMUIDisplayHelper.dp2px(context, 15),QMUIDisplayHelper.dp2px(context, 30))
+            lpTV.setMargins(
+                0,
+                0,
+                QMUIDisplayHelper.dp2px(context, 15),
+                QMUIDisplayHelper.dp2px(context, 30)
+            )
             addView(iv, lp)
             //去掉图片张数指示器
 //            addView(tv, lpTV)
