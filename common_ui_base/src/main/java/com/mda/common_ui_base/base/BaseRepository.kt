@@ -4,11 +4,20 @@ import com.mda.basics_lib.bean.BaseResponse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
+/**
+ *
+ * 基础repository 用于请求本地数据和远程数据
+ *
+ *
+ */
 open class BaseRepository {
 
     /**
      * 获取远程数据
-     *
+     * @param block coroutine 挂起函数
+     * @param error  异常回调
+     * @param succes 成功回调
+     * @param isContinue 可取消
      */
     fun <T> getRemote(
         block: suspend () -> BaseResponse<T>,
